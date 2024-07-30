@@ -829,7 +829,7 @@ namespace RigsterForm
 
             for (int i = 0; i < newBornNum; i++)
             {
-                newBornInfoes += $"\n新生兒({i+1}): {choosenRecords.newBorn_name[i]}\t\t身分證: {choosenRecords.newBorn_id[i]}\t\t生日: {choosenRecords.newbornBitrhDate[i]}\n";
+                newBornInfoes += $"\n\t新生兒({i+1}): {choosenRecords.newBorn_name[i]}\t\t身分證: {choosenRecords.newBorn_id[i]}\t\t生日: {choosenRecords.newbornBitrhDate[i]}\n";
             }
 
             // 擷取資料
@@ -837,7 +837,7 @@ namespace RigsterForm
                 $"\n  *  =========================== 申請人 ===========================  *\n" +
                 $"\n\t申請人(孕婦)姓名:    {choosenRecords.apply_name}\t\t申請人身分證:\t{choosenRecords.apply_id}\n" +
                 $"\n\t申請人聯絡電話:    {string.Join(" , ", choosenRecords.apply_phones)}\n" +
-                $"\n\t受款人:    {choosenRecords.account_name}    身分證:{choosenRecords.account_ID} \t\t郵局帳號:    {choosenRecords.account_div}{choosenRecords.account_number}\n" +
+                $"\n\t受款人:    {choosenRecords.account_name}    身分證:{choosenRecords.account_ID}     郵局帳號:    {choosenRecords.account_div}{choosenRecords.account_number}\n" +
                 $"\n  *  ============================ 配偶  ===========================  *\n" +
                 $"\n\t配偶姓名:    {choosenRecords.mate_name}\t\t配偶身分證:\t{choosenRecords.mate_id}\n" +
                 $"\n\t配偶聯絡電話:    {string.Join(" , ", choosenRecords.mate_phones)}\n" +
@@ -854,12 +854,83 @@ namespace RigsterForm
             detailInfoForm.ShowDialog();
         }
 
-        /** 
-         * 
-         * 以下要修改
-         * 
-         * **/
+        // 進入修改模式
+        private void EnterEditMode(dataStruct choosenRecords) 
+        {
+            // switch flags
+            isEditingPrevData = true;
 
+            // 將資料載入至文字框
+            LoadData2TextBox(choosenRecords);
+
+            // 載入手機
+            // LoadPhones2GroupBox(choosenRecords);
+
+            // 處理委託人Combo box
+            if (choosenRecords.query_id == choosenRecords.apply_id)
+            {
+                queryRef_comboBox.Text = "同申請人";
+            }
+            else if (choosenRecords.query_id == choosenRecords.mate_id)
+            {
+                queryRef_comboBox.Text = "同配偶";
+            }
+            else
+            {
+                queryRef_comboBox.Text = "其他";
+            }
+
+            // 切換頁面
+            CancelBtn.Enabled = true;
+            tabControl.SelectedTab = tabControl.TabPages["LogPage"];
+        }
+
+        // 刪除一筆資料
+        private void DeleteOneData(List<dataStruct> records, dataStruct choosenRecords) 
+        {
+            // 跳出對話視窗, 詢問是否真的要刪除
+            DialogResult result = MessageBox.Show(
+            "警告, 資料刪除後無法恢復, 請確認是否要刪除 ?",
+            "系統提示",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    // 尋找要移除的流水號
+                    var itemToRemove = records.SingleOrDefault(item => item.serial_num == choosenRecords.serial_num);
+
+                    // 移除
+                    records.Remove(itemToRemove);
+
+                    // 序列化回JSON
+                    string updatedJson = JsonConvert.SerializeObject(records, Formatting.Indented);
+
+                    // 保存回文件
+                    File.WriteAllText(database_path, updatedJson);
+
+                    // 更新頁面
+                    List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
+                    bool isValidate = list2check.All(c => c.Length > 0);
+                    if (isValidate)
+                    {
+                        LoadJsonToDataGridView(
+                       startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
+                       endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
+                       );
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("流水號重複!請檢查資料庫", "錯誤訊息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
+                }
+            }
+        }
+
+        // 歷史紀錄表單功能按鈕
         private void historyGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // 如果點擊欄首, (row index = -1) 不要做任何事, 不然會出錯
@@ -880,81 +951,26 @@ namespace RigsterForm
             // 检查是否点击的是按钮列
             if (e.ColumnIndex == historyGridView.Columns["examDetailBTN"].Index)
             {
+                // 顯示詳細資訊
                 ShowDetailInfo(choosenRecords);
             }
             else if (e.ColumnIndex == historyGridView.Columns["editDataBTN"].Index)
             {
-                // switch flags
-                isEditingPrevData = true;
-
-                // 將資料載入至文字框
-                LoadData2TextBox(choosenRecords);
-
-                // 載入手機
-                LoadPhones2GroupBox(choosenRecords);
-
-                // 處理委託人Combo box
-                if (choosenRecords.query_id == choosenRecords.apply_id)
-                {
-                    queryRef_comboBox.Text = "同申請人";
-                }
-                else if (choosenRecords.query_id == choosenRecords.mate_id)
-                {
-                    queryRef_comboBox.Text = "同配偶";
-                }
-                else
-                {
-                    queryRef_comboBox.Text = "其他";
-                }
-
-                // 切換頁面
-                CancelBtn.Enabled = true;
-                tabControl.SelectedTab = tabControl.TabPages["LogPage"];
+                // 進入資料編輯模式
+                EnterEditMode(choosenRecords);
             }
             else if (e.ColumnIndex == historyGridView.Columns["deleteDataBTN"].Index)
             {
-                // 跳出對話視窗, 詢問是否真的要刪除
-                DialogResult result = MessageBox.Show(
-                "警告, 資料刪除後無法恢復, 請確認是否要刪除 ?",
-                "系統提示",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    try
-                    {
-                        // 尋找要移除的流水號
-                        var itemToRemove = records.SingleOrDefault(item => item.serial_num == choosenRecords.serial_num);
-
-                        // 移除
-                        records.Remove(itemToRemove);
-
-                        // 序列化回JSON
-                        string updatedJson = JsonConvert.SerializeObject(records, Formatting.Indented);
-
-                        // 保存回文件
-                        File.WriteAllText(database_path, updatedJson);
-
-                        // 更新頁面
-                        List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
-                        bool isValidate = list2check.All(c => c.Length > 0);
-                        if (isValidate)
-                        {
-                            LoadJsonToDataGridView(
-                           startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
-                           endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
-                           );
-                        }
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        MessageBox.Show("流水號重複!請檢查資料庫", "錯誤訊息", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        throw;
-                    }
-                }
+                // 刪除該筆資料
+                DeleteOneData(records, choosenRecords);
             }
         }
+
+        /** 
+         * 
+         * 以下要修改
+         * 
+         * **/
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
