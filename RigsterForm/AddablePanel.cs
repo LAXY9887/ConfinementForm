@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-
+using static RigsterForm.MainForm;
 namespace RigsterForm
 {
     // 選項
@@ -28,12 +26,6 @@ namespace RigsterForm
 
         // 按鈕
         public List<Button> deleteButtons { get; set; }
-
-        // Control 的名字
-        private const string PanelNamePrefix = "_add_pannel_";
-        private const string TextBoxNamePrefix = "textBox_name_";
-        private const string TextBoxIDPrefix = "textBox_newBorn_IDnumber_";
-        private const string ButtonNamePrefix = "_add_button_";
 
         // 建構涵式
         public AddablePanel(Panel initialPanel,GroupBox groupBox) 
@@ -83,7 +75,7 @@ namespace RigsterForm
                 case targetRefType.TextBox:
                     foreach (Control ctrl in initial_Panel.Controls)
                     {
-                        if (ctrl is TextBox && ctrl.Name.Contains(TextBoxNamePrefix))
+                        if (ctrl is TextBox && ctrl.Name.Contains(ConstParameters.TextBoxNamePrefix))
                         {
                             ctrl2return.Add(ctrl);
                         }
@@ -94,7 +86,7 @@ namespace RigsterForm
                 case targetRefType.IDTextBox:
                     foreach (Control ctrl in initial_Panel.Controls)
                     {
-                        if (ctrl is TextBox && ctrl.Name.Contains(TextBoxIDPrefix))
+                        if (ctrl is TextBox && ctrl.Name.Contains(ConstParameters.TextBoxIDPrefix))
                         {
                             ctrl2return.Add(ctrl);
                         }
@@ -222,12 +214,12 @@ namespace RigsterForm
                             break;
 
                         case targetRefType.TextBox:
-                            TextBox newTextBox = createTextBox((TextBox)ctrl, TextBoxNamePrefix, inputStr);
+                            TextBox newTextBox = createTextBox((TextBox)ctrl, ConstParameters.TextBoxNamePrefix, inputStr);
                             targetPanel.Controls.Add(newTextBox);
                             break;
 
                         case targetRefType.IDTextBox:
-                            TextBox newIDTextBox = createTextBox((TextBox)ctrl, TextBoxIDPrefix, inputStr);
+                            TextBox newIDTextBox = createTextBox((TextBox)ctrl, ConstParameters.TextBoxIDPrefix, inputStr);
                             targetPanel.Controls.Add(newIDTextBox);
                             break;
 
@@ -237,7 +229,7 @@ namespace RigsterForm
                             break;
 
                         case targetRefType.Button:
-                            Button newButton = createButton((Button)ctrl, ButtonNamePrefix);
+                            Button newButton = createButton((Button)ctrl, ConstParameters.ButtonNamePrefix);
                             targetPanel.Controls.Add(newButton);
                             deleteButtons.Add(newButton);
                             break;
@@ -251,7 +243,7 @@ namespace RigsterForm
         public void AddNewAppPanel(string input_phone_number)
         {
             // 新增一個Panel
-            Panel newPhonePanel = createPanel(initial_Panel, PanelNamePrefix, Color.Azure);
+            Panel newPhonePanel = createPanel(initial_Panel, ConstParameters.PanelNamePrefix, Color.Azure);
 
             // 加入所有Label
             List<Control> refLabel = GetPanelReference(targetRefType.Label);
@@ -335,39 +327,26 @@ namespace RigsterForm
             }
         }
 
-        // 初始化GUI, 用於修改資料模式
-        public void InitializeGUI(List<Control> controlList) 
+        // 初始化 Panels (只保留一個, 其他全部刪除)
+        public virtual void InitializePanels(List<Control> controlsList) 
         {
-            // 更新數量
-            panel_nums = panel_list.Count;
-
-            // 計算位移高度
-            int shiftHeight = (initial_Panel.Height + highShift) * panel_nums;
-
-            // 初始化群組大小
-            group_Box.Size = new Size(group_Box.Width, group_Box.Height - shiftHeight);
-
-            // 向上移動 UI 至原始位置
-            foreach (Control ctrl in controlList)
+            while (panel_nums > 1)
             {
-                ctrl.Top -= shiftHeight;
+                Panel panel2Delete = panel_list[0];
+                DeleteButtonClicked(panel2Delete, controlsList);
             }
-
-            // 清空 panel_list
-            foreach (Panel p in panel_list)
-            {
-                group_Box.Controls.Remove(p);
-            }
-            panel_list.Clear();
         }
 
         // 根據資料庫內容加入電話, 用於修改舊資料模式
-        public void LoadPhones(List<string> phones) 
+        public void LoadPhones(List<Control> controlsList, List<string> phones) 
         {
             foreach (string phone in phones)
             {
-                AddNewAppPanel(phone);
+                AddButtonClicked(controlsList, phone);
             }
+
+            // 刪掉第一個空的
+            DeleteButtonClicked(panel_list[0], controlsList);
         }
     }
 
@@ -398,7 +377,7 @@ namespace RigsterForm
         }
 
         // 新增一個新生兒面板
-        public void AddNewBornPanel() 
+        public void AddNewBornPanel(string Name="", string ID = "") 
         {
             // 新增一個Panel
             Panel newBornPanel = createPanel(initial_Panel, newBorn_panel_namePrefix, Color.Honeydew);
@@ -409,11 +388,11 @@ namespace RigsterForm
 
             // 加入所有TextBox
             List<Control> refTextBox = GetPanelReference(targetRefType.TextBox);
-            LoadControls2Group(newBornPanel, refTextBox, targetRefType.TextBox);
+            LoadControls2Group(newBornPanel, refTextBox, targetRefType.TextBox, inputStr:Name);
 
             // 加入所有身分證TextBox
             List<Control> refIDTextBox = GetPanelReference(targetRefType.IDTextBox);
-            LoadControls2Group(newBornPanel, refIDTextBox, targetRefType.IDTextBox);
+            LoadControls2Group(newBornPanel, refIDTextBox, targetRefType.IDTextBox, inputStr: ID);
 
             // 加入所有ComboBox
             List<Control> refComboBox = GetPanelReference(targetRefType.ComboBox);
@@ -432,7 +411,7 @@ namespace RigsterForm
         }
 
         // 按鈕點擊後觸發完整新增行動
-        public void AddNBButtonClicked(List<Control> controlsList)
+        public void AddNBButtonClicked(List<Control> controlsList, string Name = "", string ID = "")
         {
             // 移動高度
             int shiftHeight = initial_Panel.Height + highShift;
@@ -440,8 +419,20 @@ namespace RigsterForm
             // 移動調整GUI
             adjustGUILayout(shiftHeight, controlsList);
 
-            // 加入一個新的 phone_pannel
-            AddNewBornPanel();
+            // 加入一個新的
+            AddNewBornPanel(Name, ID);
+        }
+
+        // 根據資料庫內容加入電話, 用於修改舊資料模式
+        public void LoadnewBorns(List<Control> controlsList, List<newBornInfo> nbInfos)
+        {
+            foreach (newBornInfo info in nbInfos)
+            {
+                AddNBButtonClicked(controlsList,info.nbNames,info.newbornID);
+            }
+
+            // 刪掉第一個空的
+            DeleteButtonClicked(panel_list[0], controlsList);
         }
     }
 }

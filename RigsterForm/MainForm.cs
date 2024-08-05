@@ -10,24 +10,14 @@ namespace RigsterForm
 {
     public partial class MainForm : Form
     {
-        /** Global variables **/
-        #region Global_variables
-
-        /* Database file path */
-        public const string database_path = "Database.json";               // 申請資訊
-        public const string district_db_path = "Taiwan_Districts.json";  //  地址列表
-
-        /* 地址預設 */
-        private const string InitialCity = "彰化縣";         // 初始化選擇縣市
-        private const string InitialCountry = "和美鎮";  // 初始化選擇鄉鎮
-
         /* 儲存 Flags */
         public bool isEditingPrevData;          // 檢查是否在編輯舊資料中
 
-        #endregion
-
         /** 組件 **/
         #region Components
+        
+        /* 常數 */
+        
 
         /* 使用地址選擇器 */
         private AdressPicker adressPicker;
@@ -42,9 +32,9 @@ namespace RigsterForm
         public newBornPanel newBorn_panels;
 
         /* 儲存群組資訊 */
-        private enum GroupBoxID  { Apply, Mate, Query, Account, NewBorn, ButtonPanel }       // 群組名稱
-        private Dictionary<GroupBoxID, List<Control>> groupBoxInfluenced;                           // 組合被影響群組名稱和ID
-        private Dictionary<GroupBoxID, string> groupBoxIDNameMatrix;                                  // 組合群組名稱與ID
+        public enum GroupBoxID  { Apply, Mate, Query, Account, NewBorn, ButtonPanel }       // 群組名稱
+        public Dictionary<GroupBoxID, List<Control>> groupBoxInfluenced;                           // 組合被影響群組名稱和ID
+        public Dictionary<GroupBoxID, string> groupBoxIDNameMatrix;                                  // 組合群組名稱與ID
 
         #endregion
         
@@ -107,15 +97,36 @@ namespace RigsterForm
             queryRef_comboBox.Items.Add("其他");
             queryRef_comboBox.SelectedItem = "其他";
 
-            /* 將切換頁面事件註冊到頁籤 */
-            tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
+            /* 刪除多的 addable panels */
+            apply_phone_panels.InitializePanels(groupBoxInfluenced[GroupBoxID.Apply]);
+            mate_phone_panels.InitializePanels(groupBoxInfluenced[GroupBoxID.Mate]);
+            query_phone_panels.InitializePanels(groupBoxInfluenced[GroupBoxID.Query]);
+            newBorn_panels.InitializePanels(groupBoxInfluenced[GroupBoxID.NewBorn]);
+
+            /* 清空所有 TextBox */
+            List<Control> gbList2Clear = new List<Control> 
+            {
+                groupBox_apply, groupBox_mate, 
+                groupBox_query, groupBox_Adress,
+                apply_phone_panels.panel_list[0], 
+                mate_phone_panels.panel_list[0], 
+                query_phone_panels.panel_list[0],
+                newBorn_panels.panel_list[0]
+            };
+            foreach (Control gb in gbList2Clear)
+            {
+                clearTextBox(gb);
+            }
+
+            // 更新生兒數量
+            nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
         }
 
         // 初始化流水號顯示
         private void InitializeSerialNumDisplay() 
         {
             // 擷取最後一份資料
-            List<dataStruct> current_database = utilities.ReadDatabase(database_path);
+            List<dataStruct> current_database = utilities.ReadDatabase(ConstParameters.database_path);
             dataStruct latestData = current_database[current_database.Count - 1];
 
             // 取得年分
@@ -150,10 +161,10 @@ namespace RigsterForm
             utilities = new Utilities();
 
             // 使用地址選擇器
-            adressPicker = new AdressPicker(district_db_path);
+            adressPicker = new AdressPicker(ConstParameters.district_db_path);
 
             // 檢查資料庫連線
-            bool isDatabaseConnected = utilities.Database_connected(database_path);
+            bool isDatabaseConnected = utilities.Database_connected(ConstParameters.database_path);
 
             // 若初始沒有偵測到資料庫, 則...
             if (!isDatabaseConnected) { }
@@ -165,22 +176,22 @@ namespace RigsterForm
             InitializeComponent();
 
             // 初始化地址選項 - 設定戶籍地址
-            InitializeAdressPicker(Rgis_City_combobox, Rgis_Country_combobox, InitialCity, InitialCountry);
+            InitializeAdressPicker(Rgis_City_combobox, Rgis_Country_combobox, ConstParameters.InitialCity, ConstParameters.InitialCountry);
 
             // 初始化地址選項 - 設定通訊地址
-            InitializeAdressPicker(Comm_City_combobox, Comm_Country_combobox, InitialCity, InitialCountry);
+            InitializeAdressPicker(Comm_City_combobox, Comm_Country_combobox, ConstParameters.InitialCity, ConstParameters.InitialCountry);
 
             // 初始化連絡電話和新生兒面板
             InitializePanels();
-
-            // 初始化部分資訊顯示
-            InitializeSomeInfo();
 
             // 初始化流水號顯示
             InitializeSerialNumDisplay();
 
             // 載入組合
             InitializeMatrices();
+
+            // 初始化部分資訊顯示
+            InitializeSomeInfo();
 
             // 初始化 Flags
             InitializeFlags();
@@ -278,6 +289,13 @@ namespace RigsterForm
             public string nbNames { get; set; }        // 姓名
             public string newbornID { get; set; }     // 身分證號
             public string nbBirthDay { get; set; }    // 生日
+
+            public newBornInfo(string name, string id, string birthday) 
+            { 
+                nbNames = name;
+                newbornID = id;
+                nbBirthDay = birthday;
+            }
         }
 
         // 處理新生兒 - 資料列表
@@ -306,7 +324,7 @@ namespace RigsterForm
                 foreach (Control ctrl in p.Controls)
                 {
                     // 姓名
-                    if (ctrl is TextBox && ctrl.Name.Contains("textBox_newBorn_name"))
+                    if (ctrl is TextBox && ctrl.Name.Contains("textBox_name_"))
                     {
                         Name = ctrl.Text.ToString();
                     }
@@ -340,7 +358,7 @@ namespace RigsterForm
         private dataStruct GatherInfo() 
         {
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
 
             // 日期
             string[] GetDateTime = HandleDateTime();
@@ -393,13 +411,16 @@ namespace RigsterForm
 
         #endregion
 
-        // 移除所有格子的內容
-        public void ClearBoxContent() 
+        // 清除TextBox內容
+        public void clearTextBox(Control group)
         {
-            // 初始化部分資訊顯示
-            InitializeSomeInfo();
-
-            /** 重新寫一個 **/
+            foreach (Control ctrl in group.Controls)
+            {
+                if (ctrl is TextBox)
+                {
+                    ctrl.Text = "";
+                }
+            }
         }
 
         // 調整UI大小以及位置
@@ -519,7 +540,7 @@ namespace RigsterForm
 
                 string dupReport = ValideID(inputStr);
 
-                if (dupReport != null)
+                if (dupReport != "")
                 {
                     MessageBox.Show($"該筆資料已經登錄!\n\n{dupReport}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     findID = true;
@@ -558,7 +579,7 @@ namespace RigsterForm
             GroupBoxID groupID = groupBoxIDNameMatrix.First(g => g.Value == Group_name).Key;
 
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
 
             // 如果讀取失敗則不會執行以下
             if (dataList is null) { return; }
@@ -593,6 +614,7 @@ namespace RigsterForm
                 names.Add(nbName);
             }
             bool isNameInvalid = names.Any(n => n.Length == 0);
+
             if (isNameInvalid)
             {
                 MessageBox.Show("申請人/新生兒姓名不能為空", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -651,7 +673,7 @@ namespace RigsterForm
             bool isfind = false;
 
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
 
             // 在資料庫中尋找重複
             foreach (dataStruct data in dataList)
@@ -699,7 +721,7 @@ namespace RigsterForm
                 toWrite += ",\n";
             }
             toWrite += "]";
-            File.WriteAllText(database_path, toWrite);
+            File.WriteAllText(ConstParameters.database_path, toWrite);
             MessageBox.Show("儲存成功", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -724,7 +746,7 @@ namespace RigsterForm
             }
 
             // 清空表單內容
-            ClearBoxContent();
+            InitializeSomeInfo();
 
             // 切換至歷史紀錄
             CancelBtn.Enabled = false;
@@ -746,7 +768,7 @@ namespace RigsterForm
         private void saveBtn_Click(object sender, EventArgs e)
         {
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters. database_path);
 
             // 如果讀取失敗則不會執行以下
             if (dataList is null){return;}
@@ -772,23 +794,23 @@ namespace RigsterForm
             bool isValidated = ValidateInfomation(NewInfomation, ids2check, checkItem);
             if (!isValidated){return;}
 
-            // 驗證身分證是否重複
-            bool isDuplicate = false;
-            foreach (string id in ids2check)
-            {
-                string dupReportStr = ValideID(id);
-
-                if (dupReportStr.Length > 0)
-                {
-                    MessageBox.Show($"資料已經登入\n\n{dupReportStr}");
-                    isDuplicate = true;
-                    break;
-                }
-            }
-
             // 當在沒有在編輯模式時, 防止重複登入
             if (!isEditingPrevData)
             {
+                // 驗證身分證是否重複
+                bool isDuplicate = false;
+                foreach (string id in ids2check)
+                {
+                    string dupReportStr = ValideID(id);
+
+                    if (dupReportStr.Length > 0)
+                    {
+                        MessageBox.Show($"資料已經登入\n\n{dupReportStr}");
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
                 // 若重複登入則中斷
                 if (isDuplicate){return;}
 
@@ -813,7 +835,7 @@ namespace RigsterForm
         // 清除按鈕
         private void ClearInfoBtn_Click(object sender, EventArgs e)
         {
-            ClearBoxContent();
+            InitializeSomeInfo();
         }
 
         #endregion
@@ -839,24 +861,49 @@ namespace RigsterForm
 
             /** 加入郵局匯款資訊 **/
             textBox_account_name.Text = choosenRecords.account_name;            // 受款人
+            accountID_tb.Text = choosenRecords.account_ID;                                    // 受款人身分證
             textBox_account_divn.Text = choosenRecords.account_div;                  // 局號
-            textBox_account_number.Text = choosenRecords.account_number;    // 帳號
+            textBox_account_number.Text = choosenRecords.account_number;   // 帳號
         }
 
-        // 載入手機
+        // 載入手機和新生兒
         private void LoadPhones2GroupBox(dataStruct choosenRecords) 
         {
+            // 加入按鈕功能的函式
+            void BindFunction2Button(AddablePanel panel)
+            {
+                foreach (Button btn in panel.deleteButtons)
+                {
+                    btn.Click += Delete_panel_Btn_Click;
+                }
+            }
+
             /** 載入手機號碼-申請人 **/
-            apply_phone_panels.InitializeGUI(groupBoxInfluenced[GroupBoxID.Apply]);     // 初始化 GUI
-            apply_phone_panels.LoadPhones(choosenRecords.apply_phones);                     // 載入電話
+            apply_phone_panels.LoadPhones(groupBoxInfluenced[GroupBoxID.Apply],choosenRecords.apply_phones);                     // 載入電話
+            BindFunction2Button(apply_phone_panels);                                                                                                                                          // 加入按鈕功能
 
             /** 載入手機號碼-配偶 **/
-            mate_phone_panels.InitializeGUI(groupBoxInfluenced[GroupBoxID.Mate]);       // 初始化 GUI
-            mate_phone_panels.LoadPhones(choosenRecords.mate_phones);                       // 載入電話
+            mate_phone_panels.LoadPhones(groupBoxInfluenced[GroupBoxID.Mate], choosenRecords.mate_phones);                       // 載入電話
+            BindFunction2Button(mate_phone_panels);                                                                                                                                          // 加入按鈕功能
 
             /** 載入手機號碼-委託人 **/
-            query_phone_panels.InitializeGUI(groupBoxInfluenced[GroupBoxID.Query]);     // 初始化 GUI
-            query_phone_panels.LoadPhones(choosenRecords.query_phones);                     // 載入電話
+            query_phone_panels.LoadPhones(groupBoxInfluenced[GroupBoxID.Query], choosenRecords.query_phones);                     // 載入電話
+            BindFunction2Button(query_phone_panels);                                                                                                                                          // 加入按鈕功能
+
+            /** 載入新生兒 **/
+            List<newBornInfo> nbInfos = new List<newBornInfo>();
+            int newBorn_num = choosenRecords.newBorn_name.Count;
+            for (int i = 0; i < newBorn_num; i++)
+            {
+                nbInfos.Add(new newBornInfo(
+                    choosenRecords.newBorn_name[i], choosenRecords.newBorn_id[i], choosenRecords.newbornBitrhDate[i]
+                    ));
+            }
+            newBorn_panels.LoadnewBorns(groupBoxInfluenced[GroupBoxID.NewBorn], nbInfos);           // 加入新生兒
+            BindFunction2Button(newBorn_panels);                                                                                                // 加入按鈕功能
+
+            // 更新新生兒數
+            nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
         }
 
         // 檢視詳細資料
@@ -895,19 +942,9 @@ namespace RigsterForm
             detailInfoForm.ShowDialog();
         }
 
-        // 進入修改模式
-        private void EnterEditMode(dataStruct choosenRecords) 
+        // 處理委託人Combo box
+        private void HandleComboBox(dataStruct choosenRecords)
         {
-            // switch flags
-            isEditingPrevData = true;
-
-            // 將資料載入至文字框
-            LoadData2TextBox(choosenRecords);
-
-            // 載入手機
-            // LoadPhones2GroupBox(choosenRecords);
-
-            // 處理委託人Combo box
             if (choosenRecords.query_id == choosenRecords.apply_id)
             {
                 queryRef_comboBox.Text = "同申請人";
@@ -920,6 +957,25 @@ namespace RigsterForm
             {
                 queryRef_comboBox.Text = "其他";
             }
+        }
+
+        // 進入修改模式
+        private void EnterEditMode(dataStruct choosenRecords) 
+        {
+            // switch flags
+            isEditingPrevData = true;
+
+            // 初始化UI
+            InitializeSomeInfo();
+
+            // 將資料載入至文字框
+            LoadData2TextBox(choosenRecords);
+
+            // 載入手機
+            LoadPhones2GroupBox(choosenRecords);
+
+            // 處理委託人/地址Combo box
+            HandleComboBox(choosenRecords);
 
             // 切換頁面
             CancelBtn.Enabled = true;
@@ -950,7 +1006,7 @@ namespace RigsterForm
                     string updatedJson = JsonConvert.SerializeObject(records, Formatting.Indented);
 
                     // 保存回文件
-                    File.WriteAllText(database_path, updatedJson);
+                    File.WriteAllText(ConstParameters.database_path, updatedJson);
 
                     // 更新頁面
                     List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
@@ -981,7 +1037,7 @@ namespace RigsterForm
             historyGridView.Rows[e.RowIndex].Selected = true;
 
             // 讀取資料庫
-            List<dataStruct> records = utilities.ReadDatabase(database_path);
+            List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
 
             // 取選中的那一筆資料
             string seleted_serial_num = historyGridView.Rows[e.RowIndex].Cells["Serial_num"].Value.ToString();
@@ -1007,15 +1063,50 @@ namespace RigsterForm
             }
         }
 
-        /** 
-         * 
-         * 以下要修改
-         * 
-         * **/
+        // 取消編輯按鈕
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            // 讀取資料庫
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
 
+            if (isEditingPrevData)
+            {
+                isEditingPrevData = false;
+                CancelBtn.Enabled = false;
+                InitializeSomeInfo();
+
+                // 計算流水號
+                int inputSearialN = 0;
+                int inputYear = 0;
+
+                int lastSerialN = dataList[dataList.Count - 1].serial_index;
+                int latest_year = dataList[dataList.Count - 1].login_year;
+
+                // 當年分不一樣時, 改變流水號
+                if (DateTime.Now.Year - 1911 != latest_year)
+                {
+                    lastSerialN = 0;
+                }
+                inputSearialN = lastSerialN + 1;
+                inputYear = latest_year;
+                string serialNum = inputYear + "-" + inputSearialN;
+                SerialNumLabel.Text = serialNum;
+
+                // 切換頁面
+                tabControl.SelectedTab = tabControl.TabPages["historyPage"];
+            }
+        }
+
+        // 頁簽切換日期ComboBox設定, 以及更新DataGridView內容
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             TabControl tabControl = sender as TabControl;
+
+            // 受影響之ComboBox
+            List<ComboBox> influencedBox = new List<ComboBox>
+            {
+                search_start_yy, search_start_mm, search_end_yy, search_end_mm
+            };
 
             if (tabControl != null)
             {
@@ -1023,15 +1114,11 @@ namespace RigsterForm
                 if (tabControl.SelectedTab.Name == "historyPage")
                 {
                     // 當切換至歷史紀錄頁面時新增事件
-                    search_start_yy.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
-                    search_start_mm.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
-                    search_end_yy.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
-                    search_end_mm.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
-
-                    search_start_yy.TextChanged += ComboBox_SelectedIndexChanged;
-                    search_start_mm.TextChanged += ComboBox_SelectedIndexChanged;
-                    search_end_yy.TextChanged += ComboBox_SelectedIndexChanged;
-                    search_end_mm.TextChanged += ComboBox_SelectedIndexChanged;
+                    foreach (ComboBox cb in influencedBox)
+                    {
+                        cb.SelectedIndexChanged += SearchDate_ComboBox_SelectedIndexChanged;
+                        cb.TextChanged += SearchDate_ComboBox_SelectedIndexChanged;
+                    }
 
                     // 顯示更新的歷史資料
                     List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
@@ -1047,19 +1134,16 @@ namespace RigsterForm
                 else
                 {
                     // 當切換至別的頁面時移除事件
-                    search_start_yy.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
-                    search_start_mm.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
-                    search_end_yy.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
-                    search_end_mm.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
-
-                    search_start_yy.TextChanged -= ComboBox_SelectedIndexChanged;
-                    search_start_mm.TextChanged -= ComboBox_SelectedIndexChanged;
-                    search_end_yy.TextChanged -= ComboBox_SelectedIndexChanged;
-                    search_end_mm.TextChanged -= ComboBox_SelectedIndexChanged;
+                    foreach (ComboBox cb in influencedBox)
+                    {
+                        cb.SelectedIndexChanged -= SearchDate_ComboBox_SelectedIndexChanged;
+                        cb.TextChanged -= SearchDate_ComboBox_SelectedIndexChanged;
+                    }
                 }
             }
         }
 
+        // 初始化 DataGridView
         private void InitializeDataGridView()
         {
             // 添加按钮列
@@ -1088,14 +1172,57 @@ namespace RigsterForm
             historyGridView.CellClick += historyGridView_CellClick;
         }
 
+        // 處理搜索日期改變的事件
+        public void SearchDate_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox target = (ComboBox)sender;
+
+            // 登錄日期
+            List<ComboBox> search_date_cb = new List<ComboBox> {
+                search_start_yy, search_start_mm, search_end_yy, search_end_mm
+            };
+
+            if (search_date_cb.Contains(target))
+            {
+                // 顯示更新的歷史資料
+                List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
+                bool isValidate = list2check.All(c => c.Length > 0);
+                if (isValidate)
+                {
+
+                    if (Int32.Parse(search_start_yy.Text) > Int32.Parse(search_end_yy.Text))
+                    {
+                        search_end_yy.Text = (Int32.Parse(search_start_yy.Text) + 1).ToString();
+                        search_end_mm.Text = 1.ToString();
+                    }
+                    else if (Int32.Parse(search_start_yy.Text) == Int32.Parse(search_end_yy.Text) && Int32.Parse(search_start_mm.Text) > Int32.Parse(search_end_mm.Text))
+                    {
+                        search_end_mm.Text = (Int32.Parse(search_start_mm.Text) + 1).ToString();
+                    }
+
+                    LoadJsonToDataGridView(
+                    startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
+                    endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
+                    );
+
+                }
+            }
+        }
+
+        /** 
+         * 
+         * 以下要修改
+         * 
+         * **/
+
         private void LoadJsonToDataGridView(int startYear, int startMonth, int endYear, int endMonth)
         {
-            if (File.Exists(database_path))
+            if (File.Exists(ConstParameters.database_path))
             {
                 try
                 {
                     // 讀取 JSON 文件内容
-                    string jsonContent = File.ReadAllText(database_path);
+                    string jsonContent = File.ReadAllText(ConstParameters.database_path);
 
                     // 反序列化 JSON 内容為對象列表
                     List<dataStruct> records = JsonConvert.DeserializeObject<List<dataStruct>>(jsonContent);
@@ -1185,7 +1312,7 @@ namespace RigsterForm
             }
             else
             {
-                MessageBox.Show($"File not found: {database_path}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"File not found: {ConstParameters.database_path}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1221,7 +1348,7 @@ namespace RigsterForm
         private void IDsearchBtn_Click(object sender, EventArgs e)
         {
             // 讀取 JSON 文件内容
-            string jsonContent = File.ReadAllText(database_path);
+            string jsonContent = File.ReadAllText(ConstParameters.database_path);
 
             // 反序列化 JSON 内容為對象列表
             List<dataStruct> records = JsonConvert.DeserializeObject<List<dataStruct>>(jsonContent);
@@ -1286,47 +1413,10 @@ namespace RigsterForm
             }
         }
 
-        private void CancelBtn_Click(object sender, EventArgs e)
-        {
-            // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
-
-            if (isEditingPrevData)
-            {
-                isEditingPrevData = false;
-                CancelBtn.Enabled = false;
-                ClearBoxContent();
-
-                // 計算流水號
-                int inputSearialN = 0;
-                int inputYear = 0;
-
-                int lastSerialN = dataList[dataList.Count - 1].serial_index;
-                int latest_year = dataList[dataList.Count - 1].login_year;
-
-                // 當年分不一樣時, 改變流水號
-                if (DateTime.Now.Year - 1911 != latest_year)
-                {
-                    lastSerialN = 0;
-                }
-
-                inputSearialN = lastSerialN + 1;
-                inputYear = latest_year;
-
-                string serialNum = inputYear + "-" + inputSearialN;
-                SerialNumLabel.Text = serialNum;
-
-                tabControl.SelectedTab = tabControl.TabPages["historyPage"];
-
-                // Highlight 那一行
-                
-            }
-        }
-
         private void exportExcelBtn_Click(object sender, EventArgs e)
         {
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
 
             ComfirmExportDateForm comfirmExportDateForm = new ComfirmExportDateForm();
             comfirmExportDateForm.ShowDialog();
@@ -1358,7 +1448,7 @@ namespace RigsterForm
 
             if (excelFilePath != null && select_serial_nums.Count > 0)
             {
-                utilities.exportExcel(database_path, excelFilePath, select_serial_nums);
+                utilities.exportExcel(ConstParameters.database_path, excelFilePath, select_serial_nums);
             }
             
         }
@@ -1390,12 +1480,12 @@ namespace RigsterForm
             void updateText(TextBox from, TextBox to) 
             {
                 to.Text = from.Text;
-                to.ForeColor = System.Drawing.Color.DarkGray;
+                to.ForeColor = Color.DarkGray;
             }
 
             void switch_txt_color(TextBox target_tb) 
             { 
-                target_tb.ForeColor = System.Drawing.Color.DarkBlue;
+                target_tb.ForeColor = Color.DarkBlue;
             }
 
             void update_selection_Box(Control from, Control to) 
@@ -1517,59 +1607,13 @@ namespace RigsterForm
         }
 
         /* ========================== 處理 ComboBox 的 SelectedIndexChanged 事件=====================  */
-        // 
-        public void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox target = (ComboBox)sender;
-            string targetName = target.Name;
-
-            // 生產日期
-            List<string> apply_give_birth_cbName = new List<string> {
-                "apply_give_birth_yy" , "apply_give_birth_mm" , "apply_give_birth_dd"
-            };
-
-            // 登錄日期
-            List<string> search_date_cbName = new List<string> {
-                "search_start_yy", "search_start_mm", "search_end_yy", "search_end_mm"
-            };
-
-            if (apply_give_birth_cbName.Contains(targetName))
-            {
-
-            }
-            else if (search_date_cbName.Contains(targetName))
-            {
-                // 顯示更新的歷史資料
-                List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
-                bool isValidate = list2check.All(c => c.Length > 0);
-                if (isValidate)
-                {
-
-                    if (Int32.Parse(search_start_yy.Text) > Int32.Parse(search_end_yy.Text))
-                    {
-                        search_end_yy.Text = (Int32.Parse(search_start_yy.Text) + 1).ToString();
-                        search_end_mm.Text = 1.ToString();
-                    }
-                    else if (Int32.Parse(search_start_yy.Text) == Int32.Parse(search_end_yy.Text) && Int32.Parse(search_start_mm.Text) > Int32.Parse(search_end_mm.Text))
-                    {
-                        search_end_mm.Text = (Int32.Parse(search_start_mm.Text) + 1).ToString();
-                    }
-
-                    LoadJsonToDataGridView(
-                    startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
-                    endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
-                    );
-
-                }
-            }
-        }
 
         // 縣市選擇改變
         public void City_ComboBox_SelectedIndexChange(object sender, EventArgs e)
         {
             ComboBox target = (ComboBox)sender;
             string targetName = target.Name;
-            string districtContent = File.ReadAllText(district_db_path);
+            string districtContent = File.ReadAllText(ConstParameters.district_db_path);
             List<districtStruct> districtList = JsonConvert.DeserializeObject<List<districtStruct>>(districtContent);
             List<string> districtLList = new List<string>();
             districtStruct selectedCity = districtList.Where(d => d.city == target.Text).First();

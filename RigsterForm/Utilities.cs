@@ -62,6 +62,24 @@ namespace RigsterForm
             return dataList;
         }
 
+        // 取得當前日期
+        public string GetCurrentDate()
+        {
+            // 當下時間
+            DateTime current = DateTime.Now;
+
+            // 調整為民國年
+            int adjust_year = (int)current.Year - 1911;
+
+            // 生成修改過的日期
+            DateTime adjustedDate = new DateTime(adjust_year, current.Month, current.Day, current.Hour, current.Minute, current.Second);
+
+            // 修正格式
+            string Str_current_date = adjustedDate.ToString("yyy-MM-dd");
+
+            return Str_current_date;
+        }
+
         /**
              * 
              *  以下待改
@@ -82,24 +100,6 @@ namespace RigsterForm
 
             // 设置默认值
             comboBox.Text = defaultValue;
-        }
-
-        // 取得當前日期
-        public string GetCurrentDate()
-        {
-            // 當下時間
-            DateTime current = DateTime.Now;
-
-            // 調整為民國年
-            int adjust_year = (int)current.Year - 1911;
-
-            // 生成修改過的日期
-            DateTime adjustedDate = new DateTime(adjust_year, current.Month, current.Day, current.Hour, current.Minute, current.Second);
-
-            // 修正格式
-            string Str_current_date = adjustedDate.ToString("yyy-MM-dd");
-
-            return Str_current_date;
         }
 
         // 設定下拉式選單的數值

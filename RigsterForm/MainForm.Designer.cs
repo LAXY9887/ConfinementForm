@@ -189,6 +189,7 @@ namespace RigsterForm
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(TabControl_SelectedIndexChanged); /* 將切換頁面事件註冊到頁籤 */
             // 
             // LogPage
             // 
