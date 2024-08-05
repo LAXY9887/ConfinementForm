@@ -82,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstParameters.cs" />
-    <Compile Include="DatePicker.cs" />
     <Compile Include="districtStruct.cs" />
     <Compile Include="dataStruct.cs" />
     <Compile Include="DetailInfoForm.cs">
@@ -106,7 +105,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="AdressPicker.cs" />
+    <Compile Include="ComboBoxPicker.cs" />
     <Compile Include="AddablePanel.cs" />
     <EmbeddedResource Include="ComfirmExportDateForm.resx">
       <DependentUpon>ComfirmExportDateForm.cs</DependentUpon>

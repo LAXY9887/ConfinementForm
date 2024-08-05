@@ -41,7 +41,7 @@ namespace RigsterForm
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.commAdressTb = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.Comm_Road_TextBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.Comm_Country_combobox = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -51,7 +51,7 @@ namespace RigsterForm
             this.label11 = new System.Windows.Forms.Label();
             this.accountID_tb = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Rgis_Road_TextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Rgis_Country_combobox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -94,9 +94,9 @@ namespace RigsterForm
             this.Add_newBorn_Btn = new System.Windows.Forms.Button();
             this._newBorn_panel_0 = new System.Windows.Forms.Panel();
             this.newBornDelete_Btn_0 = new System.Windows.Forms.Button();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.birthdayCB_0 = new System.Windows.Forms.ComboBox();
+            this.birthMonthCB_0 = new System.Windows.Forms.ComboBox();
+            this.birthYearCB_0 = new System.Windows.Forms.ComboBox();
             this.yearLabelText_0 = new System.Windows.Forms.Label();
             this.dayLabelText = new System.Windows.Forms.Label();
             this.monthLabelText = new System.Windows.Forms.Label();
@@ -108,7 +108,6 @@ namespace RigsterForm
             this.textBox_name_nb0 = new System.Windows.Forms.TextBox();
             this.SearchBtn_newBorn = new System.Windows.Forms.Button();
             this.groupBox_query = new System.Windows.Forms.GroupBox();
-            this.queryRef_comboBox = new System.Windows.Forms.ComboBox();
             this.query_relation = new System.Windows.Forms.TextBox();
             this.Add_query_phoneBtn = new System.Windows.Forms.Button();
             this.q_phone_pannel_0 = new System.Windows.Forms.Panel();
@@ -135,13 +134,16 @@ namespace RigsterForm
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.historyPage = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.clearSearchBtn = new System.Windows.Forms.Button();
-            this.label37 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.exportExcelBtn = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.IDsearchBtn = new System.Windows.Forms.Button();
             this.IDsearchBOX = new System.Windows.Forms.TextBox();
+            this.search_end_dd = new System.Windows.Forms.ComboBox();
             this.label51 = new System.Windows.Forms.Label();
+            this.search_start_dd = new System.Windows.Forms.ComboBox();
+            this.exportExcelBtn = new System.Windows.Forms.Button();
             this.search_end_mm = new System.Windows.Forms.ComboBox();
             this.search_end_yy = new System.Windows.Forms.ComboBox();
             this.label48 = new System.Windows.Forms.Label();
@@ -154,7 +156,6 @@ namespace RigsterForm
             this.label47 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
             this.historyGridView = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
@@ -189,7 +190,7 @@ namespace RigsterForm
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(TabControl_SelectedIndexChanged); /* 將切換頁面事件註冊到頁籤 */
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
             // 
             // LogPage
             // 
@@ -221,7 +222,7 @@ namespace RigsterForm
             this.groupBox_Adress.Controls.Add(this.checkBox1);
             this.groupBox_Adress.Controls.Add(this.comboBox5);
             this.groupBox_Adress.Controls.Add(this.commAdressTb);
-            this.groupBox_Adress.Controls.Add(this.textBox5);
+            this.groupBox_Adress.Controls.Add(this.Comm_Road_TextBox);
             this.groupBox_Adress.Controls.Add(this.label13);
             this.groupBox_Adress.Controls.Add(this.Comm_Country_combobox);
             this.groupBox_Adress.Controls.Add(this.label14);
@@ -231,7 +232,7 @@ namespace RigsterForm
             this.groupBox_Adress.Controls.Add(this.label11);
             this.groupBox_Adress.Controls.Add(this.accountID_tb);
             this.groupBox_Adress.Controls.Add(this.label12);
-            this.groupBox_Adress.Controls.Add(this.textBox1);
+            this.groupBox_Adress.Controls.Add(this.Rgis_Road_TextBox);
             this.groupBox_Adress.Controls.Add(this.label9);
             this.groupBox_Adress.Controls.Add(this.Rgis_Country_combobox);
             this.groupBox_Adress.Controls.Add(this.label8);
@@ -272,12 +273,12 @@ namespace RigsterForm
             this.commAdressTb.Name = "commAdressTb";
             this.commAdressTb.ReadOnly = true;
             // 
-            // textBox5
+            // Comm_Road_TextBox
             // 
-            this.textBox5.AcceptsReturn = true;
-            this.textBox5.AcceptsTab = true;
-            resources.ApplyResources(this.textBox5, "textBox5");
-            this.textBox5.Name = "textBox5";
+            this.Comm_Road_TextBox.AcceptsReturn = true;
+            this.Comm_Road_TextBox.AcceptsTab = true;
+            resources.ApplyResources(this.Comm_Road_TextBox, "Comm_Road_TextBox");
+            this.Comm_Road_TextBox.Name = "Comm_Road_TextBox";
             // 
             // label13
             // 
@@ -335,12 +336,12 @@ namespace RigsterForm
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
             // 
-            // textBox1
+            // Rgis_Road_TextBox
             // 
-            this.textBox1.AcceptsReturn = true;
-            this.textBox1.AcceptsTab = true;
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            this.Rgis_Road_TextBox.AcceptsReturn = true;
+            this.Rgis_Road_TextBox.AcceptsTab = true;
+            resources.ApplyResources(this.Rgis_Road_TextBox, "Rgis_Road_TextBox");
+            this.Rgis_Road_TextBox.Name = "Rgis_Road_TextBox";
             // 
             // label9
             // 
@@ -624,9 +625,9 @@ namespace RigsterForm
             // 
             this._newBorn_panel_0.BackColor = System.Drawing.Color.Honeydew;
             this._newBorn_panel_0.Controls.Add(this.newBornDelete_Btn_0);
-            this._newBorn_panel_0.Controls.Add(this.comboBox8);
-            this._newBorn_panel_0.Controls.Add(this.comboBox7);
-            this._newBorn_panel_0.Controls.Add(this.comboBox6);
+            this._newBorn_panel_0.Controls.Add(this.birthdayCB_0);
+            this._newBorn_panel_0.Controls.Add(this.birthMonthCB_0);
+            this._newBorn_panel_0.Controls.Add(this.birthYearCB_0);
             this._newBorn_panel_0.Controls.Add(this.yearLabelText_0);
             this._newBorn_panel_0.Controls.Add(this.dayLabelText);
             this._newBorn_panel_0.Controls.Add(this.monthLabelText);
@@ -646,23 +647,26 @@ namespace RigsterForm
             this.newBornDelete_Btn_0.UseVisualStyleBackColor = true;
             this.newBornDelete_Btn_0.Click += new System.EventHandler(this.Delete_panel_Btn_Click);
             // 
-            // comboBox8
+            // birthdayCB_0
             // 
-            resources.ApplyResources(this.comboBox8, "comboBox8");
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Name = "comboBox8";
+            this.birthdayCB_0.DropDownHeight = 200;
+            resources.ApplyResources(this.birthdayCB_0, "birthdayCB_0");
+            this.birthdayCB_0.FormattingEnabled = true;
+            this.birthdayCB_0.Name = "birthdayCB_0";
             // 
-            // comboBox7
+            // birthMonthCB_0
             // 
-            resources.ApplyResources(this.comboBox7, "comboBox7");
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Name = "comboBox7";
+            this.birthMonthCB_0.DropDownHeight = 200;
+            resources.ApplyResources(this.birthMonthCB_0, "birthMonthCB_0");
+            this.birthMonthCB_0.FormattingEnabled = true;
+            this.birthMonthCB_0.Name = "birthMonthCB_0";
             // 
-            // comboBox6
+            // birthYearCB_0
             // 
-            resources.ApplyResources(this.comboBox6, "comboBox6");
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Name = "comboBox6";
+            this.birthYearCB_0.DropDownHeight = 200;
+            resources.ApplyResources(this.birthYearCB_0, "birthYearCB_0");
+            this.birthYearCB_0.FormattingEnabled = true;
+            this.birthYearCB_0.Name = "birthYearCB_0";
             // 
             // yearLabelText_0
             // 
@@ -723,7 +727,6 @@ namespace RigsterForm
             // groupBox_query
             // 
             this.groupBox_query.BackColor = System.Drawing.Color.White;
-            this.groupBox_query.Controls.Add(this.queryRef_comboBox);
             this.groupBox_query.Controls.Add(this.query_relation);
             this.groupBox_query.Controls.Add(this.Add_query_phoneBtn);
             this.groupBox_query.Controls.Add(this.q_phone_pannel_0);
@@ -737,13 +740,6 @@ namespace RigsterForm
             this.groupBox_query.ForeColor = System.Drawing.Color.Black;
             this.groupBox_query.Name = "groupBox_query";
             this.groupBox_query.TabStop = false;
-            // 
-            // queryRef_comboBox
-            // 
-            this.queryRef_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.queryRef_comboBox, "queryRef_comboBox");
-            this.queryRef_comboBox.FormattingEnabled = true;
-            this.queryRef_comboBox.Name = "queryRef_comboBox";
             // 
             // query_relation
             // 
@@ -923,13 +919,17 @@ namespace RigsterForm
             // 
             // historyPage
             // 
+            resources.ApplyResources(this.historyPage, "historyPage");
+            this.historyPage.Controls.Add(this.button2);
+            this.historyPage.Controls.Add(this.button1);
             this.historyPage.Controls.Add(this.clearSearchBtn);
-            this.historyPage.Controls.Add(this.label37);
-            this.historyPage.Controls.Add(this.button3);
-            this.historyPage.Controls.Add(this.exportExcelBtn);
+            this.historyPage.Controls.Add(this.label16);
             this.historyPage.Controls.Add(this.IDsearchBtn);
             this.historyPage.Controls.Add(this.IDsearchBOX);
+            this.historyPage.Controls.Add(this.search_end_dd);
             this.historyPage.Controls.Add(this.label51);
+            this.historyPage.Controls.Add(this.search_start_dd);
+            this.historyPage.Controls.Add(this.exportExcelBtn);
             this.historyPage.Controls.Add(this.search_end_mm);
             this.historyPage.Controls.Add(this.search_end_yy);
             this.historyPage.Controls.Add(this.label48);
@@ -942,30 +942,63 @@ namespace RigsterForm
             this.historyPage.Controls.Add(this.label47);
             this.historyPage.Controls.Add(this.label42);
             this.historyPage.Controls.Add(this.label39);
-            this.historyPage.Controls.Add(this.label38);
             this.historyPage.Controls.Add(this.historyGridView);
-            resources.ApplyResources(this.historyPage, "historyPage");
             this.historyPage.Name = "historyPage";
             this.historyPage.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // clearSearchBtn
             // 
             resources.ApplyResources(this.clearSearchBtn, "clearSearchBtn");
             this.clearSearchBtn.Name = "clearSearchBtn";
             this.clearSearchBtn.UseVisualStyleBackColor = true;
-            this.clearSearchBtn.Click += new System.EventHandler(this.clearSearchBtn_Click);
             // 
-            // label37
+            // label16
             // 
-            resources.ApplyResources(this.label37, "label37");
-            this.label37.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label37.Name = "label37";
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
             // 
-            // button3
+            // IDsearchBtn
             // 
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.Name = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.IDsearchBtn, "IDsearchBtn");
+            this.IDsearchBtn.Name = "IDsearchBtn";
+            this.IDsearchBtn.UseVisualStyleBackColor = true;
+            // 
+            // IDsearchBOX
+            // 
+            resources.ApplyResources(this.IDsearchBOX, "IDsearchBOX");
+            this.IDsearchBOX.Name = "IDsearchBOX";
+            // 
+            // search_end_dd
+            // 
+            this.search_end_dd.DropDownHeight = 150;
+            resources.ApplyResources(this.search_end_dd, "search_end_dd");
+            this.search_end_dd.FormattingEnabled = true;
+            this.search_end_dd.Name = "search_end_dd";
+            // 
+            // label51
+            // 
+            resources.ApplyResources(this.label51, "label51");
+            this.label51.ForeColor = System.Drawing.Color.Black;
+            this.label51.Name = "label51";
+            // 
+            // search_start_dd
+            // 
+            this.search_start_dd.DropDownHeight = 150;
+            resources.ApplyResources(this.search_start_dd, "search_start_dd");
+            this.search_start_dd.FormattingEnabled = true;
+            this.search_start_dd.Name = "search_start_dd";
             // 
             // exportExcelBtn
             // 
@@ -973,24 +1006,6 @@ namespace RigsterForm
             this.exportExcelBtn.Name = "exportExcelBtn";
             this.exportExcelBtn.UseVisualStyleBackColor = true;
             this.exportExcelBtn.Click += new System.EventHandler(this.exportExcelBtn_Click);
-            // 
-            // IDsearchBtn
-            // 
-            resources.ApplyResources(this.IDsearchBtn, "IDsearchBtn");
-            this.IDsearchBtn.Name = "IDsearchBtn";
-            this.IDsearchBtn.UseVisualStyleBackColor = true;
-            this.IDsearchBtn.Click += new System.EventHandler(this.IDsearchBtn_Click);
-            // 
-            // IDsearchBOX
-            // 
-            resources.ApplyResources(this.IDsearchBOX, "IDsearchBOX");
-            this.IDsearchBOX.Name = "IDsearchBOX";
-            // 
-            // label51
-            // 
-            resources.ApplyResources(this.label51, "label51");
-            this.label51.ForeColor = System.Drawing.Color.Black;
-            this.label51.Name = "label51";
             // 
             // search_end_mm
             // 
@@ -1062,12 +1077,6 @@ namespace RigsterForm
             this.label39.ForeColor = System.Drawing.Color.Black;
             this.label39.Name = "label39";
             // 
-            // label38
-            // 
-            resources.ApplyResources(this.label38, "label38");
-            this.label38.ForeColor = System.Drawing.Color.Black;
-            this.label38.Name = "label38";
-            // 
             // historyGridView
             // 
             this.historyGridView.AllowUserToAddRows = false;
@@ -1138,7 +1147,6 @@ namespace RigsterForm
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView historyGridView;
-        private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.ComboBox search_end_mm;
@@ -1151,19 +1159,13 @@ namespace RigsterForm
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.TextBox IDsearchBOX;
-        private System.Windows.Forms.Label label51;
         private System.Windows.Forms.Button exportExcelBtn;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label37;
-        private Button clearSearchBtn;
-        private Button IDsearchBtn;
         private Panel collectionPanle;
         private GroupBox groupBox_Adress;
         private CheckBox checkBox1;
         private ComboBox comboBox5;
         private TextBox commAdressTb;
-        private TextBox textBox5;
+        private TextBox Comm_Road_TextBox;
         private Label label13;
         private ComboBox Comm_Country_combobox;
         private Label label14;
@@ -1173,7 +1175,7 @@ namespace RigsterForm
         private Label label11;
         private TextBox accountID_tb;
         private Label label12;
-        private TextBox textBox1;
+        private TextBox Rgis_Road_TextBox;
         private Label label9;
         private ComboBox Rgis_Country_combobox;
         private Label label8;
@@ -1216,9 +1218,9 @@ namespace RigsterForm
         private Button Add_newBorn_Btn;
         private Panel _newBorn_panel_0;
         private Button newBornDelete_Btn_0;
-        private ComboBox comboBox8;
-        private ComboBox comboBox7;
-        private ComboBox comboBox6;
+        private ComboBox birthdayCB_0;
+        private ComboBox birthMonthCB_0;
+        private ComboBox birthYearCB_0;
         private Label yearLabelText_0;
         private Label dayLabelText;
         private Label monthLabelText;
@@ -1230,7 +1232,6 @@ namespace RigsterForm
         private TextBox textBox_name_nb0;
         private Button SearchBtn_newBorn;
         private GroupBox groupBox_query;
-        private ComboBox queryRef_comboBox;
         private TextBox query_relation;
         private Button Add_query_phoneBtn;
         private Panel q_phone_pannel_0;
@@ -1254,6 +1255,15 @@ namespace RigsterForm
         private Label label3;
         private Label label2;
         private TextBox textBox_apply_name;
+        private ComboBox search_start_dd;
+        private Button clearSearchBtn;
+        private Label label16;
+        private Button IDsearchBtn;
+        private TextBox IDsearchBOX;
+        private ComboBox search_end_dd;
+        private Label label51;
+        private Button button2;
+        private Button button1;
     }
 }
 

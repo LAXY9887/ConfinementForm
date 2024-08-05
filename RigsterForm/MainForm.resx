@@ -170,16 +170,16 @@
   <data name="&gt;&gt;commAdressTb.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;textBox5.Name" xml:space="preserve">
-    <value>textBox5</value>
+  <data name="&gt;&gt;Comm_Road_TextBox.Name" xml:space="preserve">
+    <value>Comm_Road_TextBox</value>
   </data>
-  <data name="&gt;&gt;textBox5.Type" xml:space="preserve">
+  <data name="&gt;&gt;Comm_Road_TextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBox5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Comm_Road_TextBox.Parent" xml:space="preserve">
     <value>groupBox_Adress</value>
   </data>
-  <data name="&gt;&gt;textBox5.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Comm_Road_TextBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="&gt;&gt;label13.Name" xml:space="preserve">
@@ -290,16 +290,16 @@
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
-    <value>textBox1</value>
+  <data name="&gt;&gt;Rgis_Road_TextBox.Name" xml:space="preserve">
+    <value>Rgis_Road_TextBox</value>
   </data>
-  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+  <data name="&gt;&gt;Rgis_Road_TextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Rgis_Road_TextBox.Parent" xml:space="preserve">
     <value>groupBox_Adress</value>
   </data>
-  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Rgis_Road_TextBox.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
   <data name="&gt;&gt;label9.Name" xml:space="preserve">
@@ -942,85 +942,94 @@
   <data name="&gt;&gt;newBornDelete_Btn_0.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="comboBox8.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="birthdayCB_0.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 18pt, style=Bold</value>
   </data>
-  <data name="comboBox8.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="birthdayCB_0.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="birthdayCB_0.Location" type="System.Drawing.Point, System.Drawing">
     <value>1221, 38</value>
   </data>
-  <data name="comboBox8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="birthdayCB_0.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="comboBox8.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="birthdayCB_0.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 46</value>
   </data>
-  <data name="comboBox8.TabIndex" type="System.Int32, mscorlib">
+  <data name="birthdayCB_0.TabIndex" type="System.Int32, mscorlib">
     <value>67</value>
   </data>
-  <data name="&gt;&gt;comboBox8.Name" xml:space="preserve">
-    <value>comboBox8</value>
+  <data name="&gt;&gt;birthdayCB_0.Name" xml:space="preserve">
+    <value>birthdayCB_0</value>
   </data>
-  <data name="&gt;&gt;comboBox8.Type" xml:space="preserve">
+  <data name="&gt;&gt;birthdayCB_0.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBox8.Parent" xml:space="preserve">
+  <data name="&gt;&gt;birthdayCB_0.Parent" xml:space="preserve">
     <value>_newBorn_panel_0</value>
   </data>
-  <data name="&gt;&gt;comboBox8.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;birthdayCB_0.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="comboBox7.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="birthMonthCB_0.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 18pt, style=Bold</value>
   </data>
-  <data name="comboBox7.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="birthMonthCB_0.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="birthMonthCB_0.Location" type="System.Drawing.Point, System.Drawing">
     <value>1072, 38</value>
   </data>
-  <data name="comboBox7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="birthMonthCB_0.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="comboBox7.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="birthMonthCB_0.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 46</value>
   </data>
-  <data name="comboBox7.TabIndex" type="System.Int32, mscorlib">
+  <data name="birthMonthCB_0.TabIndex" type="System.Int32, mscorlib">
     <value>66</value>
   </data>
-  <data name="&gt;&gt;comboBox7.Name" xml:space="preserve">
-    <value>comboBox7</value>
+  <data name="&gt;&gt;birthMonthCB_0.Name" xml:space="preserve">
+    <value>birthMonthCB_0</value>
   </data>
-  <data name="&gt;&gt;comboBox7.Type" xml:space="preserve">
+  <data name="&gt;&gt;birthMonthCB_0.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBox7.Parent" xml:space="preserve">
+  <data name="&gt;&gt;birthMonthCB_0.Parent" xml:space="preserve">
     <value>_newBorn_panel_0</value>
   </data>
-  <data name="&gt;&gt;comboBox7.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;birthMonthCB_0.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="comboBox6.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="birthYearCB_0.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 18pt, style=Bold</value>
   </data>
-  <data name="comboBox6.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="birthYearCB_0.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="birthYearCB_0.Location" type="System.Drawing.Point, System.Drawing">
     <value>904, 38</value>
   </data>
-  <data name="comboBox6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="birthYearCB_0.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="comboBox6.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="birthYearCB_0.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 46</value>
   </data>
-  <data name="comboBox6.TabIndex" type="System.Int32, mscorlib">
+  <data name="birthYearCB_0.TabIndex" type="System.Int32, mscorlib">
     <value>65</value>
   </data>
-  <data name="&gt;&gt;comboBox6.Name" xml:space="preserve">
-    <value>comboBox6</value>
+  <data name="&gt;&gt;birthYearCB_0.Name" xml:space="preserve">
+    <value>birthYearCB_0</value>
   </data>
-  <data name="&gt;&gt;comboBox6.Type" xml:space="preserve">
+  <data name="&gt;&gt;birthYearCB_0.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBox6.Parent" xml:space="preserve">
+  <data name="&gt;&gt;birthYearCB_0.Parent" xml:space="preserve">
     <value>_newBorn_panel_0</value>
   </data>
-  <data name="&gt;&gt;comboBox6.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;birthYearCB_0.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="yearLabelText_0.AutoSize" type="System.Boolean, mscorlib">
@@ -1422,18 +1431,6 @@
   <data name="&gt;&gt;groupBox_newBorn.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;queryRef_comboBox.Name" xml:space="preserve">
-    <value>queryRef_comboBox</value>
-  </data>
-  <data name="&gt;&gt;queryRef_comboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;queryRef_comboBox.Parent" xml:space="preserve">
-    <value>groupBox_query</value>
-  </data>
-  <data name="&gt;&gt;queryRef_comboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;query_relation.Name" xml:space="preserve">
     <value>query_relation</value>
   </data>
@@ -1444,7 +1441,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;query_relation.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;Add_query_phoneBtn.Name" xml:space="preserve">
     <value>Add_query_phoneBtn</value>
@@ -1456,7 +1453,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;Add_query_phoneBtn.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;q_phone_pannel_0.Name" xml:space="preserve">
     <value>q_phone_pannel_0</value>
@@ -1468,7 +1465,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;q_phone_pannel_0.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;label24.Name" xml:space="preserve">
     <value>label24</value>
@@ -1480,7 +1477,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;SearchBtn_query.Name" xml:space="preserve">
     <value>SearchBtn_query</value>
@@ -1492,7 +1489,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;SearchBtn_query.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;textBox_query_IDnumber.Name" xml:space="preserve">
     <value>textBox_query_IDnumber</value>
@@ -1504,7 +1501,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;textBox_query_IDnumber.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;label25.Name" xml:space="preserve">
     <value>label25</value>
@@ -1516,7 +1513,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;label26.Name" xml:space="preserve">
     <value>label26</value>
@@ -1528,7 +1525,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;textBox_query_name.Name" xml:space="preserve">
     <value>textBox_query_name</value>
@@ -1540,7 +1537,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;textBox_query_name.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="groupBox_query.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt, style=Bold</value>
@@ -1815,6 +1812,33 @@
   <data name="&gt;&gt;LogPage.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="historyPage.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;button2.Name" xml:space="preserve">
+    <value>button2</value>
+  </data>
+  <data name="&gt;&gt;button2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button2.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="&gt;&gt;clearSearchBtn.Name" xml:space="preserve">
     <value>clearSearchBtn</value>
   </data>
@@ -1825,42 +1849,18 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;clearSearchBtn.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label37.Name" xml:space="preserve">
-    <value>label37</value>
-  </data>
-  <data name="&gt;&gt;label37.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label37.Parent" xml:space="preserve">
-    <value>historyPage</value>
-  </data>
-  <data name="&gt;&gt;label37.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;button3.Name" xml:space="preserve">
-    <value>button3</value>
-  </data>
-  <data name="&gt;&gt;button3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button3.Parent" xml:space="preserve">
-    <value>historyPage</value>
-  </data>
-  <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.Name" xml:space="preserve">
-    <value>exportExcelBtn</value>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
     <value>historyPage</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="&gt;&gt;IDsearchBtn.Name" xml:space="preserve">
@@ -1887,6 +1887,18 @@
   <data name="&gt;&gt;IDsearchBOX.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="&gt;&gt;search_end_dd.Name" xml:space="preserve">
+    <value>search_end_dd</value>
+  </data>
+  <data name="&gt;&gt;search_end_dd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;search_end_dd.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;search_end_dd.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="&gt;&gt;label51.Name" xml:space="preserve">
     <value>label51</value>
   </data>
@@ -1897,7 +1909,31 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label51.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.Name" xml:space="preserve">
+    <value>search_start_dd</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.Name" xml:space="preserve">
+    <value>exportExcelBtn</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="&gt;&gt;search_end_mm.Name" xml:space="preserve">
     <value>search_end_mm</value>
@@ -1909,7 +1945,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_end_mm.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;search_end_yy.Name" xml:space="preserve">
     <value>search_end_yy</value>
@@ -1921,7 +1957,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_end_yy.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="&gt;&gt;label48.Name" xml:space="preserve">
     <value>label48</value>
@@ -1933,7 +1969,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="&gt;&gt;label49.Name" xml:space="preserve">
     <value>label49</value>
@@ -1945,7 +1981,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label49.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="&gt;&gt;label50.Name" xml:space="preserve">
     <value>label50</value>
@@ -1957,7 +1993,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label50.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="&gt;&gt;search_start_mm.Name" xml:space="preserve">
     <value>search_start_mm</value>
@@ -1969,7 +2005,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_start_mm.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="&gt;&gt;search_start_yy.Name" xml:space="preserve">
     <value>search_start_yy</value>
@@ -1981,7 +2017,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_start_yy.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="&gt;&gt;label44.Name" xml:space="preserve">
     <value>label44</value>
@@ -1993,7 +2029,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label44.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="&gt;&gt;label46.Name" xml:space="preserve">
     <value>label46</value>
@@ -2005,7 +2041,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label46.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="&gt;&gt;label47.Name" xml:space="preserve">
     <value>label47</value>
@@ -2017,7 +2053,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label47.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="&gt;&gt;label42.Name" xml:space="preserve">
     <value>label42</value>
@@ -2029,7 +2065,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label42.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="&gt;&gt;label39.Name" xml:space="preserve">
     <value>label39</value>
@@ -2041,19 +2077,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label39.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;label38.Name" xml:space="preserve">
-    <value>label38</value>
-  </data>
-  <data name="&gt;&gt;label38.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label38.Parent" xml:space="preserve">
-    <value>historyPage</value>
-  </data>
-  <data name="&gt;&gt;label38.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="&gt;&gt;historyGridView.Name" xml:space="preserve">
     <value>historyGridView</value>
@@ -2065,7 +2089,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;historyGridView.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <data name="historyPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 51</value>
@@ -2170,7 +2194,7 @@
     <value>微軟正黑體, 22.2pt</value>
   </data>
   <data name="comboBox5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 262</value>
+    <value>268, 9</value>
   </data>
   <data name="comboBox5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -2226,34 +2250,34 @@
   <data name="&gt;&gt;commAdressTb.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="textBox5.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="Comm_Road_TextBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt</value>
   </data>
-  <data name="textBox5.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="Comm_Road_TextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>944, 342</value>
   </data>
-  <data name="textBox5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="Comm_Road_TextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="textBox5.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="Comm_Road_TextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>748, 57</value>
   </data>
-  <data name="textBox5.TabIndex" type="System.Int32, mscorlib">
+  <data name="Comm_Road_TextBox.TabIndex" type="System.Int32, mscorlib">
     <value>86</value>
   </data>
-  <data name="textBox5.WordWrap" type="System.Boolean, mscorlib">
+  <data name="Comm_Road_TextBox.WordWrap" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;textBox5.Name" xml:space="preserve">
-    <value>textBox5</value>
+  <data name="&gt;&gt;Comm_Road_TextBox.Name" xml:space="preserve">
+    <value>Comm_Road_TextBox</value>
   </data>
-  <data name="&gt;&gt;textBox5.Type" xml:space="preserve">
+  <data name="&gt;&gt;Comm_Road_TextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBox5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Comm_Road_TextBox.Parent" xml:space="preserve">
     <value>groupBox_Adress</value>
   </data>
-  <data name="&gt;&gt;textBox5.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Comm_Road_TextBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
@@ -2431,7 +2455,7 @@
     <value>微軟正黑體, 22.2pt</value>
   </data>
   <data name="regisAdressTb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 265</value>
+    <value>16, 265</value>
   </data>
   <data name="regisAdressTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2440,7 +2464,7 @@
     <value>Horizontal</value>
   </data>
   <data name="regisAdressTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1492, 50</value>
+    <value>1676, 50</value>
   </data>
   <data name="regisAdressTb.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -2566,34 +2590,34 @@
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="textBox1.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="Rgis_Road_TextBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt</value>
   </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="Rgis_Road_TextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>944, 180</value>
   </data>
-  <data name="textBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="Rgis_Road_TextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="Rgis_Road_TextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>748, 57</value>
   </data>
-  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+  <data name="Rgis_Road_TextBox.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
   </data>
-  <data name="textBox1.WordWrap" type="System.Boolean, mscorlib">
+  <data name="Rgis_Road_TextBox.WordWrap" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
-    <value>textBox1</value>
+  <data name="&gt;&gt;Rgis_Road_TextBox.Name" xml:space="preserve">
+    <value>Rgis_Road_TextBox</value>
   </data>
-  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+  <data name="&gt;&gt;Rgis_Road_TextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Rgis_Road_TextBox.Parent" xml:space="preserve">
     <value>groupBox_Adress</value>
   </data>
-  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Rgis_Road_TextBox.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
@@ -2949,7 +2973,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="textBox_account_name.Size" type="System.Drawing.Size, System.Drawing">
-    <value>272, 57</value>
+    <value>282, 57</value>
   </data>
   <data name="textBox_account_name.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
@@ -3681,33 +3705,6 @@
   <data name="&gt;&gt;label41.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="queryRef_comboBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 22.2pt</value>
-  </data>
-  <data name="queryRef_comboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1512, 86</value>
-  </data>
-  <data name="queryRef_comboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="queryRef_comboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 55</value>
-  </data>
-  <data name="queryRef_comboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;queryRef_comboBox.Name" xml:space="preserve">
-    <value>queryRef_comboBox</value>
-  </data>
-  <data name="&gt;&gt;queryRef_comboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;queryRef_comboBox.Parent" xml:space="preserve">
-    <value>groupBox_query</value>
-  </data>
-  <data name="&gt;&gt;queryRef_comboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="query_relation.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt</value>
   </data>
@@ -3718,7 +3715,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="query_relation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 57</value>
+    <value>382, 57</value>
   </data>
   <data name="query_relation.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -3733,7 +3730,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;query_relation.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="Add_query_phoneBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 24pt</value>
@@ -3766,7 +3763,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;Add_query_phoneBtn.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;q_delete_phone_button_0.Name" xml:space="preserve">
     <value>q_delete_phone_button_0</value>
@@ -3826,7 +3823,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;q_phone_pannel_0.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="q_delete_phone_button_0.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>System</value>
@@ -3961,7 +3958,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="SearchBtn_query.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt, style=Bold</value>
@@ -3994,7 +3991,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;SearchBtn_query.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="textBox_query_IDnumber.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt</value>
@@ -4021,7 +4018,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;textBox_query_IDnumber.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="label25.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4061,7 +4058,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="label26.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4097,7 +4094,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="textBox_query_name.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt</value>
@@ -4127,7 +4124,7 @@
     <value>groupBox_query</value>
   </data>
   <data name="&gt;&gt;textBox_query_name.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="Add_apply_phoneBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 24pt</value>
@@ -4487,6 +4484,72 @@
   <data name="&gt;&gt;textBox_apply_name.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="button2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
+  </data>
+  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1625, 68</value>
+  </data>
+  <data name="button2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 59</value>
+  </data>
+  <data name="button2.TabIndex" type="System.Int32, mscorlib">
+    <value>96</value>
+  </data>
+  <data name="button2.Text" xml:space="preserve">
+    <value>匯出轉帳</value>
+  </data>
+  <data name="&gt;&gt;button2.Name" xml:space="preserve">
+    <value>button2</value>
+  </data>
+  <data name="&gt;&gt;button2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button2.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
+  </data>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1436, 68</value>
+  </data>
+  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 59</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>匯出清冊</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="clearSearchBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt, style=Bold</value>
   </data>
@@ -4494,16 +4557,16 @@
     <value>NoControl</value>
   </data>
   <data name="clearSearchBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1536, 11</value>
+    <value>1034, 70</value>
   </data>
   <data name="clearSearchBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="clearSearchBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 39</value>
+    <value>59, 59</value>
   </data>
   <data name="clearSearchBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>90</value>
+    <value>94</value>
   </data>
   <data name="clearSearchBtn.Text" xml:space="preserve">
     <value>X</value>
@@ -4518,127 +4581,61 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;clearSearchBtn.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label37.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label37.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 10.2pt, style=Italic</value>
-  </data>
-  <data name="label37.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label37.Location" type="System.Drawing.Point, System.Drawing">
-    <value>892, 1161</value>
-  </data>
-  <data name="label37.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 22</value>
-  </data>
-  <data name="label37.TabIndex" type="System.Int32, mscorlib">
-    <value>89</value>
-  </data>
-  <data name="label37.Text" xml:space="preserve">
-    <value>**本頁面提供快速檢視, 匯出時將呈現完整資料**</value>
-  </data>
-  <data name="&gt;&gt;label37.Name" xml:space="preserve">
-    <value>label37</value>
-  </data>
-  <data name="&gt;&gt;label37.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label37.Parent" xml:space="preserve">
-    <value>historyPage</value>
-  </data>
-  <data name="&gt;&gt;label37.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="button3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 12pt, style=Bold</value>
-  </data>
-  <data name="button3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2122, 11</value>
-  </data>
-  <data name="button3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 40</value>
-  </data>
-  <data name="button3.TabIndex" type="System.Int32, mscorlib">
-    <value>88</value>
-  </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>匯出郵局匯款資訊</value>
-  </data>
-  <data name="&gt;&gt;button3.Name" xml:space="preserve">
-    <value>button3</value>
-  </data>
-  <data name="&gt;&gt;button3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button3.Parent" xml:space="preserve">
-    <value>historyPage</value>
-  </data>
-  <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="exportExcelBtn.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 12pt, style=Bold</value>
+  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="exportExcelBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="exportExcelBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1725, 11</value>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>595, 16</value>
   </data>
-  <data name="exportExcelBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="label16.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
   </data>
-  <data name="exportExcelBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 40</value>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 43</value>
   </data>
-  <data name="exportExcelBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>87</value>
+  <data name="label16.TabIndex" type="System.Int32, mscorlib">
+    <value>94</value>
   </data>
-  <data name="exportExcelBtn.Text" xml:space="preserve">
-    <value>匯出Excel</value>
+  <data name="label16.Text" xml:space="preserve">
+    <value>日</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.Name" xml:space="preserve">
-    <value>exportExcelBtn</value>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
     <value>historyPage</value>
   </data>
-  <data name="&gt;&gt;exportExcelBtn.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="IDsearchBtn.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt, style=Bold</value>
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
   </data>
   <data name="IDsearchBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="IDsearchBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1578, 11</value>
+    <value>1101, 70</value>
   </data>
   <data name="IDsearchBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="IDsearchBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 40</value>
+    <value>135, 59</value>
   </data>
   <data name="IDsearchBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>86</value>
+    <value>93</value>
   </data>
   <data name="IDsearchBtn.Text" xml:space="preserve">
     <value>查詢</value>
@@ -4656,19 +4653,19 @@
     <value>4</value>
   </data>
   <data name="IDsearchBOX.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 22.2pt</value>
   </data>
   <data name="IDsearchBOX.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1260, 11</value>
+    <value>674, 70</value>
   </data>
   <data name="IDsearchBOX.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="IDsearchBOX.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 38</value>
+    <value>350, 57</value>
   </data>
   <data name="IDsearchBOX.TabIndex" type="System.Int32, mscorlib">
-    <value>85</value>
+    <value>92</value>
   </data>
   <data name="&gt;&gt;IDsearchBOX.Name" xml:space="preserve">
     <value>IDsearchBOX</value>
@@ -4682,26 +4679,59 @@
   <data name="&gt;&gt;IDsearchBOX.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="search_end_dd.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 18pt</value>
+  </data>
+  <data name="search_end_dd.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="search_end_dd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>531, 81</value>
+  </data>
+  <data name="search_end_dd.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="search_end_dd.MaxDropDownItems" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="search_end_dd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 46</value>
+  </data>
+  <data name="search_end_dd.TabIndex" type="System.Int32, mscorlib">
+    <value>92</value>
+  </data>
+  <data name="&gt;&gt;search_end_dd.Name" xml:space="preserve">
+    <value>search_end_dd</value>
+  </data>
+  <data name="&gt;&gt;search_end_dd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;search_end_dd.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;search_end_dd.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="label51.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label51.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 16.2pt, style=Bold</value>
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
   </data>
   <data name="label51.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label51.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1094, 12</value>
+    <value>666, 17</value>
   </data>
   <data name="label51.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label51.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 36</value>
+    <value>198, 43</value>
   </data>
   <data name="label51.TabIndex" type="System.Int32, mscorlib">
-    <value>84</value>
+    <value>91</value>
   </data>
   <data name="label51.Text" xml:space="preserve">
     <value>身分證查詢:</value>
@@ -4716,16 +4746,82 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label51.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
+  </data>
+  <data name="search_start_dd.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 18pt</value>
+  </data>
+  <data name="search_start_dd.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="search_start_dd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>494, 16</value>
+  </data>
+  <data name="search_start_dd.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="search_start_dd.MaxDropDownItems" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="search_start_dd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 46</value>
+  </data>
+  <data name="search_start_dd.TabIndex" type="System.Int32, mscorlib">
+    <value>91</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.Name" xml:space="preserve">
+    <value>search_start_dd</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;search_start_dd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="exportExcelBtn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
+  </data>
+  <data name="exportExcelBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="exportExcelBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1251, 68</value>
+  </data>
+  <data name="exportExcelBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="exportExcelBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 59</value>
+  </data>
+  <data name="exportExcelBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="exportExcelBtn.Text" xml:space="preserve">
+    <value>匯出Excel</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.Name" xml:space="preserve">
+    <value>exportExcelBtn</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.Parent" xml:space="preserve">
+    <value>historyPage</value>
+  </data>
+  <data name="&gt;&gt;exportExcelBtn.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="search_end_mm.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 12pt</value>
+    <value>微軟正黑體, 18pt</value>
   </data>
   <data name="search_end_mm.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="search_end_mm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>729, 31</value>
+    <value>373, 80</value>
   </data>
   <data name="search_end_mm.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4734,7 +4830,7 @@
     <value>5</value>
   </data>
   <data name="search_end_mm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 33</value>
+    <value>97, 46</value>
   </data>
   <data name="search_end_mm.TabIndex" type="System.Int32, mscorlib">
     <value>83</value>
@@ -4749,16 +4845,16 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_end_mm.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="search_end_yy.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 12pt</value>
+    <value>微軟正黑體, 18pt</value>
   </data>
   <data name="search_end_yy.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="search_end_yy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>609, 31</value>
+    <value>205, 80</value>
   </data>
   <data name="search_end_yy.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4767,7 +4863,7 @@
     <value>5</value>
   </data>
   <data name="search_end_yy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 33</value>
+    <value>107, 46</value>
   </data>
   <data name="search_end_yy.TabIndex" type="System.Int32, mscorlib">
     <value>82</value>
@@ -4782,25 +4878,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_end_yy.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="label48.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label48.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label48.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label48.Location" type="System.Drawing.Point, System.Drawing">
-    <value>689, 32</value>
+    <value>316, 81</value>
   </data>
   <data name="label48.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label48.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 29</value>
+    <value>53, 43</value>
   </data>
   <data name="label48.TabIndex" type="System.Int32, mscorlib">
     <value>81</value>
@@ -4818,25 +4914,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="label49.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label49.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label49.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label49.Location" type="System.Drawing.Point, System.Drawing">
-    <value>799, 32</value>
+    <value>474, 81</value>
   </data>
   <data name="label49.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label49.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 29</value>
+    <value>53, 43</value>
   </data>
   <data name="label49.TabIndex" type="System.Int32, mscorlib">
     <value>80</value>
@@ -4854,25 +4950,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label49.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="label50.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label50.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label50.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label50.Location" type="System.Drawing.Point, System.Drawing">
-    <value>548, 32</value>
+    <value>116, 82</value>
   </data>
   <data name="label50.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label50.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 29</value>
+    <value>87, 43</value>
   </data>
   <data name="label50.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
@@ -4890,16 +4986,16 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label50.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="search_start_mm.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 12pt</value>
+    <value>微軟正黑體, 18pt</value>
   </data>
   <data name="search_start_mm.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="search_start_mm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 31</value>
+    <value>336, 16</value>
   </data>
   <data name="search_start_mm.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4908,7 +5004,7 @@
     <value>5</value>
   </data>
   <data name="search_start_mm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 33</value>
+    <value>97, 46</value>
   </data>
   <data name="search_start_mm.TabIndex" type="System.Int32, mscorlib">
     <value>78</value>
@@ -4923,16 +5019,16 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_start_mm.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="search_start_yy.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 12pt</value>
+    <value>微軟正黑體, 18pt</value>
   </data>
   <data name="search_start_yy.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="search_start_yy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>258, 31</value>
+    <value>168, 15</value>
   </data>
   <data name="search_start_yy.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -4941,7 +5037,7 @@
     <value>5</value>
   </data>
   <data name="search_start_yy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 33</value>
+    <value>107, 46</value>
   </data>
   <data name="search_start_yy.TabIndex" type="System.Int32, mscorlib">
     <value>77</value>
@@ -4956,25 +5052,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;search_start_yy.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="label44.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label44.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label44.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label44.Location" type="System.Drawing.Point, System.Drawing">
-    <value>332, 32</value>
+    <value>279, 16</value>
   </data>
   <data name="label44.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label44.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 29</value>
+    <value>53, 43</value>
   </data>
   <data name="label44.TabIndex" type="System.Int32, mscorlib">
     <value>76</value>
@@ -4992,25 +5088,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label44.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="label46.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label46.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label46.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label46.Location" type="System.Drawing.Point, System.Drawing">
-    <value>441, 32</value>
+    <value>437, 16</value>
   </data>
   <data name="label46.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label46.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 29</value>
+    <value>53, 43</value>
   </data>
   <data name="label46.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -5028,25 +5124,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label46.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="label47.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label47.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label47.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label47.Location" type="System.Drawing.Point, System.Drawing">
-    <value>194, 32</value>
+    <value>79, 17</value>
   </data>
   <data name="label47.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label47.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 29</value>
+    <value>87, 43</value>
   </data>
   <data name="label47.TabIndex" type="System.Int32, mscorlib">
     <value>74</value>
@@ -5064,25 +5160,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label47.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="label42.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label42.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label42.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label42.Location" type="System.Drawing.Point, System.Drawing">
-    <value>476, 32</value>
+    <value>15, 81</value>
   </data>
   <data name="label42.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label42.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 29</value>
+    <value>109, 43</value>
   </data>
   <data name="label42.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -5100,25 +5196,25 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label42.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="label39.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label39.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 13.8pt</value>
+    <value>微軟正黑體, 19.8000011pt</value>
   </data>
   <data name="label39.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label39.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 32</value>
+    <value>15, 17</value>
   </data>
   <data name="label39.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
   </data>
   <data name="label39.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 29</value>
+    <value>70, 43</value>
   </data>
   <data name="label39.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -5136,55 +5232,19 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;label39.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="label38.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label38.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微軟正黑體, 16.2pt, style=Bold</value>
-  </data>
-  <data name="label38.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label38.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 29</value>
-  </data>
-  <data name="label38.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label38.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 36</value>
-  </data>
-  <data name="label38.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label38.Text" xml:space="preserve">
-    <value>日期篩選</value>
-  </data>
-  <data name="&gt;&gt;label38.Name" xml:space="preserve">
-    <value>label38</value>
-  </data>
-  <data name="&gt;&gt;label38.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label38.Parent" xml:space="preserve">
-    <value>historyPage</value>
-  </data>
-  <data name="&gt;&gt;label38.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="historyGridView.ColumnHeadersHeight" type="System.Int32, mscorlib">
     <value>40</value>
   </data>
   <data name="historyGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 86</value>
+    <value>6, 144</value>
   </data>
   <data name="historyGridView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="historyGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>2329, 1068</value>
+    <value>1806, 739</value>
   </data>
   <data name="historyGridView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -5199,7 +5259,7 @@
     <value>historyPage</value>
   </data>
   <data name="&gt;&gt;historyGridView.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

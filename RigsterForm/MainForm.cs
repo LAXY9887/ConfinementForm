@@ -15,12 +15,14 @@ namespace RigsterForm
 
         /** 組件 **/
         #region Components
-        
-        /* 常數 */
-        
 
         /* 使用地址選擇器 */
-        private AdressPicker adressPicker;
+        private AdressPicker RgisAdressPicker;
+        private AdressPicker CommAdressPicker;
+
+        /* 使用日期選擇器 */
+        private DatePicker dateFilterPicker_start;
+        private DatePicker dateFilterPicker_end;
 
         /* 使用自製函式庫 */
         private Utilities utilities;
@@ -63,15 +65,6 @@ namespace RigsterForm
             };
         }
 
-        // 初始化地址選項
-        private void InitializeAdressPicker(ComboBox cityCB, ComboBox countryCB, string default_city, string default_country) 
-        {
-            adressPicker.LoadCityList(cityCB);
-            adressPicker.SetDefaultValue(cityCB, default_city);
-            adressPicker.LoadCountryList(countryCB, default_city);
-            adressPicker.SetDefaultValue(countryCB, default_country);
-        }
-
         // 初始化可新增式面板
         private void InitializePanels() 
         {
@@ -89,13 +82,6 @@ namespace RigsterForm
             firstLogTimeLabel.Text = "-";                                           // 初始化日期時間顯示-初次登錄
             RecentEditTimeLabel.Text = firstLogTimeLabel.Text;     // 初始化日期時間顯示-最近修改
             nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();       // 新生兒數量顯示
-
-            /* 初始化委託人參考選項Combo box */
-            queryRef_comboBox.Items.Clear();
-            queryRef_comboBox.Items.Add("同申請人");
-            queryRef_comboBox.Items.Add("同配偶");
-            queryRef_comboBox.Items.Add("其他");
-            queryRef_comboBox.SelectedItem = "其他";
 
             /* 刪除多的 addable panels */
             apply_phone_panels.InitializePanels(groupBoxInfluenced[GroupBoxID.Apply]);
@@ -117,6 +103,10 @@ namespace RigsterForm
             {
                 clearTextBox(gb);
             }
+
+            // 重設 Combobox
+            RgisAdressPicker.InitializeBoxValues();
+            CommAdressPicker.InitializeBoxValues();
 
             // 更新生兒數量
             nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
@@ -153,15 +143,34 @@ namespace RigsterForm
             isEditingPrevData = false;
         }
 
+        // 實體化選擇器
+        private void InitializeComboBoxPickers()
+        {
+            // 使用地址選擇器--戶籍地
+            RgisAdressPicker = new AdressPicker(
+                ConstParameters.district_db_path,
+                Rgis_City_combobox, ConstParameters.InitialCity,
+                Rgis_Country_combobox, ConstParameters.InitialCountry,
+                Rgis_Road_TextBox, regisAdressTb);
+
+            // 使用地址選擇器--通訊地
+            CommAdressPicker = new AdressPicker(
+                ConstParameters.district_db_path,
+                Comm_City_combobox, ConstParameters.InitialCity,
+                Comm_Country_combobox, ConstParameters.InitialCountry,
+                Comm_Road_TextBox, commAdressTb);
+
+            // 使用日期選擇器--篩選起始日期
+            dateFilterPicker_start = new DatePicker(search_start_yy, search_start_mm, search_start_dd, new DateTime(DateTime.Now.Year - 1911, 1, 1));
+            dateFilterPicker_end = new DatePicker(search_end_yy, search_end_mm, search_end_dd, new DateTime(DateTime.Now.Year - 1910, 1, 1));
+        }
+
         #endregion
 
         public MainForm()
         {
             // 使用自製函式
             utilities = new Utilities();
-
-            // 使用地址選擇器
-            adressPicker = new AdressPicker(ConstParameters.district_db_path);
 
             // 檢查資料庫連線
             bool isDatabaseConnected = utilities.Database_connected(ConstParameters.database_path);
@@ -175,12 +184,6 @@ namespace RigsterForm
             // 初始化頁面
             InitializeComponent();
 
-            // 初始化地址選項 - 設定戶籍地址
-            InitializeAdressPicker(Rgis_City_combobox, Rgis_Country_combobox, ConstParameters.InitialCity, ConstParameters.InitialCountry);
-
-            // 初始化地址選項 - 設定通訊地址
-            InitializeAdressPicker(Comm_City_combobox, Comm_Country_combobox, ConstParameters.InitialCity, ConstParameters.InitialCountry);
-
             // 初始化連絡電話和新生兒面板
             InitializePanels();
 
@@ -189,9 +192,6 @@ namespace RigsterForm
 
             // 載入組合
             InitializeMatrices();
-
-            // 初始化部分資訊顯示
-            InitializeSomeInfo();
 
             // 初始化 Flags
             InitializeFlags();
@@ -205,6 +205,12 @@ namespace RigsterForm
 
             // 調整使窗大小
             adjustWindowSize();
+
+            // 實體化選擇器
+            InitializeComboBoxPickers();
+
+            // 初始化部分資訊顯示
+            InitializeSomeInfo();
 
             #endregion
         }
@@ -840,8 +846,9 @@ namespace RigsterForm
 
         #endregion
 
-        /* ==================================== 載入歷史資料 ==================================== */
-        
+        /** 載入歷史資料功能 **/
+        #region HistoryPage Functions
+
         // 載入資訊到文字框
         private void LoadData2TextBox(dataStruct choosenRecords) 
         {
@@ -942,23 +949,6 @@ namespace RigsterForm
             detailInfoForm.ShowDialog();
         }
 
-        // 處理委託人Combo box
-        private void HandleComboBox(dataStruct choosenRecords)
-        {
-            if (choosenRecords.query_id == choosenRecords.apply_id)
-            {
-                queryRef_comboBox.Text = "同申請人";
-            }
-            else if (choosenRecords.query_id == choosenRecords.mate_id)
-            {
-                queryRef_comboBox.Text = "同配偶";
-            }
-            else
-            {
-                queryRef_comboBox.Text = "其他";
-            }
-        }
-
         // 進入修改模式
         private void EnterEditMode(dataStruct choosenRecords) 
         {
@@ -973,9 +963,6 @@ namespace RigsterForm
 
             // 載入手機
             LoadPhones2GroupBox(choosenRecords);
-
-            // 處理委託人/地址Combo box
-            HandleComboBox(choosenRecords);
 
             // 切換頁面
             CancelBtn.Enabled = true;
@@ -1097,6 +1084,35 @@ namespace RigsterForm
             }
         }
 
+        // 初始化 DataGridView
+        private void InitializeDataGridView()
+        {
+            // 添加按钮列
+            DataGridViewButtonColumn btnCol1 = new DataGridViewButtonColumn();
+            btnCol1.HeaderText = "檢視詳細";
+            btnCol1.Name = "examDetailBTN";
+            btnCol1.Text = "檢視";
+            btnCol1.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol1);
+
+            DataGridViewButtonColumn btnCol2 = new DataGridViewButtonColumn();
+            btnCol2.HeaderText = "修改資料";
+            btnCol2.Name = "editDataBTN";
+            btnCol2.Text = "修改";
+            btnCol2.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol2);
+
+            DataGridViewButtonColumn btnCol3 = new DataGridViewButtonColumn();
+            btnCol3.HeaderText = "刪除資料";
+            btnCol3.Name = "deleteDataBTN";
+            btnCol3.Text = "刪除";
+            btnCol3.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol3);
+
+            // 添加按钮列的点击事件
+            historyGridView.CellClick += historyGridView_CellClick;
+        }
+
         // 頁簽切換日期ComboBox設定, 以及更新DataGridView內容
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1143,35 +1159,6 @@ namespace RigsterForm
             }
         }
 
-        // 初始化 DataGridView
-        private void InitializeDataGridView()
-        {
-            // 添加按钮列
-            DataGridViewButtonColumn btnCol1 = new DataGridViewButtonColumn();
-            btnCol1.HeaderText = "檢視詳細";
-            btnCol1.Name = "examDetailBTN";
-            btnCol1.Text = "檢視";
-            btnCol1.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol1);
-
-            DataGridViewButtonColumn btnCol2 = new DataGridViewButtonColumn();
-            btnCol2.HeaderText = "修改資料";
-            btnCol2.Name = "editDataBTN";
-            btnCol2.Text = "修改";
-            btnCol2.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol2);
-
-            DataGridViewButtonColumn btnCol3 = new DataGridViewButtonColumn();
-            btnCol3.HeaderText = "刪除資料";
-            btnCol3.Name = "deleteDataBTN";
-            btnCol3.Text = "刪除";
-            btnCol3.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol3);
-
-            // 添加按钮列的点击事件
-            historyGridView.CellClick += historyGridView_CellClick;
-        }
-
         // 處理搜索日期改變的事件
         public void SearchDate_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1208,6 +1195,8 @@ namespace RigsterForm
                 }
             }
         }
+
+        #endregion
 
         /** 
          * 
@@ -1604,30 +1593,6 @@ namespace RigsterForm
                     
                     break;
             }
-        }
-
-        /* ========================== 處理 ComboBox 的 SelectedIndexChanged 事件=====================  */
-
-        // 縣市選擇改變
-        public void City_ComboBox_SelectedIndexChange(object sender, EventArgs e)
-        {
-            ComboBox target = (ComboBox)sender;
-            string targetName = target.Name;
-            string districtContent = File.ReadAllText(ConstParameters.district_db_path);
-            List<districtStruct> districtList = JsonConvert.DeserializeObject<List<districtStruct>>(districtContent);
-            List<string> districtLList = new List<string>();
-            districtStruct selectedCity = districtList.Where(d => d.city == target.Text).First();
-            foreach (string d in selectedCity.district)
-            {
-                districtLList.Add(d);
-            }
-        }
-
-        // 更新地址顯示
-        public void Update_Combobox_Text(object sender, EventArgs e)
-        {
-            Control target = (Control)sender;
-            string targetName = target.Name;
         }
     }
 }

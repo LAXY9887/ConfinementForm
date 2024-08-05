@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using static RigsterForm.MainForm;
 namespace RigsterForm
 {
     // 選項
-    public enum targetRefType { Label , TextBox, IDTextBox , Button , ComboBox }
+    public enum targetRefType { Label , TextBox, IDTextBox , Button , ComboBoxYear, ComboBoxMonth, ComboBoxDay }
 
     public class AddablePanel
     {
@@ -104,8 +105,30 @@ namespace RigsterForm
                     }
                     break;
 
-                // 選單
-                case targetRefType.ComboBox:
+                // 選單(年)
+                case targetRefType.ComboBoxYear:
+                    foreach (Control ctrl in initial_Panel.Controls)
+                    {
+                        if (ctrl is ComboBox)
+                        {
+                            ctrl2return.Add(ctrl);
+                        }
+                    }
+                    break;
+
+                // 選單(月)
+                case targetRefType.ComboBoxMonth:
+                    foreach (Control ctrl in initial_Panel.Controls)
+                    {
+                        if (ctrl is ComboBox)
+                        {
+                            ctrl2return.Add(ctrl);
+                        }
+                    }
+                    break;
+
+                // 選單(日)
+                case targetRefType.ComboBoxDay:
                     foreach (Control ctrl in initial_Panel.Controls)
                     {
                         if (ctrl is ComboBox)
@@ -171,13 +194,15 @@ namespace RigsterForm
         }
 
         // 複製一個新的ComboBox
-        public ComboBox createComboBox(ComboBox reference) 
+        public ComboBox createComboBox(ComboBox reference, string NamePrefix) 
         {
             ComboBox newComboBox = new ComboBox();
             newComboBox.Location = reference.Location;
             newComboBox.Font = reference.Font;
             newComboBox.Size = reference.Size;
             newComboBox.Text = reference.Text;
+            newComboBox.Name = NamePrefix + panel_nums.ToString();
+            newComboBox.DropDownHeight = reference.DropDownHeight;
             foreach (var item in reference.Items)
             {
                 newComboBox.Items.Add(item);
@@ -223,9 +248,19 @@ namespace RigsterForm
                             targetPanel.Controls.Add(newIDTextBox);
                             break;
 
-                        case targetRefType.ComboBox:
-                            ComboBox newComboBox = createComboBox((ComboBox)ctrl);
-                            targetPanel.Controls.Add(newComboBox);
+                        case targetRefType.ComboBoxYear:
+                            ComboBox newComboBoxYY = createComboBox((ComboBox)ctrl, ConstParameters.birthday_Year_CB_prefix);
+                            targetPanel.Controls.Add(newComboBoxYY);
+                            break;
+
+                        case targetRefType.ComboBoxMonth:
+                            ComboBox newComboBoxMM = createComboBox((ComboBox)ctrl, ConstParameters.birthday_Month_CB_prefix);
+                            targetPanel.Controls.Add(newComboBoxMM);
+                            break;
+
+                        case targetRefType.ComboBoxDay:
+                            ComboBox newComboBoxDD = createComboBox((ComboBox)ctrl, ConstParameters.birthday_Day_CB_prefix);
+                            targetPanel.Controls.Add(newComboBoxDD);
                             break;
 
                         case targetRefType.Button:
@@ -335,6 +370,9 @@ namespace RigsterForm
                 Panel panel2Delete = panel_list[0];
                 DeleteButtonClicked(panel2Delete, controlsList);
             }
+
+            // 初始化剩下一個的內容
+
         }
 
         // 根據資料庫內容加入電話, 用於修改舊資料模式
@@ -353,8 +391,8 @@ namespace RigsterForm
     // 新生兒面板
     public class newBornPanel : AddablePanel 
     {
-        // Control 的名字
-        private const string newBorn_panel_namePrefix = "_newBorn_panel_";
+        // 日期選擇器(生日)
+        public DatePicker birthdayPicker;
 
         // 建構式
         public newBornPanel(Panel initialPanel, GroupBox groupBox) : base(initialPanel, groupBox)
@@ -374,13 +412,16 @@ namespace RigsterForm
 
             // 計算數字
             panel_nums = panel_list.Count;
+
+            // 設定生日
+            AddBitrhDayPicker();
         }
 
         // 新增一個新生兒面板
         public void AddNewBornPanel(string Name="", string ID = "") 
         {
             // 新增一個Panel
-            Panel newBornPanel = createPanel(initial_Panel, newBorn_panel_namePrefix, Color.Honeydew);
+            Panel newBornPanel = createPanel(initial_Panel, ConstParameters.newBorn_panel_namePrefix, Color.Honeydew);
 
             // 加入所有Label
             List<Control> refLabel = GetPanelReference(targetRefType.Label);
@@ -395,8 +436,12 @@ namespace RigsterForm
             LoadControls2Group(newBornPanel, refIDTextBox, targetRefType.IDTextBox, inputStr: ID);
 
             // 加入所有ComboBox
-            List<Control> refComboBox = GetPanelReference(targetRefType.ComboBox);
-            LoadControls2Group(newBornPanel, refComboBox, targetRefType.ComboBox);
+            List<Control> refComboBoxYY = GetPanelReference(targetRefType.ComboBoxYear);
+            LoadControls2Group(newBornPanel, refComboBoxYY, targetRefType.ComboBoxYear);             // Year
+            List<Control> refComboBoxMM = GetPanelReference(targetRefType.ComboBoxMonth);
+            LoadControls2Group(newBornPanel, refComboBoxMM, targetRefType.ComboBoxMonth);      // Month
+            List<Control> refComboBoxDD = GetPanelReference(targetRefType.ComboBoxDay);
+            LoadControls2Group(newBornPanel, refComboBoxDD, targetRefType.ComboBoxDay);             // Day
 
             // 加入所有Button
             List<Control> refButton = GetPanelReference(targetRefType.Button);
@@ -433,6 +478,33 @@ namespace RigsterForm
 
             // 刪掉第一個空的
             DeleteButtonClicked(panel_list[0], controlsList);
+        }
+
+        // 加入生日選擇器
+        public void AddBitrhDayPicker() 
+        {
+            // 加入生日
+            ComboBox yearCB = new ComboBox();
+            ComboBox monthCB = new ComboBox();
+            ComboBox dayCB = new ComboBox();
+            foreach (Control ctrl in initial_Panel.Controls)
+            {
+                if (ctrl.Name.Contains(ConstParameters.birthday_Year_CB_prefix))
+                {
+                    yearCB = (ComboBox)ctrl;
+                }
+                if (ctrl.Name.Contains(ConstParameters.birthday_Month_CB_prefix))
+                {
+                    monthCB = (ComboBox)ctrl;
+                }
+                if (ctrl.Name.Contains(ConstParameters.birthday_Day_CB_prefix))
+                {
+                    dayCB = (ComboBox)ctrl;
+                }
+            }
+
+            DateTime defaultDate = new DateTime(DateTime.Now.Year - 1911, 1, 1);
+            birthdayPicker = new DatePicker(yearCB, monthCB, dayCB, defaultDate);
         }
     }
 }
