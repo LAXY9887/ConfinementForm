@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -46,11 +47,6 @@ namespace RigsterForm
         private Dictionary<GroupBoxID, string> groupBoxIDNameMatrix;                                  // 組合群組名稱與ID
 
         #endregion
-
-        // 雜七雜八
-        public string dupSerialNum;
-        public string dupID;
-        public string selected_serial_num;
         
         /** Initialization Functions **/
         #region Initialization_Functions
@@ -102,7 +98,7 @@ namespace RigsterForm
             /* 初始化登錄日期資訊 */
             firstLogTimeLabel.Text = "-";                                           // 初始化日期時間顯示-初次登錄
             RecentEditTimeLabel.Text = firstLogTimeLabel.Text;     // 初始化日期時間顯示-最近修改
-            // nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();       // 新生兒數量顯示
+            nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();       // 新生兒數量顯示
 
             /* 初始化委託人參考選項Combo box */
             queryRef_comboBox.Items.Clear();
@@ -196,19 +192,14 @@ namespace RigsterForm
                 endYear: DateTime.Now.Year + 1, endMonth: 1
                 );
 
+            // 調整使窗大小
+            adjustWindowSize();
+
             #endregion
-
-            /**
-             * 
-             *  以下待改
-             * 
-             **/
-
-            // 雜七雜八
-            dupSerialNum = "";
-            dupID = "";
-            selected_serial_num = "";
         }
+
+        /** 處理資料登錄database **/
+        #region DataLogin
 
         // 處裡日期: {初次登入, 最近一次修改}
         private string[] HandleDateTime() 
@@ -238,7 +229,7 @@ namespace RigsterForm
             int latest_year = lastestData.login_year;
 
             // 當年分不一樣時, 改變流水號
-            if (DateTime.Now.Year != latest_year)
+            if (DateTime.Now.Year-1911 != latest_year)
             {
                 lastSerialN = 0;
             }
@@ -302,8 +293,11 @@ namespace RigsterForm
                 // 新生兒資料結構
                 newBornInfo nbInfo = new newBornInfo();
 
-                // 名字和ID
-                string NameAndID = "";
+                // 名字
+                string Name = "";
+
+                // 身分證
+                string ID = "";
 
                 // 生日
                 string birthday = "";
@@ -311,10 +305,16 @@ namespace RigsterForm
                 // 加入名字和身分證
                 foreach (Control ctrl in p.Controls)
                 {
-                    // 姓名 + 身分證
-                    if (ctrl is TextBox)
+                    // 姓名
+                    if (ctrl is TextBox && ctrl.Name.Contains("textBox_newBorn_name"))
                     {
-                        NameAndID += ctrl.Text.ToString() + sep;
+                        Name = ctrl.Text.ToString();
+                    }
+
+                    // 身分證
+                    if (ctrl is TextBox && ctrl.Name.Contains("textBox_newBorn_IDnumber"))
+                    {
+                        ID = ctrl.Text.ToString();
                     }
 
                     // 生日
@@ -325,8 +325,8 @@ namespace RigsterForm
                 }
 
                 // 加入名字和身分證和生日
-                nbInfo.nbNames = NameAndID.Split(sep)[1];
-                nbInfo.newbornID = NameAndID.Split(sep)[0];
+                nbInfo.nbNames = Name;
+                nbInfo.newbornID = ID;
                 nbInfo.nbBirthDay = $"{birthday.Split(sep)[2]}-{birthday.Split(sep)[1]}-{birthday.Split(sep)[0]}";
 
                 // 加入列表
@@ -391,51 +391,9 @@ namespace RigsterForm
             return data;
         }
 
-        // 檢查身分證
-        public bool ValideID(string ID) 
-        {
-            // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
-
-            // 初始化Flags
-            bool isfind = false;
-
-            // 在資料庫中尋找重複
-            foreach (dataStruct data in dataList)
-            {
-                List<string> ids2check = new List<string> {
-                    data.query_id , data.apply_id, data.mate_id
-                };
-                foreach (string id in data.newBorn_id)
-                {
-                    ids2check.Add(id);
-                }
-                isfind = ids2check.Any(c => c!="" && c==ID);
-
-                // 當找到重複則中止並回報
-                if (isfind)
-                {
-                    dupSerialNum = data.serial_num;
-                    string dupinfo = $"申請人: {data.apply_name} - {data.apply_id} \n" +
-                        $"配偶: {data.mate_name} - {data.mate_id} \n\n新生兒資訊:\n";
-                    dupID += dupinfo;
-
-                    // 加入新生兒
-                    for (int i = 0;  i < data.newBorn_name.Count;  i++)
-                    {
-                        dupID += $"({i+1}) " + data.newBorn_name[i].ToString() + "-";
-                        dupID += data.newBorn_id[i].ToString() + "\n";
-                    }
-
-                    return isfind;
-                }
-            }
-
-            return isfind;
-        }
+        #endregion
 
         // 移除所有格子的內容
-        
         public void ClearBoxContent() 
         {
             // 初始化部分資訊顯示
@@ -444,7 +402,26 @@ namespace RigsterForm
             /** 重新寫一個 **/
         }
 
-        /** ==================================== 按鈕點擊事件 ==================================== **/
+        // 調整UI大小以及位置
+        private void adjustWindowSize()
+        {
+            // 获取屏幕分辨率
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+
+            // 視窗
+            this.Width = screenWidth;
+            this.Height = screenHeight;
+
+            // 頁簽版面
+            tabControl.Size = new Size(screenWidth - 50, screenHeight - 100);
+            tabControl.Location = new Point((screenWidth - tabControl.Width) / 2, 10);
+            LogPage.Size = LogPage.Parent.Size;
+            historyPage.Size = historyPage.Parent.Size;
+
+            // 頁簽內容
+            collectionPanle.Location = new Point((collectionPanle.Parent.Width - collectionPanle.Width) / 2, 0);
+        }
 
         // 新增一個面板(手機號碼或新生兒)
         public void Add_panel_Btn_Click(object sender, EventArgs e)
@@ -482,8 +459,9 @@ namespace RigsterForm
 
                  /** 新生兒面板 **/
                 case GroupBoxID.NewBorn:
-                    newBorn_panels.AddNBButtonClicked(groupBoxInfluenced[GroupBoxID.NewBorn]);                                    // 新增一個版面
+                    newBorn_panels.AddNBButtonClicked(groupBoxInfluenced[GroupBoxID.NewBorn]);                                   // 新增一個版面
                     newBorn_panels.deleteButtons[newBorn_panels.panel_nums - 1].Click += Delete_panel_Btn_Click;              // 將刪除函式綁定到新按鈕上面
+                    nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
                     break;
             }
 
@@ -519,22 +497,95 @@ namespace RigsterForm
                 /** 新生兒面板 **/
                 case GroupBoxID.NewBorn:
                     newBorn_panels.DeleteButtonClicked(parentPanel, groupBoxInfluenced[GroupBoxID.NewBorn]);
+                    nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
                     break;
             }
         }
 
-        // 當儲存按鈕被按下時執行
-        private void saveBtn_Click(object sender, EventArgs e)
+        // 查詢按鈕
+        private void Search_ID_Btn_Click(object sender, EventArgs e)
         {
+            // 回報
+            bool Report(string inputStr)
+            {
+                bool findID = false;
+
+                // 檢查身分證格式
+                if (inputStr.Length == 0)
+                {
+                    MessageBox.Show("請輸入身分證/居留證!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return findID;
+                }
+
+                string dupReport = ValideID(inputStr);
+
+                if (dupReport != null)
+                {
+                    MessageBox.Show($"該筆資料已經登錄!\n\n{dupReport}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    findID = true;
+                    return findID;
+                }
+                else
+                {
+                    MessageBox.Show($"搜尋:{inputStr}\n\n尚未登入該筆資料。", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return findID;
+                }
+            }
+
+            // 檢查新生兒ID
+            void checkNewBornID(GroupBox group)
+            {
+                foreach (Control ctrls in group.Controls)
+                {
+                    if (ctrls is Panel)
+                    {
+                        foreach (Control handle in ctrls.Controls)
+                        {
+                            if (handle.Name.Contains("textBox_newBorn_IDnumber_") && handle.Text.Length > 0)
+                            {
+                                bool isfind = Report(handle.Text);
+                                if (isfind) { return; } // 找到即中斷
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 取得當前按鈕和父物件和群組
+            Button button = sender as Button;
+            GroupBox Group = button.Parent as GroupBox;
+            string Group_name = Group.Name;
+            GroupBoxID groupID = groupBoxIDNameMatrix.First(g => g.Value == Group_name).Key;
+
             // 讀取資料庫
             List<dataStruct> dataList = utilities.ReadDatabase(database_path);
 
             // 如果讀取失敗則不會執行以下
-            if (dataList is null){return;}
+            if (dataList is null) { return; }
 
-            // 從表單蒐集資訊
-            dataStruct NewInfomation = GatherInfo();
+            switch (groupID)
+            {
+                case GroupBoxID.Apply:
+                    Report(textBox_apply_IDnumber.Text);
+                    break;
+                case GroupBoxID.Mate:
+                    Report(textBox_mate_IDnumber.Text);
+                    break;
+                case GroupBoxID.Query:
+                    Report(textBox_query_IDnumber.Text);
+                    break;
+                case GroupBoxID.NewBorn:
+                    checkNewBornID(Group);
+                    break;
+            }
+        }
 
+        /** 儲存資料功能 **/
+        #region Saving Data
+
+        // 驗證個欄位
+        private bool ValidateInfomation(dataStruct NewInfomation, List<string> ids2check, List<string> checkItem) 
+        {
             // 驗證各個欄位
             List<string> names = new List<string> { NewInfomation.apply_name };
             foreach (string nbName in NewInfomation.newBorn_name)
@@ -545,7 +596,7 @@ namespace RigsterForm
             if (isNameInvalid)
             {
                 MessageBox.Show("申請人/新生兒姓名不能為空", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             // 電話
@@ -564,23 +615,10 @@ namespace RigsterForm
             if (phoneCount < 1)
             {
                 MessageBox.Show("請至少輸入一個聯絡電話", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
-            // 檢查身分證號碼是否已經登錄
-            List<string> ids2check = new List<string> {
-               NewInfomation.apply_id, NewInfomation.mate_id, NewInfomation.query_id
-            };
-            List<string> checkItem = new List<string> {"申請人", "配偶", "委託人"};
-
-            int count = 1;
-            foreach (string id in NewInfomation.newBorn_id)
-            {
-                ids2check.Add(id);
-                checkItem.Add("新生兒"+count.ToString());
-                count++;
-            }
-
+            // 檢查身分證是否空缺
             for (int i = 0; i < ids2check.Count; i++)
             {
                 if (checkItem[i].Contains("申請人") || checkItem[i].Contains("新生兒"))
@@ -588,45 +626,71 @@ namespace RigsterForm
                     if (ids2check[i].Length == 0)
                     {
                         MessageBox.Show($"身分證欄不得為空! \n於: {checkItem[i]}-{ids2check[i]}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        return false;
                     }
                 }
             }
-            
+
             // 郵局資訊
             List<string> acc_list2Check = new List<string> { textBox_account_name.Text, textBox_account_divn.Text, textBox_account_number.Text };
-            bool is_accOK = acc_list2Check.All(acc => acc !="");
+            bool is_accOK = acc_list2Check.All(acc => acc != "");
             if (!is_accOK)
             {
                 MessageBox.Show($"郵局帳戶資訊不完整!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
-            bool isDuplicate = ids2check.Any(c => ValideID(c));
-            if (!isEditingPrevData)
+            return true;
+        }
+
+        // 檢查身分證
+        public string ValideID(string ID)
+        {
+            // 初始化回報資訊
+            string report = "";
+            bool isfind = false;
+
+            // 讀取資料庫
+            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
+
+            // 在資料庫中尋找重複
+            foreach (dataStruct data in dataList)
             {
-                // 檢測是否重複登入
-                if (isDuplicate)
+                List<string> ids2check = new List<string> {
+                    data.query_id , data.apply_id, data.mate_id
+                };
+                foreach (string id in data.newBorn_id)
                 {
-                    if (dupSerialNum.Length > 0 && dupID.Length > 0)
-                    {
-                        MessageBox.Show($"重複登錄! 請檢查以下:\n流水號:{dupSerialNum}\n身分證號:\n{dupID}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dupSerialNum = "";
-                        dupID = "";
-                        return;
-                    }
+                    ids2check.Add(id);
                 }
 
-                // 將新資訊加入
-                dataList.Add(NewInfomation);
-            }
-            else
-            {
-                int replaceIndex = dataList.FindIndex(data => data.serial_num == NewInfomation.serial_num);
-                dataList[replaceIndex] = NewInfomation;
+                isfind = ids2check.Any(c => c != "" && c == ID);
+
+                // 當找到重複則中止並回報
+                if (isfind)
+                {
+                    string dupinfo = $"申請人: {data.apply_name} - {data.apply_id} \n" +
+                        $"配偶: {data.mate_name} - {data.mate_id} \n\n新生兒資訊:\n";
+
+                    // 加入新生兒
+                    for (int i = 0; i < data.newBorn_name.Count; i++)
+                    {
+                        dupinfo += $"({i + 1}) " + data.newBorn_name[i].ToString() + "-";
+                        dupinfo += data.newBorn_id[i].ToString() + "\n";
+                    }
+
+                    report = $"重複登錄! 請檢查以下:\n流水號:{data.serial_num}\n身分證號:\n{dupinfo}";
+
+                    return report;
+                }
             }
 
-            // 將 JSON 寫入檔案
+            return report;
+        }
+
+        // 將資料寫入資料庫
+        private void WriteDataToDatabase(List<dataStruct> dataList)
+        {
             string toWrite = "[\n";
             foreach (dataStruct data in dataList)
             {
@@ -637,9 +701,13 @@ namespace RigsterForm
             toWrite += "]";
             File.WriteAllText(database_path, toWrite);
             MessageBox.Show("儲存成功", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
+        // 儲存後處理GUI變化
+        private void UpdateGUISaved(dataStruct NewInfomation,List<dataStruct> dataList)
+        {
             // 更新流水號顯示
-            string serial2show = NewInfomation.login_year.ToString() + "-" + (NewInfomation.serial_index+1).ToString();
+            string serial2show = NewInfomation.login_year.ToString() + "-" + (NewInfomation.serial_index + 1).ToString();
             if (isEditingPrevData)
             {
                 dataStruct lastData = dataList[dataList.Count - 1];
@@ -674,108 +742,81 @@ namespace RigsterForm
             }
         }
 
+        // 當儲存按鈕被按下時執行
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            // 讀取資料庫
+            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
+
+            // 如果讀取失敗則不會執行以下
+            if (dataList is null){return;}
+
+            // 從表單蒐集資訊
+            dataStruct NewInfomation = GatherInfo();
+
+            // 檢查身分證號碼是否已經登錄
+            List<string> ids2check = new List<string> {
+               NewInfomation.apply_id, NewInfomation.mate_id, NewInfomation.query_id
+            };
+            List<string> checkItem = new List<string> { "申請人", "配偶", "委託人" };
+
+            int count = 1;
+            foreach (string id in NewInfomation.newBorn_id)
+            {
+                ids2check.Add(id);
+                checkItem.Add("新生兒" + count.ToString());
+                count++;
+            }
+
+            // 驗證輸入資訊
+            bool isValidated = ValidateInfomation(NewInfomation, ids2check, checkItem);
+            if (!isValidated){return;}
+
+            // 驗證身分證是否重複
+            bool isDuplicate = false;
+            foreach (string id in ids2check)
+            {
+                string dupReportStr = ValideID(id);
+
+                if (dupReportStr.Length > 0)
+                {
+                    MessageBox.Show($"資料已經登入\n\n{dupReportStr}");
+                    isDuplicate = true;
+                    break;
+                }
+            }
+
+            // 當在沒有在編輯模式時, 防止重複登入
+            if (!isEditingPrevData)
+            {
+                // 若重複登入則中斷
+                if (isDuplicate){return;}
+
+                // 將新資訊加入
+                dataList.Add(NewInfomation);
+            }
+
+            // 當在正在編輯模式時, 取代原本的資料
+            else
+            {
+                int replaceIndex = dataList.FindIndex(data => data.serial_num == NewInfomation.serial_num);
+                dataList[replaceIndex] = NewInfomation;
+            }
+
+            // 將 JSON 寫入檔案
+            WriteDataToDatabase(dataList);
+
+            // 更新GUI
+            UpdateGUISaved(NewInfomation, dataList);
+        }
+
         // 清除按鈕
         private void ClearInfoBtn_Click(object sender, EventArgs e)
         {
             ClearBoxContent();
         }
 
-        /**
-         * 
-         * 以下重寫
-         * 
-         * 
-         * **/
-
-        // 申請人查詢
-        private void SearchBtn_apply_Click(object sender, EventArgs e)
-        {
-            // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
-
-            // 如果讀取失敗則不會執行以下
-            if (dataList is null) { return; }
-
-            // 檢查身分證格式
-            if (textBox_apply_IDnumber.Text.Length == 0)
-            {
-                MessageBox.Show("請輸入身分證/居留證!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            bool isInDatabase = ValideID(textBox_apply_IDnumber.Text);
-
-            if (isInDatabase)
-            {
-                MessageBox.Show($"該筆資料已經在資料庫\n\n流水號:{dupSerialNum}\n{dupID}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dupSerialNum = "";
-                dupID = "";
-            }
-            else
-            {
-                MessageBox.Show("尚未登入該筆資料。", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        // 委託人查詢
-        private void SearchBtn_query_Click(object sender, EventArgs e)
-        {
-            // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
-
-            // 檢查身分證格式
-            if (textBox_query_IDnumber.Text.Length == 0)
-            {
-                MessageBox.Show("請輸入身分證/居留證!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            bool isInDatabase = ValideID(textBox_query_IDnumber.Text);
-
-            if (isInDatabase)
-            {
-                MessageBox.Show($"該筆資料已經在資料庫\n\n流水號:{dupSerialNum}\n{dupID}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dupSerialNum = "";
-                dupID = "";
-            }
-            else
-            {
-                MessageBox.Show("尚未登入該筆資料。", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        // 新生兒查詢
-        private void SearchBtn_newBorn_Click(object sender, EventArgs e)
-        {
-           /*重新寫*/
-        }
-
-        // 配偶查詢
-        private void SearchBtn_mate_Click(object sender, EventArgs e)
-        {
-            // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(database_path);
-
-            // 檢查身分證格式
-            if (textBox_mate_IDnumber.Text.Length == 0)
-            {
-                MessageBox.Show("請輸入身分證/居留證!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            bool isInDatabase = ValideID(textBox_mate_IDnumber.Text);
-
-            if (isInDatabase)
-            {
-                MessageBox.Show($"該筆資料已經在資料庫\n\n流水號:{dupSerialNum}\n{dupID}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dupSerialNum = "";
-                dupID = "";
-            }
-            else
-            {
-                MessageBox.Show("尚未登入該筆資料。", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+        #endregion
 
         /* ==================================== 載入歷史資料 ==================================== */
         
@@ -1264,7 +1305,7 @@ namespace RigsterForm
                 int latest_year = dataList[dataList.Count - 1].login_year;
 
                 // 當年分不一樣時, 改變流水號
-                if (DateTime.Now.Year != latest_year)
+                if (DateTime.Now.Year - 1911 != latest_year)
                 {
                     lastSerialN = 0;
                 }
@@ -1278,14 +1319,7 @@ namespace RigsterForm
                 tabControl.SelectedTab = tabControl.TabPages["historyPage"];
 
                 // Highlight 那一行
-                foreach (DataGridViewRow row in historyGridView.Rows)
-                {
-                    if (row.Cells["Serial_num"].Value != null && row.Cells["Serial_num"].Value.ToString() == selected_serial_num)
-                    {
-                        row.Selected = true;
-                        break;
-                    }
-                }
+                
             }
         }
 
@@ -1551,7 +1585,6 @@ namespace RigsterForm
             Control target = (Control)sender;
             string targetName = target.Name;
         }
-
     }
 }
 

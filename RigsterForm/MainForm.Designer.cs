@@ -36,6 +36,7 @@ namespace RigsterForm
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabControl = new System.Windows.Forms.TabControl();
             this.LogPage = new System.Windows.Forms.TabPage();
+            this.collectionPanle = new System.Windows.Forms.Panel();
             this.groupBox_Adress = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
@@ -68,7 +69,7 @@ namespace RigsterForm
             this.mate_Add_phoneBtn = new System.Windows.Forms.Button();
             this.m_phone_pannel_0 = new System.Windows.Forms.Panel();
             this.m_delete_phone_button_0 = new System.Windows.Forms.Button();
-            this.m_phone_TextBox_0 = new System.Windows.Forms.TextBox();
+            this.textBox_name_m0 = new System.Windows.Forms.TextBox();
             this.label74 = new System.Windows.Forms.Label();
             this.SearchBtn_mate = new System.Windows.Forms.Button();
             this.textBox_mate_IDnumber = new System.Windows.Forms.TextBox();
@@ -104,16 +105,15 @@ namespace RigsterForm
             this.textBox_newBorn_IDnumber_0 = new System.Windows.Forms.TextBox();
             this.nb_ID_label = new System.Windows.Forms.Label();
             this.newBornNameLabel = new System.Windows.Forms.Label();
-            this.textBox_newBorn_name_0 = new System.Windows.Forms.TextBox();
+            this.textBox_name_nb0 = new System.Windows.Forms.TextBox();
             this.SearchBtn_newBorn = new System.Windows.Forms.Button();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.groupBox_query = new System.Windows.Forms.GroupBox();
             this.queryRef_comboBox = new System.Windows.Forms.ComboBox();
             this.query_relation = new System.Windows.Forms.TextBox();
             this.Add_query_phoneBtn = new System.Windows.Forms.Button();
             this.q_phone_pannel_0 = new System.Windows.Forms.Panel();
             this.q_delete_phone_button_0 = new System.Windows.Forms.Button();
-            this.q_phone_TextBox_0 = new System.Windows.Forms.TextBox();
+            this.textBox_name_q0 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.SearchBtn_query = new System.Windows.Forms.Button();
@@ -121,18 +121,19 @@ namespace RigsterForm
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.textBox_query_name = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.groupBox_apply = new System.Windows.Forms.GroupBox();
             this.Add_apply_phoneBtn = new System.Windows.Forms.Button();
             this.a_phone_pannel_0 = new System.Windows.Forms.Panel();
             this.a_delete_phone_button_0 = new System.Windows.Forms.Button();
-            this.a_phone_TextBox_0 = new System.Windows.Forms.TextBox();
+            this.textBox_name_a0 = new System.Windows.Forms.TextBox();
             this.contactText_label = new System.Windows.Forms.Label();
             this.SearchBtn_apply = new System.Windows.Forms.Button();
             this.textBox_apply_IDnumber = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_apply_name = new System.Windows.Forms.TextBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.historyPage = new System.Windows.Forms.TabPage();
             this.clearSearchBtn = new System.Windows.Forms.Button();
             this.label37 = new System.Windows.Forms.Label();
@@ -157,6 +158,7 @@ namespace RigsterForm
             this.historyGridView = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
+            this.collectionPanle.SuspendLayout();
             this.groupBox_Adress.SuspendLayout();
             this.groupBox_mate.SuspendLayout();
             this.m_phone_pannel_0.SuspendLayout();
@@ -192,18 +194,25 @@ namespace RigsterForm
             // 
             resources.ApplyResources(this.LogPage, "LogPage");
             this.LogPage.BackColor = System.Drawing.Color.AliceBlue;
-            this.LogPage.Controls.Add(this.groupBox_Adress);
-            this.LogPage.Controls.Add(this.groupBox_mate);
-            this.LogPage.Controls.Add(this.ButtonPannel);
-            this.LogPage.Controls.Add(this.panel8);
-            this.LogPage.Controls.Add(this.panel7);
-            this.LogPage.Controls.Add(this.panel4);
-            this.LogPage.Controls.Add(this.groupBox_newBorn);
+            this.LogPage.Controls.Add(this.collectionPanle);
             this.LogPage.Controls.Add(this.checkBox3);
-            this.LogPage.Controls.Add(this.groupBox_query);
             this.LogPage.Controls.Add(this.label10);
-            this.LogPage.Controls.Add(this.groupBox_apply);
             this.LogPage.Name = "LogPage";
+            // 
+            // collectionPanle
+            // 
+            this.collectionPanle.BackColor = System.Drawing.Color.Transparent;
+            this.collectionPanle.Controls.Add(this.groupBox_Adress);
+            this.collectionPanle.Controls.Add(this.groupBox_mate);
+            this.collectionPanle.Controls.Add(this.ButtonPannel);
+            this.collectionPanle.Controls.Add(this.panel8);
+            this.collectionPanle.Controls.Add(this.panel7);
+            this.collectionPanle.Controls.Add(this.panel4);
+            this.collectionPanle.Controls.Add(this.groupBox_newBorn);
+            this.collectionPanle.Controls.Add(this.groupBox_query);
+            this.collectionPanle.Controls.Add(this.groupBox_apply);
+            resources.ApplyResources(this.collectionPanle, "collectionPanle");
+            this.collectionPanle.Name = "collectionPanle";
             // 
             // groupBox_Adress
             // 
@@ -434,7 +443,7 @@ namespace RigsterForm
             // 
             this.m_phone_pannel_0.BackColor = System.Drawing.Color.Azure;
             this.m_phone_pannel_0.Controls.Add(this.m_delete_phone_button_0);
-            this.m_phone_pannel_0.Controls.Add(this.m_phone_TextBox_0);
+            this.m_phone_pannel_0.Controls.Add(this.textBox_name_m0);
             this.m_phone_pannel_0.Controls.Add(this.label74);
             resources.ApplyResources(this.m_phone_pannel_0, "m_phone_pannel_0");
             this.m_phone_pannel_0.Name = "m_phone_pannel_0";
@@ -447,12 +456,12 @@ namespace RigsterForm
             this.m_delete_phone_button_0.UseVisualStyleBackColor = true;
             this.m_delete_phone_button_0.Click += new System.EventHandler(this.Delete_panel_Btn_Click);
             // 
-            // m_phone_TextBox_0
+            // textBox_name_m0
             // 
-            this.m_phone_TextBox_0.AcceptsReturn = true;
-            this.m_phone_TextBox_0.AcceptsTab = true;
-            resources.ApplyResources(this.m_phone_TextBox_0, "m_phone_TextBox_0");
-            this.m_phone_TextBox_0.Name = "m_phone_TextBox_0";
+            this.textBox_name_m0.AcceptsReturn = true;
+            this.textBox_name_m0.AcceptsTab = true;
+            resources.ApplyResources(this.textBox_name_m0, "textBox_name_m0");
+            this.textBox_name_m0.Name = "textBox_name_m0";
             // 
             // label74
             // 
@@ -464,7 +473,7 @@ namespace RigsterForm
             resources.ApplyResources(this.SearchBtn_mate, "SearchBtn_mate");
             this.SearchBtn_mate.Name = "SearchBtn_mate";
             this.SearchBtn_mate.UseVisualStyleBackColor = true;
-            this.SearchBtn_mate.Click += new System.EventHandler(this.SearchBtn_mate_Click);
+            this.SearchBtn_mate.Click += new System.EventHandler(this.Search_ID_Btn_Click);
             // 
             // textBox_mate_IDnumber
             // 
@@ -625,7 +634,7 @@ namespace RigsterForm
             this._newBorn_panel_0.Controls.Add(this.textBox_newBorn_IDnumber_0);
             this._newBorn_panel_0.Controls.Add(this.nb_ID_label);
             this._newBorn_panel_0.Controls.Add(this.newBornNameLabel);
-            this._newBorn_panel_0.Controls.Add(this.textBox_newBorn_name_0);
+            this._newBorn_panel_0.Controls.Add(this.textBox_name_nb0);
             resources.ApplyResources(this._newBorn_panel_0, "_newBorn_panel_0");
             this._newBorn_panel_0.Name = "_newBorn_panel_0";
             // 
@@ -696,25 +705,19 @@ namespace RigsterForm
             resources.ApplyResources(this.newBornNameLabel, "newBornNameLabel");
             this.newBornNameLabel.Name = "newBornNameLabel";
             // 
-            // textBox_newBorn_name_0
+            // textBox_name_nb0
             // 
-            this.textBox_newBorn_name_0.AcceptsReturn = true;
-            this.textBox_newBorn_name_0.AcceptsTab = true;
-            resources.ApplyResources(this.textBox_newBorn_name_0, "textBox_newBorn_name_0");
-            this.textBox_newBorn_name_0.Name = "textBox_newBorn_name_0";
+            this.textBox_name_nb0.AcceptsReturn = true;
+            this.textBox_name_nb0.AcceptsTab = true;
+            resources.ApplyResources(this.textBox_name_nb0, "textBox_name_nb0");
+            this.textBox_name_nb0.Name = "textBox_name_nb0";
             // 
             // SearchBtn_newBorn
             // 
             resources.ApplyResources(this.SearchBtn_newBorn, "SearchBtn_newBorn");
             this.SearchBtn_newBorn.Name = "SearchBtn_newBorn";
             this.SearchBtn_newBorn.UseVisualStyleBackColor = true;
-            this.SearchBtn_newBorn.Click += new System.EventHandler(this.SearchBtn_newBorn_Click);
-            // 
-            // checkBox3
-            // 
-            resources.ApplyResources(this.checkBox3, "checkBox3");
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.SearchBtn_newBorn.Click += new System.EventHandler(this.Search_ID_Btn_Click);
             // 
             // groupBox_query
             // 
@@ -740,7 +743,6 @@ namespace RigsterForm
             resources.ApplyResources(this.queryRef_comboBox, "queryRef_comboBox");
             this.queryRef_comboBox.FormattingEnabled = true;
             this.queryRef_comboBox.Name = "queryRef_comboBox";
-            this.queryRef_comboBox.SelectedIndexChanged += new System.EventHandler(this.queryRef_comboBox_SelectedIndexChanged);
             // 
             // query_relation
             // 
@@ -761,7 +763,7 @@ namespace RigsterForm
             // 
             this.q_phone_pannel_0.BackColor = System.Drawing.Color.Azure;
             this.q_phone_pannel_0.Controls.Add(this.q_delete_phone_button_0);
-            this.q_phone_pannel_0.Controls.Add(this.q_phone_TextBox_0);
+            this.q_phone_pannel_0.Controls.Add(this.textBox_name_q0);
             this.q_phone_pannel_0.Controls.Add(this.label23);
             resources.ApplyResources(this.q_phone_pannel_0, "q_phone_pannel_0");
             this.q_phone_pannel_0.Name = "q_phone_pannel_0";
@@ -774,12 +776,12 @@ namespace RigsterForm
             this.q_delete_phone_button_0.UseVisualStyleBackColor = true;
             this.q_delete_phone_button_0.Click += new System.EventHandler(this.Delete_panel_Btn_Click);
             // 
-            // q_phone_TextBox_0
+            // textBox_name_q0
             // 
-            this.q_phone_TextBox_0.AcceptsReturn = true;
-            this.q_phone_TextBox_0.AcceptsTab = true;
-            resources.ApplyResources(this.q_phone_TextBox_0, "q_phone_TextBox_0");
-            this.q_phone_TextBox_0.Name = "q_phone_TextBox_0";
+            this.textBox_name_q0.AcceptsReturn = true;
+            this.textBox_name_q0.AcceptsTab = true;
+            resources.ApplyResources(this.textBox_name_q0, "textBox_name_q0");
+            this.textBox_name_q0.Name = "textBox_name_q0";
             // 
             // label23
             // 
@@ -796,7 +798,7 @@ namespace RigsterForm
             resources.ApplyResources(this.SearchBtn_query, "SearchBtn_query");
             this.SearchBtn_query.Name = "SearchBtn_query";
             this.SearchBtn_query.UseVisualStyleBackColor = true;
-            this.SearchBtn_query.Click += new System.EventHandler(this.SearchBtn_query_Click);
+            this.SearchBtn_query.Click += new System.EventHandler(this.Search_ID_Btn_Click);
             // 
             // textBox_query_IDnumber
             // 
@@ -821,12 +823,6 @@ namespace RigsterForm
             this.textBox_query_name.AcceptsTab = true;
             resources.ApplyResources(this.textBox_query_name, "textBox_query_name");
             this.textBox_query_name.Name = "textBox_query_name";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label10.Name = "label10";
             // 
             // groupBox_apply
             // 
@@ -855,7 +851,7 @@ namespace RigsterForm
             // 
             this.a_phone_pannel_0.BackColor = System.Drawing.Color.Azure;
             this.a_phone_pannel_0.Controls.Add(this.a_delete_phone_button_0);
-            this.a_phone_pannel_0.Controls.Add(this.a_phone_TextBox_0);
+            this.a_phone_pannel_0.Controls.Add(this.textBox_name_a0);
             this.a_phone_pannel_0.Controls.Add(this.contactText_label);
             resources.ApplyResources(this.a_phone_pannel_0, "a_phone_pannel_0");
             this.a_phone_pannel_0.Name = "a_phone_pannel_0";
@@ -869,12 +865,12 @@ namespace RigsterForm
             this.a_delete_phone_button_0.UseVisualStyleBackColor = false;
             this.a_delete_phone_button_0.Click += new System.EventHandler(this.Delete_panel_Btn_Click);
             // 
-            // a_phone_TextBox_0
+            // textBox_name_a0
             // 
-            this.a_phone_TextBox_0.AcceptsReturn = true;
-            this.a_phone_TextBox_0.AcceptsTab = true;
-            resources.ApplyResources(this.a_phone_TextBox_0, "a_phone_TextBox_0");
-            this.a_phone_TextBox_0.Name = "a_phone_TextBox_0";
+            this.textBox_name_a0.AcceptsReturn = true;
+            this.textBox_name_a0.AcceptsTab = true;
+            resources.ApplyResources(this.textBox_name_a0, "textBox_name_a0");
+            this.textBox_name_a0.Name = "textBox_name_a0";
             // 
             // contactText_label
             // 
@@ -886,7 +882,7 @@ namespace RigsterForm
             resources.ApplyResources(this.SearchBtn_apply, "SearchBtn_apply");
             this.SearchBtn_apply.Name = "SearchBtn_apply";
             this.SearchBtn_apply.UseVisualStyleBackColor = true;
-            this.SearchBtn_apply.Click += new System.EventHandler(this.SearchBtn_apply_Click);
+            this.SearchBtn_apply.Click += new System.EventHandler(this.Search_ID_Btn_Click);
             // 
             // textBox_apply_IDnumber
             // 
@@ -911,6 +907,18 @@ namespace RigsterForm
             this.textBox_apply_name.AcceptsTab = true;
             resources.ApplyResources(this.textBox_apply_name, "textBox_apply_name");
             this.textBox_apply_name.Name = "textBox_apply_name";
+            // 
+            // checkBox3
+            // 
+            resources.ApplyResources(this.checkBox3, "checkBox3");
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label10.Name = "label10";
             // 
             // historyPage
             // 
@@ -1088,6 +1096,7 @@ namespace RigsterForm
             this.tabControl.ResumeLayout(false);
             this.LogPage.ResumeLayout(false);
             this.LogPage.PerformLayout();
+            this.collectionPanle.ResumeLayout(false);
             this.groupBox_Adress.ResumeLayout(false);
             this.groupBox_Adress.PerformLayout();
             this.groupBox_mate.ResumeLayout(false);
@@ -1125,59 +1134,8 @@ namespace RigsterForm
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage LogPage;
         private System.Windows.Forms.TabPage historyPage;
-        private System.Windows.Forms.GroupBox groupBox_newBorn;
-        private System.Windows.Forms.Button SearchBtn_newBorn;
         private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.GroupBox groupBox_query;
-        private System.Windows.Forms.TextBox query_relation;
-        private System.Windows.Forms.Button Add_query_phoneBtn;
-        private System.Windows.Forms.Panel q_phone_pannel_0;
-        private System.Windows.Forms.TextBox q_phone_TextBox_0;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Button SearchBtn_query;
-        private System.Windows.Forms.TextBox textBox_query_IDnumber;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox textBox_query_name;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.GroupBox groupBox_apply;
-        private System.Windows.Forms.Button Add_apply_phoneBtn;
-        private System.Windows.Forms.Panel a_phone_pannel_0;
-        private System.Windows.Forms.TextBox a_phone_TextBox_0;
-        private System.Windows.Forms.Label contactText_label;
-        private System.Windows.Forms.Button SearchBtn_apply;
-        private System.Windows.Forms.TextBox textBox_apply_IDnumber;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox_apply_name;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label SerialNumLabel;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Label RecentEditTimeLabel;
-        private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label firstLogTimeLabel;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Button a_delete_phone_button_0;
-        private System.Windows.Forms.Button q_delete_phone_button_0;
-        private System.Windows.Forms.Panel ButtonPannel;
-        private System.Windows.Forms.Button ClearInfoBtn;
-        private System.Windows.Forms.Button saveBtn;
-        private System.Windows.Forms.Panel _newBorn_panel_0;
-        private System.Windows.Forms.Button Add_newBorn_Btn;
-        private System.Windows.Forms.Label yearLabelText_0;
-        private System.Windows.Forms.Label dayLabelText;
-        private System.Windows.Forms.Label monthLabelText;
-        private System.Windows.Forms.Label nbBirthDateHint;
-        private System.Windows.Forms.Label birthDate_Label;
-        private System.Windows.Forms.TextBox textBox_newBorn_IDnumber_0;
-        private System.Windows.Forms.Label nb_ID_label;
-        private System.Windows.Forms.Label newBornNameLabel;
-        private System.Windows.Forms.TextBox textBox_newBorn_name_0;
-        private System.Windows.Forms.TextBox nb_num_TextBOX;
-        private System.Windows.Forms.Label label40;
         private System.Windows.Forms.DataGridView historyGridView;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label42;
@@ -1197,37 +1155,12 @@ namespace RigsterForm
         private System.Windows.Forms.Button exportExcelBtn;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.GroupBox groupBox_mate;
-        private System.Windows.Forms.Button mate_Add_phoneBtn;
-        private System.Windows.Forms.Panel m_phone_pannel_0;
-        private System.Windows.Forms.Button m_delete_phone_button_0;
-        private System.Windows.Forms.TextBox m_phone_TextBox_0;
-        private System.Windows.Forms.Label label74;
-        private System.Windows.Forms.Button SearchBtn_mate;
-        private System.Windows.Forms.TextBox textBox_mate_IDnumber;
-        private System.Windows.Forms.Label label77;
-        private System.Windows.Forms.TextBox textBox_mate_name;
-        private System.Windows.Forms.ComboBox queryRef_comboBox;
         private Button clearSearchBtn;
         private Button IDsearchBtn;
-        private Button CancelBtn;
-        private Label label4;
+        private Panel collectionPanle;
         private GroupBox groupBox_Adress;
-        private TextBox textBox_account_number;
-        private TextBox textBox_account_divn;
-        private Label label29;
-        private TextBox textBox_account_name;
-        private Label label28;
-        private TextBox textBox1;
-        private Label label9;
-        private ComboBox Rgis_Country_combobox;
-        private Label label8;
-        private ComboBox Rgis_City_combobox;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private TextBox accountID_tb;
-        private Label label12;
+        private CheckBox checkBox1;
+        private ComboBox comboBox5;
         private TextBox commAdressTb;
         private TextBox textBox5;
         private Label label13;
@@ -1237,12 +1170,89 @@ namespace RigsterForm
         private Label label15;
         private TextBox regisAdressTb;
         private Label label11;
-        private CheckBox checkBox1;
-        private ComboBox comboBox5;
+        private TextBox accountID_tb;
+        private Label label12;
+        private TextBox textBox1;
+        private Label label9;
+        private ComboBox Rgis_Country_combobox;
+        private Label label8;
+        private ComboBox Rgis_City_combobox;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private TextBox textBox_account_number;
+        private TextBox textBox_account_divn;
+        private Label label29;
+        private TextBox textBox_account_name;
+        private Label label28;
+        private GroupBox groupBox_mate;
+        private Label label4;
+        private Button mate_Add_phoneBtn;
+        private Panel m_phone_pannel_0;
+        private Button m_delete_phone_button_0;
+        private TextBox textBox_name_m0;
+        private Label label74;
+        private Button SearchBtn_mate;
+        private TextBox textBox_mate_IDnumber;
+        private Label label77;
+        private TextBox textBox_mate_name;
+        private Panel ButtonPannel;
+        private Button CancelBtn;
+        private Button ClearInfoBtn;
+        private Button saveBtn;
+        private Panel panel8;
+        private Label RecentEditTimeLabel;
+        private Label label45;
+        private Panel panel7;
+        private Label firstLogTimeLabel;
+        private Label label43;
+        private Panel panel4;
+        private Label SerialNumLabel;
+        private Label label41;
+        private GroupBox groupBox_newBorn;
+        private TextBox nb_num_TextBOX;
+        private Label label40;
+        private Button Add_newBorn_Btn;
+        private Panel _newBorn_panel_0;
+        private Button newBornDelete_Btn_0;
         private ComboBox comboBox8;
         private ComboBox comboBox7;
         private ComboBox comboBox6;
-        private Button newBornDelete_Btn_0;
+        private Label yearLabelText_0;
+        private Label dayLabelText;
+        private Label monthLabelText;
+        private Label nbBirthDateHint;
+        private Label birthDate_Label;
+        private TextBox textBox_newBorn_IDnumber_0;
+        private Label nb_ID_label;
+        private Label newBornNameLabel;
+        private TextBox textBox_name_nb0;
+        private Button SearchBtn_newBorn;
+        private GroupBox groupBox_query;
+        private ComboBox queryRef_comboBox;
+        private TextBox query_relation;
+        private Button Add_query_phoneBtn;
+        private Panel q_phone_pannel_0;
+        private Button q_delete_phone_button_0;
+        private TextBox textBox_name_q0;
+        private Label label23;
+        private Label label24;
+        private Button SearchBtn_query;
+        private TextBox textBox_query_IDnumber;
+        private Label label25;
+        private Label label26;
+        private TextBox textBox_query_name;
+        private GroupBox groupBox_apply;
+        private Button Add_apply_phoneBtn;
+        private Panel a_phone_pannel_0;
+        private Button a_delete_phone_button_0;
+        private TextBox textBox_name_a0;
+        private Label contactText_label;
+        private Button SearchBtn_apply;
+        private TextBox textBox_apply_IDnumber;
+        private Label label3;
+        private Label label2;
+        private TextBox textBox_apply_name;
     }
 }
 

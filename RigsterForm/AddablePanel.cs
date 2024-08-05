@@ -7,7 +7,7 @@ using System.Windows.Forms.VisualStyles;
 namespace RigsterForm
 {
     // 選項
-    public enum targetRefType { Label , TextBox , Button , ComboBox }
+    public enum targetRefType { Label , TextBox, IDTextBox , Button , ComboBox }
 
     public class AddablePanel
     {
@@ -31,7 +31,8 @@ namespace RigsterForm
 
         // Control 的名字
         private const string PanelNamePrefix = "_add_pannel_";
-        private const string TextBoxNamePrefix = "_add_TextBox_";
+        private const string TextBoxNamePrefix = "textBox_name_";
+        private const string TextBoxIDPrefix = "textBox_newBorn_IDnumber_";
         private const string ButtonNamePrefix = "_add_button_";
 
         // 建構涵式
@@ -82,7 +83,18 @@ namespace RigsterForm
                 case targetRefType.TextBox:
                     foreach (Control ctrl in initial_Panel.Controls)
                     {
-                        if (ctrl is TextBox)
+                        if (ctrl is TextBox && ctrl.Name.Contains(TextBoxNamePrefix))
+                        {
+                            ctrl2return.Add(ctrl);
+                        }
+                    }
+                    break;
+
+                // 身分證框
+                case targetRefType.IDTextBox:
+                    foreach (Control ctrl in initial_Panel.Controls)
+                    {
+                        if (ctrl is TextBox && ctrl.Name.Contains(TextBoxIDPrefix))
                         {
                             ctrl2return.Add(ctrl);
                         }
@@ -119,7 +131,11 @@ namespace RigsterForm
         public void adjustGUILayout(int shiftHeight, List<Control> GUI2BMoved) 
         {
             // 擴大群組框
-            group_Box.Size = new Size(group_Box.Size.Width, group_Box.Size.Height + shiftHeight);
+            group_Box.Size = new Size(group_Box.Width, group_Box.Height + shiftHeight);
+
+            // 擴大隱藏面板
+            Panel collectionPanel = group_Box.Parent as Panel;
+            collectionPanel.Size = new Size(collectionPanel.Width, collectionPanel.Height + shiftHeight);
 
             // 將被影響的GUI移動
             foreach (Control ctrl in GUI2BMoved)
@@ -151,14 +167,14 @@ namespace RigsterForm
         }
 
         // 複製一個新TextBox
-        public TextBox createTextBox(TextBox reference, string name, string input_phone_number) 
+        public TextBox createTextBox(TextBox reference, string name, string input_text) 
         {
             TextBox newTextBox = new TextBox();
             newTextBox.Location = reference.Location;
             newTextBox.Font = reference.Font;
             newTextBox.Size = reference.Size;
             newTextBox.Name = name + panel_nums.ToString();
-            newTextBox.Text = input_phone_number;
+            newTextBox.Text = input_text;
             return newTextBox;
         }
 
@@ -208,6 +224,11 @@ namespace RigsterForm
                         case targetRefType.TextBox:
                             TextBox newTextBox = createTextBox((TextBox)ctrl, TextBoxNamePrefix, inputStr);
                             targetPanel.Controls.Add(newTextBox);
+                            break;
+
+                        case targetRefType.IDTextBox:
+                            TextBox newIDTextBox = createTextBox((TextBox)ctrl, TextBoxIDPrefix, inputStr);
+                            targetPanel.Controls.Add(newIDTextBox);
                             break;
 
                         case targetRefType.ComboBox:
@@ -389,6 +410,10 @@ namespace RigsterForm
             // 加入所有TextBox
             List<Control> refTextBox = GetPanelReference(targetRefType.TextBox);
             LoadControls2Group(newBornPanel, refTextBox, targetRefType.TextBox);
+
+            // 加入所有身分證TextBox
+            List<Control> refIDTextBox = GetPanelReference(targetRefType.IDTextBox);
+            LoadControls2Group(newBornPanel, refIDTextBox, targetRefType.IDTextBox);
 
             // 加入所有ComboBox
             List<Control> refComboBox = GetPanelReference(targetRefType.ComboBox);
