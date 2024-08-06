@@ -97,6 +97,7 @@
     <Compile Include="ComfirmExportDateForm.Designer.cs">
       <DependentUpon>ComfirmExportDateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportRecord.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

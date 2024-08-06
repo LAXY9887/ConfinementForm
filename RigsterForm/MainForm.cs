@@ -542,6 +542,8 @@ namespace RigsterForm
             tabControl.Location = new Point((screenWidth - tabControl.Width) / 2, 10);
             LogPage.Size = LogPage.Parent.Size;
             historyPage.Size = historyPage.Parent.Size;
+            historyGridView.Size = new Size((int)(historyGridView.Parent.Width * 0.98), (int)(historyGridView.Parent.Height * 0.82));
+            collectionPanel1.Location = new Point(collectionPanel1.Parent.Width - collectionPanel1.Width - 50, collectionPanel1.Location.Y);
 
             // 頁簽內容
             collectionPanle.Location = new Point((collectionPanle.Parent.Width - collectionPanle.Width) / 2, 0);
@@ -947,11 +949,11 @@ namespace RigsterForm
 
         #endregion
 
-        /** 載入歷史資料功能 **/
-        #region HistoryPage Functions
+        /** 修改資料功能**/
+        #region Editing Data
 
         // 載入資訊到文字框
-        private void LoadData2TextBox(dataStruct choosenRecords) 
+        private void LoadData2TextBox(dataStruct choosenRecords)
         {
             /** 載入資訊-系統 **/
             SerialNumLabel.Text = choosenRecords.serial_num;                            // 流水號
@@ -975,7 +977,7 @@ namespace RigsterForm
         }
 
         // 載入手機和新生兒
-        private void LoadPhones2GroupBox(dataStruct choosenRecords) 
+        private void LoadPhones2GroupBox(dataStruct choosenRecords)
         {
             // 加入按鈕功能的函式
             void BindFunction2Button(AddablePanel panel)
@@ -987,7 +989,7 @@ namespace RigsterForm
             }
 
             /** 載入手機號碼-申請人 **/
-            apply_phone_panels.LoadPhones(groupBoxInfluenced[GroupBoxID.Apply],choosenRecords.apply_phones);                     // 載入電話
+            apply_phone_panels.LoadPhones(groupBoxInfluenced[GroupBoxID.Apply], choosenRecords.apply_phones);                     // 載入電話
             BindFunction2Button(apply_phone_panels);                                                                                                                                          // 加入按鈕功能
 
             /** 載入手機號碼-配偶 **/
@@ -1012,6 +1014,121 @@ namespace RigsterForm
 
             // 更新新生兒數
             nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
+        }
+
+        // 進入修改模式
+        private void EnterEditMode(dataStruct choosenRecords)
+        {
+            // switch flags
+            isEditingPrevData = true;
+
+            // 初始化UI
+            InitializeSomeInfo();
+
+            // 將資料載入至文字框
+            LoadData2TextBox(choosenRecords);
+
+            // 載入手機
+            LoadPhones2GroupBox(choosenRecords);
+
+            // 切換頁面
+            CancelBtn.Enabled = true;
+            tabControl.SelectedTab = tabControl.TabPages["LogPage"];
+
+            // Unckeck checkBoxes
+            adressCheckControl.unCheckBox();
+        }
+
+        // 取消編輯按鈕
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            // 讀取資料庫
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+
+            if (isEditingPrevData)
+            {
+                isEditingPrevData = false;
+                CancelBtn.Enabled = false;
+                InitializeSomeInfo();
+
+                // 計算流水號
+                int inputSearialN = 0;
+                int inputYear = 0;
+
+                int lastSerialN = dataList[dataList.Count - 1].serial_index;
+                int latest_year = dataList[dataList.Count - 1].login_year;
+
+                // 當年分不一樣時, 改變流水號
+                if (DateTime.Now.Year - 1911 != latest_year)
+                {
+                    lastSerialN = 0;
+                }
+                inputSearialN = lastSerialN + 1;
+                inputYear = latest_year;
+                string serialNum = inputYear + "-" + inputSearialN;
+                SerialNumLabel.Text = serialNum;
+
+                // 切換頁面
+                tabControl.SelectedTab = tabControl.TabPages["historyPage"];
+            }
+        }
+
+        #endregion
+
+        /** 載入歷史資料功能 **/
+        #region HistoryPage Functions
+
+        // 自訂義checkbox大小
+        private void dataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == historyGridView.Columns["ApprovedCheckColunm"].Index && e.RowIndex >= 0)
+            {
+                e.PaintBackground(e.ClipBounds, true);
+
+                Rectangle rect = e.CellBounds;
+                int checkBoxSize = 30; // 设定复选框的大小
+                Point location = new Point((rect.Width - checkBoxSize) / 2, (rect.Height - checkBoxSize) / 2);
+
+                ControlPaint.DrawCheckBox(e.Graphics, rect.X + location.X, rect.Y + location.Y, checkBoxSize, checkBoxSize,
+                    Convert.ToBoolean(e.Value) ? ButtonState.Checked : ButtonState.Normal);
+
+                e.Handled = true;
+            }
+        }
+
+        // 初始化 DataGridView
+        private void InitializeDataGridView()
+        {
+            // 添加按钮列
+            DataGridViewButtonColumn btnCol1 = new DataGridViewButtonColumn();
+            btnCol1.HeaderText = "詳細";
+            btnCol1.Name = "examDetailBTN";
+            btnCol1.Text = "檢視";
+            btnCol1.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol1);
+
+            DataGridViewButtonColumn btnCol2 = new DataGridViewButtonColumn();
+            btnCol2.HeaderText = "修改資料";
+            btnCol2.Name = "editDataBTN";
+            btnCol2.Text = "修改";
+            btnCol2.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol2);
+
+            DataGridViewButtonColumn btnCol3 = new DataGridViewButtonColumn();
+            btnCol3.HeaderText = "刪除資料";
+            btnCol3.Name = "deleteDataBTN";
+            btnCol3.Text = "刪除";
+            btnCol3.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol3);
+
+            DataGridViewCheckBoxColumn btnCol4 = new DataGridViewCheckBoxColumn();
+            btnCol4.HeaderText = "審核通過";
+            btnCol4.Name = "ApprovedCheckColunm";
+            historyGridView.Columns.Add(btnCol4);
+
+            // 添加按钮列的点击事件
+            historyGridView.CellClick += historyGridView_CellClick;
+            historyGridView.CellPainting += dataGridView_CellPainting;
         }
 
         // 檢視詳細資料
@@ -1048,29 +1165,6 @@ namespace RigsterForm
             RichTextBox richTextBox = detailInfoForm.getDetailBox();
             richTextBox.Text = toShowDetail;
             detailInfoForm.ShowDialog();
-        }
-
-        // 進入修改模式
-        private void EnterEditMode(dataStruct choosenRecords) 
-        {
-            // switch flags
-            isEditingPrevData = true;
-
-            // 初始化UI
-            InitializeSomeInfo();
-
-            // 將資料載入至文字框
-            LoadData2TextBox(choosenRecords);
-
-            // 載入手機
-            LoadPhones2GroupBox(choosenRecords);
-
-            // 切換頁面
-            CancelBtn.Enabled = true;
-            tabControl.SelectedTab = tabControl.TabPages["LogPage"];
-
-            // Unckeck checkBoxes
-            adressCheckControl.unCheckBox();
         }
 
         // 刪除一筆資料
@@ -1153,40 +1247,6 @@ namespace RigsterForm
             }
         }
 
-        // 取消編輯按鈕
-        private void CancelBtn_Click(object sender, EventArgs e)
-        {
-            // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
-
-            if (isEditingPrevData)
-            {
-                isEditingPrevData = false;
-                CancelBtn.Enabled = false;
-                InitializeSomeInfo();
-
-                // 計算流水號
-                int inputSearialN = 0;
-                int inputYear = 0;
-
-                int lastSerialN = dataList[dataList.Count - 1].serial_index;
-                int latest_year = dataList[dataList.Count - 1].login_year;
-
-                // 當年分不一樣時, 改變流水號
-                if (DateTime.Now.Year - 1911 != latest_year)
-                {
-                    lastSerialN = 0;
-                }
-                inputSearialN = lastSerialN + 1;
-                inputYear = latest_year;
-                string serialNum = inputYear + "-" + inputSearialN;
-                SerialNumLabel.Text = serialNum;
-
-                // 切換頁面
-                tabControl.SelectedTab = tabControl.TabPages["historyPage"];
-            }
-        }
-
         // 頁簽切換日期ComboBox設定, 以及更新DataGridView內容
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1233,66 +1293,11 @@ namespace RigsterForm
             }
         }
 
-        #endregion
-
         /** 
          * 
          * 以下要修改
          * 
          * **/
-
-        // 自訂義checkbox大小
-        private void dataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.ColumnIndex == historyGridView.Columns["ApprovedCheckColunm"].Index && e.RowIndex >= 0)
-            {
-                e.PaintBackground(e.ClipBounds, true);
-
-                Rectangle rect = e.CellBounds;
-                int checkBoxSize = 30; // 设定复选框的大小
-                Point location = new Point((rect.Width - checkBoxSize) / 2, (rect.Height - checkBoxSize) / 2);
-
-                ControlPaint.DrawCheckBox(e.Graphics, rect.X + location.X, rect.Y + location.Y, checkBoxSize, checkBoxSize,
-                    Convert.ToBoolean(e.Value) ? ButtonState.Checked : ButtonState.Normal);
-
-                e.Handled = true;
-            }
-        }
-
-        // 初始化 DataGridView
-        private void InitializeDataGridView()
-        {
-            // 添加按钮列
-            DataGridViewButtonColumn btnCol1 = new DataGridViewButtonColumn();
-            btnCol1.HeaderText = "檢視詳細";
-            btnCol1.Name = "examDetailBTN";
-            btnCol1.Text = "檢視";
-            btnCol1.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol1);
-
-            DataGridViewButtonColumn btnCol2 = new DataGridViewButtonColumn();
-            btnCol2.HeaderText = "修改資料";
-            btnCol2.Name = "editDataBTN";
-            btnCol2.Text = "修改";
-            btnCol2.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol2);
-
-            DataGridViewButtonColumn btnCol3 = new DataGridViewButtonColumn();
-            btnCol3.HeaderText = "刪除資料";
-            btnCol3.Name = "deleteDataBTN";
-            btnCol3.Text = "刪除";
-            btnCol3.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol3);
-
-            DataGridViewCheckBoxColumn btnCol4 = new DataGridViewCheckBoxColumn();
-            btnCol4.HeaderText = "審核通過";
-            btnCol4.Name = "ApprovedCheckColunm";
-            historyGridView.Columns.Add(btnCol4);
-
-            // 添加按钮列的点击事件
-            historyGridView.CellClick += historyGridView_CellClick;
-            historyGridView.CellPainting += dataGridView_CellPainting;
-        }
 
         // 處理搜索日期改變的事件
         public void SearchDate_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1463,15 +1468,13 @@ namespace RigsterForm
 
         private void IDsearchBtn_Click(object sender, EventArgs e)
         {
-            // 讀取 JSON 文件内容
-            string jsonContent = File.ReadAllText(ConstParameters.database_path);
+            // 載入資料庫
+            List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
 
-            // 反序列化 JSON 内容為對象列表
-            List<dataStruct> records = JsonConvert.DeserializeObject<List<dataStruct>>(jsonContent);
+           // ID BOX (使用者輸入)
+           string idText = IDsearchBOX.Text.ToString();
 
-            // ID BOX
-            string idText = IDsearchBOX.Text.ToString();
-
+            // 如果沒有輸入則提示
             if (idText.Length == 0)
             {
                 MessageBox.Show("請輸入身分證", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1589,6 +1592,8 @@ namespace RigsterForm
 
             return null;
         }
+
+        #endregion
     }
 }
 
