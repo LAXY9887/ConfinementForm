@@ -24,6 +24,12 @@ namespace RigsterForm
         private DatePicker dateFilterPicker_start;
         private DatePicker dateFilterPicker_end;
 
+        /* 使用參考選擇器 */
+        private RefPicker refPicker;
+
+        /* 使用 CheckBox controller */
+        private AdressCheckController adressCheckControl;
+
         /* 使用自製函式庫 */
         private Utilities utilities;
 
@@ -163,6 +169,18 @@ namespace RigsterForm
             // 使用日期選擇器--篩選起始日期
             dateFilterPicker_start = new DatePicker(search_start_yy, search_start_mm, search_start_dd, new DateTime(DateTime.Now.Year - 1911, 1, 1));
             dateFilterPicker_end = new DatePicker(search_end_yy, search_end_mm, search_end_dd, new DateTime(DateTime.Now.Year - 1910, 1, 1));
+
+            // 使用參考選擇
+            List<Control> targetCtrls = new List<Control>() { textBox_account_name , accountID_tb };
+            string[] refOptions = new string[] { "-選擇-", "產婦", "配偶", "委託人", "新生兒1" };
+            refPicker = new RefPicker(refComboBox, refOptions, "-選擇-", targetCtrls);
+        }
+
+        // 實體化CheckBox控制器
+        private void InitializeCheckBoxControl()
+        {
+            // 地址
+            adressCheckControl = new AdressCheckController(AdressCheck, RgisAdressPicker, CommAdressPicker);
         }
 
         #endregion
@@ -211,6 +229,9 @@ namespace RigsterForm
 
             // 初始化部分資訊顯示
             InitializeSomeInfo();
+
+            // 初始化 CheckBox 控制器
+            InitializeCheckBoxControl();
 
             #endregion
         }
@@ -417,6 +438,9 @@ namespace RigsterForm
 
         #endregion
 
+        /** 按鈕功能和GUI功能等 **/
+        #region Button Functions
+
         // 清除TextBox內容
         public void clearTextBox(Control group)
         {
@@ -426,6 +450,79 @@ namespace RigsterForm
                 {
                     ctrl.Text = "";
                 }
+            }
+        }
+
+        // 更新參考ComboBox列表
+        private void UpdateRefComboBox()
+        {
+            List<string> refOptions = new List<string>() { "-選擇-", "產婦", "配偶", "委託人" };
+            for (int i = 0; i < newBorn_panels.panel_nums; i++)
+            {
+                refOptions.Add($"新生兒{i + 1}");
+            }
+            refPicker.updateOptions(refOptions.ToArray());
+        }
+
+        // 參考ComboBox功能
+        private void ChangeRefComboBox()
+        {
+            // 選中的那一個選項
+            int selectedIDX = refComboBox.SelectedIndex;
+
+            // 被變更的位置
+            List<Control> targerCtrls = new List<Control>() { textBox_account_name, accountID_tb };
+
+            // 判斷如何更動
+            switch (selectedIDX)
+            {
+                // 產婦
+                case 1:
+                    List<Control> refCtrls_app = new List<Control>() { textBox_apply_name, textBox_apply_IDnumber };
+                    refPicker.ApplyChoice(refCtrls_app);
+                    break;
+
+                // 配偶
+                case 2:
+                    List<Control> refCtrls_mate = new List<Control>() { textBox_mate_name, textBox_mate_IDnumber };
+                    refPicker.ApplyChoice(refCtrls_mate);
+                    break;
+
+                // 委託人
+                case 3:
+                    List<Control> refCtrls_query = new List<Control>() { textBox_query_name, textBox_query_IDnumber };
+                    refPicker.ApplyChoice(refCtrls_query);
+                    break;
+            }
+
+            // 新生兒
+            if (selectedIDX > 3)
+            {
+                int newBornIdx = refComboBox.SelectedIndex - 4;
+                Panel SelectedNewBornPanel = newBorn_panels.panel_list[newBornIdx];
+                List<Control> refCtrls_nb = new List<Control>();
+                foreach (Control control in SelectedNewBornPanel.Controls)
+                {
+                    if (control.Name.Contains(ConstParameters.TextBoxNamePrefix))
+                    {
+                        refCtrls_nb.Add(control);
+                    }
+                    if (control.Name.Contains(ConstParameters.TextBoxIDPrefix))
+                    {
+                        refCtrls_nb.Add(control);
+                    }
+                }
+                refPicker.ApplyChoice(refCtrls_nb);
+            }
+        }
+
+        // 偵測改變並應用參考Combobox
+        public void SelectedChange(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            if (comboBox == refComboBox)
+            {
+                ChangeRefComboBox();
             }
         }
 
@@ -489,6 +586,7 @@ namespace RigsterForm
                     newBorn_panels.AddNBButtonClicked(groupBoxInfluenced[GroupBoxID.NewBorn]);                                   // 新增一個版面
                     newBorn_panels.deleteButtons[newBorn_panels.panel_nums - 1].Click += Delete_panel_Btn_Click;              // 將刪除函式綁定到新按鈕上面
                     nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
+                    UpdateRefComboBox(); // 更新參考選項
                     break;
             }
 
@@ -525,6 +623,7 @@ namespace RigsterForm
                 case GroupBoxID.NewBorn:
                     newBorn_panels.DeleteButtonClicked(parentPanel, groupBoxInfluenced[GroupBoxID.NewBorn]);
                     nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
+                    UpdateRefComboBox(); // 更新參考選項
                     break;
             }
         }
@@ -606,6 +705,8 @@ namespace RigsterForm
                     break;
             }
         }
+
+        #endregion
 
         /** 儲存資料功能 **/
         #region Saving Data
@@ -967,6 +1068,9 @@ namespace RigsterForm
             // 切換頁面
             CancelBtn.Enabled = true;
             tabControl.SelectedTab = tabControl.TabPages["LogPage"];
+
+            // Unckeck checkBoxes
+            adressCheckControl.unCheckBox();
         }
 
         // 刪除一筆資料
@@ -1029,7 +1133,6 @@ namespace RigsterForm
             // 取選中的那一筆資料
             string seleted_serial_num = historyGridView.Rows[e.RowIndex].Cells["Serial_num"].Value.ToString();
             int selected_index = records.FindIndex(r => r.serial_num == seleted_serial_num);
-            MessageBox.Show(seleted_serial_num + "-" + selected_index.ToString());
             dataStruct choosenRecords = records[selected_index];
 
             // 检查是否点击的是按钮列
@@ -1084,35 +1187,6 @@ namespace RigsterForm
             }
         }
 
-        // 初始化 DataGridView
-        private void InitializeDataGridView()
-        {
-            // 添加按钮列
-            DataGridViewButtonColumn btnCol1 = new DataGridViewButtonColumn();
-            btnCol1.HeaderText = "檢視詳細";
-            btnCol1.Name = "examDetailBTN";
-            btnCol1.Text = "檢視";
-            btnCol1.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol1);
-
-            DataGridViewButtonColumn btnCol2 = new DataGridViewButtonColumn();
-            btnCol2.HeaderText = "修改資料";
-            btnCol2.Name = "editDataBTN";
-            btnCol2.Text = "修改";
-            btnCol2.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol2);
-
-            DataGridViewButtonColumn btnCol3 = new DataGridViewButtonColumn();
-            btnCol3.HeaderText = "刪除資料";
-            btnCol3.Name = "deleteDataBTN";
-            btnCol3.Text = "刪除";
-            btnCol3.UseColumnTextForButtonValue = true;
-            historyGridView.Columns.Add(btnCol3);
-
-            // 添加按钮列的点击事件
-            historyGridView.CellClick += historyGridView_CellClick;
-        }
-
         // 頁簽切換日期ComboBox設定, 以及更新DataGridView內容
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1159,6 +1233,67 @@ namespace RigsterForm
             }
         }
 
+        #endregion
+
+        /** 
+         * 
+         * 以下要修改
+         * 
+         * **/
+
+        // 自訂義checkbox大小
+        private void dataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == historyGridView.Columns["ApprovedCheckColunm"].Index && e.RowIndex >= 0)
+            {
+                e.PaintBackground(e.ClipBounds, true);
+
+                Rectangle rect = e.CellBounds;
+                int checkBoxSize = 30; // 设定复选框的大小
+                Point location = new Point((rect.Width - checkBoxSize) / 2, (rect.Height - checkBoxSize) / 2);
+
+                ControlPaint.DrawCheckBox(e.Graphics, rect.X + location.X, rect.Y + location.Y, checkBoxSize, checkBoxSize,
+                    Convert.ToBoolean(e.Value) ? ButtonState.Checked : ButtonState.Normal);
+
+                e.Handled = true;
+            }
+        }
+
+        // 初始化 DataGridView
+        private void InitializeDataGridView()
+        {
+            // 添加按钮列
+            DataGridViewButtonColumn btnCol1 = new DataGridViewButtonColumn();
+            btnCol1.HeaderText = "檢視詳細";
+            btnCol1.Name = "examDetailBTN";
+            btnCol1.Text = "檢視";
+            btnCol1.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol1);
+
+            DataGridViewButtonColumn btnCol2 = new DataGridViewButtonColumn();
+            btnCol2.HeaderText = "修改資料";
+            btnCol2.Name = "editDataBTN";
+            btnCol2.Text = "修改";
+            btnCol2.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol2);
+
+            DataGridViewButtonColumn btnCol3 = new DataGridViewButtonColumn();
+            btnCol3.HeaderText = "刪除資料";
+            btnCol3.Name = "deleteDataBTN";
+            btnCol3.Text = "刪除";
+            btnCol3.UseColumnTextForButtonValue = true;
+            historyGridView.Columns.Add(btnCol3);
+
+            DataGridViewCheckBoxColumn btnCol4 = new DataGridViewCheckBoxColumn();
+            btnCol4.HeaderText = "審核通過";
+            btnCol4.Name = "ApprovedCheckColunm";
+            historyGridView.Columns.Add(btnCol4);
+
+            // 添加按钮列的点击事件
+            historyGridView.CellClick += historyGridView_CellClick;
+            historyGridView.CellPainting += dataGridView_CellPainting;
+        }
+
         // 處理搜索日期改變的事件
         public void SearchDate_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1195,14 +1330,6 @@ namespace RigsterForm
                 }
             }
         }
-
-        #endregion
-
-        /** 
-         * 
-         * 以下要修改
-         * 
-         * **/
 
         private void LoadJsonToDataGridView(int startYear, int startMonth, int endYear, int endMonth)
         {
@@ -1461,138 +1588,6 @@ namespace RigsterForm
             }
 
             return null;
-        }
-
-        /* ==================================== Check box ==================================== */
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            void updateText(TextBox from, TextBox to) 
-            {
-                to.Text = from.Text;
-                to.ForeColor = Color.DarkGray;
-            }
-
-            void switch_txt_color(TextBox target_tb) 
-            { 
-                target_tb.ForeColor = Color.DarkBlue;
-            }
-
-            void update_selection_Box(Control from, Control to) 
-            {
-                to.Text = from.Text;
-                to.Enabled = false;
-            }
-
-            void unlock_selection_Box(Control target_ctrl) 
-            {
-                target_ctrl.Enabled = true;
-            }
-
-            CheckBox target = (CheckBox)sender;
-            string targetName = target.Name;
-            bool isChecked = target.Checked;
-
-            if (isChecked)
-            {
-                switch (targetName)
-                {
-                    case "appAdress_checkBox":
-
-                        break;
-
-                    case "mateAdress_checkBox":
-
-                        break;
-                }
-            }
-            else
-            {
-                switch (targetName)
-                {
-                    case "appAdress_checkBox":
-
-                        break;
-
-                    case "mateAdress_checkBox":
-
-                        break;
-                }
-            }
-        }
-
-        private void queryRef_comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cb = (ComboBox)sender;
-            string cbName = cb.Name;
-            int selectIdx = cb.SelectedIndex;
-
-            void switchGroupBox(bool switchG) 
-            {
-                foreach (Control Ctrl in groupBox_query.Controls)
-                {
-                    if (Ctrl.Name != cbName)
-                    {
-                        Ctrl.Enabled = switchG;
-                    }
-                }
-            }
-
-            switch (selectIdx)
-            {
-                // 申請人
-                case 0:
-                    query_relation.Text = "本人";
-                    switchGroupBox(false);
-                    break;
-
-                // 配偶
-                case 1:
-                    query_relation.Text = "配偶";
-                    switchGroupBox(false);
-                    break;
-
-                // 其他
-                case 2:
-                    query_relation.Text = "";
-                    switchGroupBox(true);
-                    break;
-            }
-        }
-
-        private void nbAdressComboBox_ref_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            void updateText(Control from, Control to)
-            {
-                to.Text = from.Text;
-                to.ForeColor = System.Drawing.Color.DarkGray;
-            }
-
-            ComboBox cb = (ComboBox)sender;
-            string cbName = cb.Name;
-            int selectIdx = cb.SelectedIndex;
-
-            switch (selectIdx)
-            {
-                // 申請人
-                case 1:
-
-                    break;
-
-                // 配偶
-                case 2:
-
-                    break;
-
-                // 委託人
-                case 3:
-                    
-                    break;
-
-                // Default
-                case 0:
-                    
-                    break;
-            }
         }
     }
 }

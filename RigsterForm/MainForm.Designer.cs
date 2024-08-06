@@ -38,8 +38,8 @@ namespace RigsterForm
             this.LogPage = new System.Windows.Forms.TabPage();
             this.collectionPanle = new System.Windows.Forms.Panel();
             this.groupBox_Adress = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.AdressCheck = new System.Windows.Forms.CheckBox();
+            this.refComboBox = new System.Windows.Forms.ComboBox();
             this.commAdressTb = new System.Windows.Forms.TextBox();
             this.Comm_Road_TextBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -157,6 +157,8 @@ namespace RigsterForm
             this.label42 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
             this.historyGridView = new System.Windows.Forms.DataGridView();
+            this.exportHistory = new System.Windows.Forms.TabPage();
+            this.settingsPage = new System.Windows.Forms.TabPage();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.collectionPanle.SuspendLayout();
@@ -187,6 +189,8 @@ namespace RigsterForm
             // 
             this.tabControl.Controls.Add(this.LogPage);
             this.tabControl.Controls.Add(this.historyPage);
+            this.tabControl.Controls.Add(this.exportHistory);
+            this.tabControl.Controls.Add(this.settingsPage);
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -219,8 +223,8 @@ namespace RigsterForm
             // groupBox_Adress
             // 
             this.groupBox_Adress.BackColor = System.Drawing.Color.White;
-            this.groupBox_Adress.Controls.Add(this.checkBox1);
-            this.groupBox_Adress.Controls.Add(this.comboBox5);
+            this.groupBox_Adress.Controls.Add(this.AdressCheck);
+            this.groupBox_Adress.Controls.Add(this.refComboBox);
             this.groupBox_Adress.Controls.Add(this.commAdressTb);
             this.groupBox_Adress.Controls.Add(this.Comm_Road_TextBox);
             this.groupBox_Adress.Controls.Add(this.label13);
@@ -250,18 +254,19 @@ namespace RigsterForm
             this.groupBox_Adress.Name = "groupBox_Adress";
             this.groupBox_Adress.TabStop = false;
             // 
-            // checkBox1
+            // AdressCheck
             // 
-            resources.ApplyResources(this.checkBox1, "checkBox1");
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.AdressCheck, "AdressCheck");
+            this.AdressCheck.Name = "AdressCheck";
+            this.AdressCheck.UseVisualStyleBackColor = true;
             // 
-            // comboBox5
+            // refComboBox
             // 
-            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            resources.ApplyResources(this.comboBox5, "comboBox5");
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Name = "comboBox5";
+            this.refComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.refComboBox, "refComboBox");
+            this.refComboBox.FormattingEnabled = true;
+            this.refComboBox.Name = "refComboBox";
+            this.refComboBox.SelectedIndexChanged += new System.EventHandler(this.SelectedChange);
             // 
             // commAdressTb
             // 
@@ -1094,6 +1099,18 @@ namespace RigsterForm
             this.historyGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.historyGridView.RowTemplate.Height = 27;
             // 
+            // exportHistory
+            // 
+            this.exportHistory.BackColor = System.Drawing.Color.Ivory;
+            resources.ApplyResources(this.exportHistory, "exportHistory");
+            this.exportHistory.Name = "exportHistory";
+            // 
+            // settingsPage
+            // 
+            resources.ApplyResources(this.settingsPage, "settingsPage");
+            this.settingsPage.Name = "settingsPage";
+            this.settingsPage.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -1162,8 +1179,8 @@ namespace RigsterForm
         private System.Windows.Forms.Button exportExcelBtn;
         private Panel collectionPanle;
         private GroupBox groupBox_Adress;
-        private CheckBox checkBox1;
-        private ComboBox comboBox5;
+        private CheckBox AdressCheck;
+        private ComboBox refComboBox;
         private TextBox commAdressTb;
         private TextBox Comm_Road_TextBox;
         private Label label13;
@@ -1264,6 +1281,8 @@ namespace RigsterForm
         private Label label51;
         private Button button2;
         private Button button1;
+        private TabPage exportHistory;
+        private TabPage settingsPage;
     }
 }
 

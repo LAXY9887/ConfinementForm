@@ -28,6 +28,51 @@ namespace RigsterForm
         }
     }
 
+    /** 參考選擇器 **/
+    public class RefPicker : ComboBoxPicker
+    {
+        // 得到 ComboBox
+        public ComboBox refComboBox;
+
+        // 影響目標物
+        public List<Control> targetCtrls;
+
+        // 選項
+        public string[] options;
+
+        // 預設值
+        public string default_value;
+
+        // 建構式
+        public RefPicker(ComboBox refComboBox, string[] opts, string DefaultOption, List<Control> target_ctrls)
+        { 
+            // 設定輸入
+            this.refComboBox = refComboBox;
+            this.options = opts;
+            this.default_value = DefaultOption;
+            this.targetCtrls = target_ctrls;
+
+            // 套用選項和預設值
+            updateOptions(options);
+        }
+
+        // 更新選項
+        public void updateOptions(string[] newOpts)
+        {
+            LoadCBList(refComboBox, newOpts);
+            SetValue(refComboBox, default_value);
+        }
+
+        // 依照選項改變參考項目
+        public void ApplyChoice(List<Control> Ref_Ctrls) 
+        {
+            for (int i = 0; i < Ref_Ctrls.Count; i++)
+            {
+                targetCtrls[i].Text = Ref_Ctrls[i].Text;
+            }
+        }
+    }
+
     /** 日期選擇器 **/
     public class DatePicker : ComboBoxPicker
     {
