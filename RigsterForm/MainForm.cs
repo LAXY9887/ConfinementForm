@@ -16,6 +16,9 @@ namespace RigsterForm
         /** 組件 **/
         #region Components
 
+        /* 系統設置 */
+        private SystemSettings settingCtrl;
+
         /* 使用地址選擇器 */
         private AdressPicker RgisAdressPicker;
         private AdressPicker CommAdressPicker;
@@ -45,9 +48,35 @@ namespace RigsterForm
         public Dictionary<GroupBoxID, string> groupBoxIDNameMatrix;                                  // 組合群組名稱與ID
 
         #endregion
-        
+
         /** Initialization Functions **/
         #region Initialization_Functions
+
+        // 綁定禁用滑鼠滾輪
+        public void BindingMouseWheelFunction()
+        {
+            List<ComboBox> influenced_list = new List<ComboBox>()
+            {
+                refComboBox, Rgis_City_combobox, Comm_City_combobox, Rgis_Country_combobox, Comm_Country_combobox,
+                birthYearCB_0, birthMonthCB_0, birthdayCB_0, search_start_yy,search_start_mm,search_start_dd,
+                search_end_yy,search_end_mm,search_end_dd
+            };
+            foreach (ComboBox cb in influenced_list)
+            {
+                cb.MouseWheel += ComboBox_MouseWheel;
+            }
+        }
+
+        // 處理系統設定相關
+        private void InitializeSettings()
+        {
+            /* 系統設置 */
+            settingCtrl = new SystemSettings();
+
+            /* 設置金額 */
+            int Allowance_per_nb = 8000;
+            settingCtrl.SetAllowancePerNB(Allowance_per_nb);
+        }
 
         // 初始化字典, 組合等等
         public void InitializeMatrices() 
@@ -167,8 +196,8 @@ namespace RigsterForm
                 Comm_Road_TextBox, commAdressTb);
 
             // 使用日期選擇器--篩選起始日期
-            dateFilterPicker_start = new DatePicker(search_start_yy, search_start_mm, search_start_dd, new DateTime(DateTime.Now.Year - 1911, 1, 1));
-            dateFilterPicker_end = new DatePicker(search_end_yy, search_end_mm, search_end_dd, new DateTime(DateTime.Now.Year - 1910, 1, 1));
+            dateFilterPicker_start = new DatePicker(search_start_yy, search_start_mm, search_start_dd, new DateTime(DateTime.Now.Year - 1911, 7, 1));
+            dateFilterPicker_end = new DatePicker(search_end_yy, search_end_mm, search_end_dd, new DateTime(DateTime.Now.Year - 1911, 7, 15));
 
             // 使用參考選擇
             List<Control> targetCtrls = new List<Control>() { textBox_account_name , accountID_tb };
@@ -199,6 +228,9 @@ namespace RigsterForm
             // 初始化區塊
             #region InitializeThings
 
+            // 設置系統
+            InitializeSettings();
+
             // 初始化頁面
             InitializeComponent();
 
@@ -217,8 +249,8 @@ namespace RigsterForm
             // 顯示歷史資料
             InitializeDataGridView();
             LoadJsonToDataGridView(
-                startYear: DateTime.Now.Year, startMonth: 1,
-                endYear: DateTime.Now.Year + 1, endMonth: 1
+                startYear: DateTime.Now.Year, startMonth: 1, startDay:1,
+                endYear: DateTime.Now.Year + 1, endMonth: 1, endDay:1
                 );
 
             // 調整使窗大小
@@ -232,6 +264,9 @@ namespace RigsterForm
 
             // 初始化 CheckBox 控制器
             InitializeCheckBoxControl();
+
+            // 綁定功能
+            BindingMouseWheelFunction();
 
             #endregion
         }
@@ -418,11 +453,14 @@ namespace RigsterForm
 
             // 實體化資料結構
             dataStruct data = new dataStruct(
+                // 審核
+                sensorRes:"未審核",
                 // 流水號與日期
-                year: DateTime.Now.Year - 1911, month: DateTime.Now.Month, serialdx: inputSearialN, serialNumStr: inputSerialNum,
-                FirstLogDate: currentDateTime,RecentEditDate: recentDateTime,
+                year: DateTime.Now.Year - 1911, month: DateTime.Now.Month, day: DateTime.Now.Day, 
+                serialdx: inputSearialN, serialNumStr: inputSerialNum, remitDate:"尚未匯款",
+                FirstLogDate: currentDateTime, RecentEditDate: recentDateTime,
                 // 申請人
-                appName: textBox_apply_name.Text, appID: textBox_apply_IDnumber.Text, appPhones: apply_phones, 
+                appName: textBox_apply_name.Text, appID: textBox_apply_IDnumber.Text, appPhones: apply_phones,
                 // 配偶
                 mateName: textBox_mate_name.Text, mateID: textBox_mate_IDnumber.Text, matePhones: mate_phones,
                 // 委託人
@@ -431,7 +469,9 @@ namespace RigsterForm
                 ac_name: textBox_account_name.Text, ac_ID: accountID_tb.Text, ac_div: textBox_account_divn.Text, ac_number: textBox_account_number.Text,
                 regisAdress: regisAdressTb.Text, cmAdress: commAdressTb.Text,
                 // 新生兒資訊
-                nbName: nbNames, newBornID: newbornID, nbBitrhDate: nbBirthDay
+                nbName: nbNames, newBornID: newbornID, nbBitrhDate: nbBirthDay,
+                //備註
+                note: ""
             );
             return data;
         }
@@ -542,7 +582,7 @@ namespace RigsterForm
             tabControl.Location = new Point((screenWidth - tabControl.Width) / 2, 10);
             LogPage.Size = LogPage.Parent.Size;
             historyPage.Size = historyPage.Parent.Size;
-            historyGridView.Size = new Size((int)(historyGridView.Parent.Width * 0.98), (int)(historyGridView.Parent.Height * 0.82));
+            historyGridView.Size = new Size((int)(historyGridView.Parent.Width * 0.98), (int)(historyGridView.Parent.Height * 0.78));
             collectionPanel1.Location = new Point(collectionPanel1.Parent.Width - collectionPanel1.Width - 50, collectionPanel1.Location.Y);
 
             // 頁簽內容
@@ -588,6 +628,14 @@ namespace RigsterForm
                     newBorn_panels.AddNBButtonClicked(groupBoxInfluenced[GroupBoxID.NewBorn]);                                   // 新增一個版面
                     newBorn_panels.deleteButtons[newBorn_panels.panel_nums - 1].Click += Delete_panel_Btn_Click;              // 將刪除函式綁定到新按鈕上面
                     nb_num_TextBOX.Text = newBorn_panels.panel_nums.ToString();
+                    foreach (Control ctrl in newBorn_panels.panel_list[newBorn_panels.panel_nums - 1].Controls)
+                    {
+                        if (ctrl is ComboBox)
+                        {
+                            ComboBox cb = ctrl as ComboBox;
+                            cb.MouseWheel += ComboBox_MouseWheel;
+                        }
+                    }
                     UpdateRefComboBox(); // 更新參考選項
                     break;
             }
@@ -969,6 +1017,16 @@ namespace RigsterForm
             textBox_query_IDnumber.Text = choosenRecords.query_id;              // 委託人身分證
             query_relation.Text = choosenRecords.query_relation;                       // 委託人與產婦關係
 
+            /** 載入地址 **/
+            Rgis_City_combobox.Text = "---";
+            Comm_City_combobox.Text = "---";
+            Rgis_Country_combobox.Text = "---";
+            Comm_Country_combobox.Text = "---";
+            Rgis_Road_TextBox.Text = "";
+            Comm_Road_TextBox.Text = "";
+            regisAdressTb.Text = choosenRecords.regis_Adress;
+            commAdressTb.Text = choosenRecords.comm_Adress;
+
             /** 加入郵局匯款資訊 **/
             textBox_account_name.Text = choosenRecords.account_name;            // 受款人
             accountID_tb.Text = choosenRecords.account_ID;                                    // 受款人身分證
@@ -1078,22 +1136,10 @@ namespace RigsterForm
         /** 載入歷史資料功能 **/
         #region HistoryPage Functions
 
-        // 自訂義checkbox大小
-        private void dataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        // 禁用滾輪
+        public void ComboBox_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (e.ColumnIndex == historyGridView.Columns["ApprovedCheckColunm"].Index && e.RowIndex >= 0)
-            {
-                e.PaintBackground(e.ClipBounds, true);
-
-                Rectangle rect = e.CellBounds;
-                int checkBoxSize = 30; // 设定复选框的大小
-                Point location = new Point((rect.Width - checkBoxSize) / 2, (rect.Height - checkBoxSize) / 2);
-
-                ControlPaint.DrawCheckBox(e.Graphics, rect.X + location.X, rect.Y + location.Y, checkBoxSize, checkBoxSize,
-                    Convert.ToBoolean(e.Value) ? ButtonState.Checked : ButtonState.Normal);
-
-                e.Handled = true;
-            }
+            ((HandledMouseEventArgs)e).Handled = true; // 禁用鼠标滚轮事件
         }
 
         // 初始化 DataGridView
@@ -1101,34 +1147,35 @@ namespace RigsterForm
         {
             // 添加按钮列
             DataGridViewButtonColumn btnCol1 = new DataGridViewButtonColumn();
-            btnCol1.HeaderText = "詳細";
+            btnCol1.HeaderText = "";
             btnCol1.Name = "examDetailBTN";
             btnCol1.Text = "檢視";
             btnCol1.UseColumnTextForButtonValue = true;
             historyGridView.Columns.Add(btnCol1);
 
             DataGridViewButtonColumn btnCol2 = new DataGridViewButtonColumn();
-            btnCol2.HeaderText = "修改資料";
+            btnCol2.HeaderText = "";
             btnCol2.Name = "editDataBTN";
             btnCol2.Text = "修改";
             btnCol2.UseColumnTextForButtonValue = true;
             historyGridView.Columns.Add(btnCol2);
 
             DataGridViewButtonColumn btnCol3 = new DataGridViewButtonColumn();
-            btnCol3.HeaderText = "刪除資料";
+            btnCol3.HeaderText = "";
             btnCol3.Name = "deleteDataBTN";
             btnCol3.Text = "刪除";
             btnCol3.UseColumnTextForButtonValue = true;
             historyGridView.Columns.Add(btnCol3);
 
-            DataGridViewCheckBoxColumn btnCol4 = new DataGridViewCheckBoxColumn();
-            btnCol4.HeaderText = "審核通過";
-            btnCol4.Name = "ApprovedCheckColunm";
+            DataGridViewButtonColumn btnCol4 = new DataGridViewButtonColumn();
+            btnCol4.HeaderText = "";
+            btnCol4.Name = "ApprovedColunm";
+            btnCol4.Text = "審核";
+            btnCol4.UseColumnTextForButtonValue = true;
             historyGridView.Columns.Add(btnCol4);
 
             // 添加按钮列的点击事件
             historyGridView.CellClick += historyGridView_CellClick;
-            historyGridView.CellPainting += dataGridView_CellPainting;
         }
 
         // 檢視詳細資料
@@ -1151,6 +1198,8 @@ namespace RigsterForm
                 $"\n\t申請人(孕婦)姓名:    {choosenRecords.apply_name}\t\t申請人身分證:\t{choosenRecords.apply_id}\n" +
                 $"\n\t申請人聯絡電話:    {string.Join(" , ", choosenRecords.apply_phones)}\n" +
                 $"\n\t受款人:    {choosenRecords.account_name}    身分證:{choosenRecords.account_ID}     郵局帳號:    {choosenRecords.account_div}{choosenRecords.account_number}\n" +
+                $"\n\t戶籍地址:    {choosenRecords.regis_Adress}\n" +
+                $"\n\t通訊地址:    {choosenRecords.comm_Adress}\n" +
                 $"\n  *  ============================ 配偶  ===========================  *\n" +
                 $"\n\t配偶姓名:    {choosenRecords.mate_name}\t\t配偶身分證:\t{choosenRecords.mate_id}\n" +
                 $"\n\t配偶聯絡電話:    {string.Join(" , ", choosenRecords.mate_phones)}\n" +
@@ -1199,9 +1248,9 @@ namespace RigsterForm
                     if (isValidate)
                     {
                         LoadJsonToDataGridView(
-                       startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
-                       endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
-                       );
+                           startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),startDay: Int32.Parse(search_start_dd.Text),
+                           endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text),endDay: Int32.Parse(search_end_dd.Text)
+                           );
                     }
                 }
                 catch (InvalidOperationException)
@@ -1255,7 +1304,7 @@ namespace RigsterForm
             // 受影響之ComboBox
             List<ComboBox> influencedBox = new List<ComboBox>
             {
-                search_start_yy, search_start_mm, search_end_yy, search_end_mm
+                search_start_yy, search_start_mm, search_start_dd, search_end_yy, search_end_mm, search_end_dd
             };
 
             if (tabControl != null)
@@ -1276,9 +1325,9 @@ namespace RigsterForm
                     if (isValidate)
                     {
                         LoadJsonToDataGridView(
-                        startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
-                        endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
-                        );
+                           startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text), startDay: Int32.Parse(search_start_dd.Text),
+                           endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
+                           );
                     }
                 }
                 else
@@ -1293,11 +1342,143 @@ namespace RigsterForm
             }
         }
 
-        /** 
-         * 
-         * 以下要修改
-         * 
-         * **/
+        #endregion
+
+        /** 歷史資料篩選功能 **/
+        #region DataFiltering Functions
+
+        // 處理資料篩選(日期)
+        private List<string> DateFiltering(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, List<dataStruct> Recs)
+        {
+            List<string> target_serial_num = new List<string>();
+
+            //  篩選日期
+            if (startYear == endYear)
+            {
+                foreach (dataStruct data in Recs)
+                {
+                    if (data.login_year == startYear)
+                    {
+                        if (startMonth == endMonth)
+                        {
+                            if (data.login_month == startMonth)
+                            {
+                                if (data.login_day >= startDay && data.login_day <= endDay)
+                                {
+                                    target_serial_num.Add(data.serial_num);
+                                }
+                            }
+                        }
+                        else if (startMonth < endMonth)
+                        {
+                            if (data.login_month > startMonth && data.login_month < endMonth)
+                            {
+                                target_serial_num.Add(data.serial_num);
+                            }
+                            else if (data.login_month == startMonth)
+                            {
+                                if (data.login_day >= startDay)
+                                {
+                                    target_serial_num.Add(data.serial_num);
+                                }
+                            }
+                            else if (data.login_month == endMonth)
+                            {
+                                if (data.login_day <= endDay)
+                                {
+                                    target_serial_num.Add(data.serial_num);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (startYear < endYear)
+            {
+                foreach (dataStruct data in Recs)
+                {
+                    if (data.login_year > startYear && data.login_year < endYear)
+                    {
+                        target_serial_num.Add(data.serial_num);
+                    }
+                    else if (data.login_year == startYear)
+                    {
+                        if (data.login_month > startMonth)
+                        {
+                            target_serial_num.Add(data.serial_num);
+                        }
+                        else if (data.login_month == startMonth)
+                        {
+                            if (data.login_day >= startDay)
+                            {
+                                target_serial_num.Add(data.serial_num);
+                            }
+                        }
+                    }
+                    else if (data.login_year == endYear)
+                    {
+                        if (data.login_month < endMonth)
+                        {
+                            target_serial_num.Add(data.serial_num);
+                        }
+                        else if (data.login_month == endMonth)
+                        {
+                            if (data.login_day <= endDay)
+                            {
+                                target_serial_num.Add(data.serial_num);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return target_serial_num;
+        }
+
+        // 加入資料標題
+        private void UpdateHistoryGridView(DataGridView dataGridView, List<dataStruct> data)
+        {
+            // Apply data
+            List<ExportRecord> display = data.Select(
+                record => new ExportRecord
+                {
+                    SensorRes = record.sensor_result,
+                    Serial_num = record.serial_num,
+                    firstLoginDate = record.First_Login_Date,
+                    recentEditDate = record.Recent_Edit_Date,
+                    remitDate = record.remit_date,
+                    apply_name = record.apply_name,
+                    apply_id = record.apply_id,
+                    newBornID = string.Join(",", record.newBorn_id),
+                    newBornNames = string.Join(",", record.newBorn_name),
+                    account_name = record.account_name,
+                    accound_ID = record.account_ID,
+                    account_div = record.account_div,
+                    account_num = record.account_number,
+                    allowance = record.newBorn_name.Count * settingCtrl.allowance_per_nb,
+                    note = record.notes
+                }).ToList();
+
+            // 将数据绑定到 DataGridView
+            dataGridView.DataSource = display;
+
+            // 自定義欄位名稱
+            dataGridView.Columns["SensorRes"].HeaderText = "審核結果";
+            dataGridView.Columns["Serial_num"].HeaderText = "流水號";
+            dataGridView.Columns["firstLoginDate"].HeaderText = "初次登錄";
+            dataGridView.Columns["recentEditDate"].HeaderText = "最近修改";
+            dataGridView.Columns["remitDate"].HeaderText = "匯款日期";
+            dataGridView.Columns["apply_name"].HeaderText = "申請人(孕婦)";
+            dataGridView.Columns["apply_id"].HeaderText = "申請人身分證";
+            dataGridView.Columns["newBornID"].HeaderText = "新生兒身分證";
+            dataGridView.Columns["newBornNames"].HeaderText = "新生兒名字";
+            dataGridView.Columns["account_name"].HeaderText = "受款人";
+            dataGridView.Columns["accound_ID"].HeaderText = "受款人身分證";
+            dataGridView.Columns["account_div"].HeaderText = "郵局局號";
+            dataGridView.Columns["account_num"].HeaderText = "郵局帳號";
+            dataGridView.Columns["allowance"].HeaderText = "補助金額";
+            dataGridView.Columns["note"].HeaderText = "備註";
+        }
 
         // 處理搜索日期改變的事件
         public void SearchDate_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1306,129 +1487,68 @@ namespace RigsterForm
 
             // 登錄日期
             List<ComboBox> search_date_cb = new List<ComboBox> {
-                search_start_yy, search_start_mm, search_end_yy, search_end_mm
+                search_start_yy, search_start_mm, search_start_dd, search_end_yy, search_end_mm, search_end_dd
             };
 
             if (search_date_cb.Contains(target))
             {
                 // 顯示更新的歷史資料
-                List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
+                List<string> list2check = new List<string> { 
+                    search_start_yy.Text, search_start_mm.Text, search_start_dd.Text, search_end_yy.Text, search_end_mm.Text, search_end_dd.Text
+                };
                 bool isValidate = list2check.All(c => c.Length > 0);
                 if (isValidate)
                 {
 
                     if (Int32.Parse(search_start_yy.Text) > Int32.Parse(search_end_yy.Text))
                     {
-                        search_end_yy.Text = (Int32.Parse(search_start_yy.Text) + 1).ToString();
+                        search_end_yy.Text = (Int32.Parse(search_start_yy.Text)).ToString();
                         search_end_mm.Text = 1.ToString();
+                        search_end_dd.Text = 15.ToString();
                     }
                     else if (Int32.Parse(search_start_yy.Text) == Int32.Parse(search_end_yy.Text) && Int32.Parse(search_start_mm.Text) > Int32.Parse(search_end_mm.Text))
                     {
-                        search_end_mm.Text = (Int32.Parse(search_start_mm.Text) + 1).ToString();
+                        search_end_mm.Text = (Int32.Parse(search_start_mm.Text)+1).ToString();
+                        search_end_dd.Text = 1.ToString();
+                    }
+                    else if (Int32.Parse(search_start_yy.Text) == Int32.Parse(search_end_yy.Text) && Int32.Parse(search_start_mm.Text) == Int32.Parse(search_end_mm.Text) 
+                        && Int32.Parse(search_start_dd.Text) > Int32.Parse(search_end_dd.Text))
+                    {
+                        search_end_mm.Text = (Int32.Parse(search_start_mm.Text)).ToString();
+                        search_end_dd.Text = 31.ToString();
                     }
 
                     LoadJsonToDataGridView(
-                    startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
-                    endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
-                    );
+                       startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text), startDay: Int32.Parse(search_start_dd.Text),
+                       endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
+                       );
 
                 }
             }
         }
 
-        private void LoadJsonToDataGridView(int startYear, int startMonth, int endYear, int endMonth)
+        // 載入顯示資訊到DataGridView
+        private void LoadJsonToDataGridView(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay)
         {
             if (File.Exists(ConstParameters.database_path))
             {
                 try
                 {
-                    // 讀取 JSON 文件内容
-                    string jsonContent = File.ReadAllText(ConstParameters.database_path);
-
                     // 反序列化 JSON 内容為對象列表
-                    List<dataStruct> records = JsonConvert.DeserializeObject<List<dataStruct>>(jsonContent);
-
-                    // 條件篩選
-                    List<string> target_serial_num = new List<string>();
+                    List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
 
                     // 篩選日期
-                    if (startYear == endYear)
-                    {
-                        foreach (dataStruct data in records)
-                        {
-                            if (data.login_year == startYear)
-                            {
-                                if (data.login_month >= startMonth && data.login_month <= endMonth)
-                                {
-                                    target_serial_num.Add(data.serial_num);
-                                }
-                            }
-                        }
-                    }
-                    else if (startYear < endYear)
-                    {
-                        foreach (dataStruct data in records)
-                        {
-                            if (data.login_year > startYear & data.login_year < endYear)
-                            {
-                                target_serial_num.Add(data.serial_num);
-                            }
-                            else if (data.login_year == startYear)
-                            {
-                                if (data.login_month >= startMonth)
-                                {
-                                    target_serial_num.Add(data.serial_num);
-                                }
-                            }
-                            else if (data.login_year == endYear)
-                            {
-                                if (data.login_month <= endMonth)
-                                {
-                                    target_serial_num.Add(data.serial_num);
-                                }
-                            }
-                        }
-                    }
+                    List<string> target_serial_num = DateFiltering(startYear, startMonth, startDay, endYear, endMonth, endDay, records);
 
-                    // 將數組轉換為字串
-                    var displayRecords = records.Where(
-                        record => target_serial_num.Contains(record.serial_num)
-                        ).Select(record => new DisplayRecord
-                    {
-                        // 決定要顯示的內容
-                        Serial_num = record.serial_num,
-                        firstLoginDate = record.First_Login_Date,
-                        recentEditDate = record.Recent_Edit_Date,
-                        apply_name = record.apply_name,
-                        apply_id = record.apply_id,
-                        apply_phones = string.Join(", ", record.apply_phones), // 多個
-                        account_name = record.account_name,
-                        account_full_number = record.account_div + record.account_number,
-                        newBorn_num = record.newBorn_name.Count,
-                        newBorn_names = string.Join(", ", record.newBorn_name),
-                        newBorn_IDs = string.Join(", ", record.newBorn_id)
-                    }).ToList();
+                    // 將數組轉換為字串 (依照日期篩選)
+                    List<dataStruct> displayRecords = records.Where(record => target_serial_num.Contains(record.serial_num)).ToList();
 
-                    // 将数据绑定到 DataGridView
-                    historyGridView.DataSource = displayRecords;
-
-                    // 自定義欄位名稱
-                    historyGridView.Columns["Serial_num"].HeaderText = "流水號";
-                    historyGridView.Columns["firstLoginDate"].HeaderText = "初次登錄";
-                    historyGridView.Columns["recentEditDate"].HeaderText = "最近修改";
-                    historyGridView.Columns["apply_name"].HeaderText = "申請人(孕婦)";
-                    historyGridView.Columns["apply_id"].HeaderText = "申請人身分證";
-                    historyGridView.Columns["apply_phones"].HeaderText = "連絡電話";
-                    historyGridView.Columns["account_name"].HeaderText = "郵局戶名";
-                    historyGridView.Columns["account_full_number"].HeaderText = "郵局帳號";
-                    historyGridView.Columns["apply_give_birth_date"].HeaderText = "孕婦生產日期";
-                    historyGridView.Columns["newBorn_num"].HeaderText = "生產胎數";
-                    historyGridView.Columns["newBorn_names"].HeaderText = "新生兒名字";
-                    historyGridView.Columns["newBorn_IDs"].HeaderText = "新生兒身分證";
+                    // 應用變更
+                    UpdateHistoryGridView(historyGridView, displayRecords);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error reading JSON file: {ex.Message}","錯誤",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show($"Error reading JSON file: {ex.StackTrace}","錯誤",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
             else
@@ -1437,35 +1557,7 @@ namespace RigsterForm
             }
         }
 
-        // 顯示用的數據結構
-        public class DisplayRecord
-        {
-            // 流水號
-            public string Serial_num { get; set; }
-            // 初次登入日期
-            public string firstLoginDate {  get; set; }
-            // 最近修改日期
-            public string recentEditDate { get; set; }
-            // 申請人(孕婦)
-            public string apply_name { get; set; }
-            // 申請人(孕婦)身分證
-            public string apply_id { get; set; }
-            // 生產日期
-            public string apply_give_birth_date { get; set; }
-            // 申請人連絡電話
-            public string apply_phones { get; set; }
-            // 郵局戶名
-            public string account_name { get; set; }
-            // 郵局局號+帳號
-            public string account_full_number { get; set; }
-            //小孩數量
-            public int newBorn_num { get; set; }
-            // 小孩名字
-            public string newBorn_names { get; set; }
-            // 小孩身分證
-            public string newBorn_IDs { get; set; }
-        }
-
+        // 搜尋身分證的按鈕功能
         private void IDsearchBtn_Click(object sender, EventArgs e)
         {
             // 載入資料庫
@@ -1482,42 +1574,13 @@ namespace RigsterForm
             }
 
             // 將數組轉換為字串
-            var displayRecords = records.Where(
-                record => record.apply_id == idText || record.query_id == idText || record.newBorn_id.Contains(idText)
-                ).Select(record => new DisplayRecord
-                {
-                    // 決定要顯示的內容
-                    Serial_num = record.serial_num,
-                    firstLoginDate = record.First_Login_Date,
-                    recentEditDate = record.Recent_Edit_Date,
-                    apply_name = record.apply_name,
-                    apply_id = record.apply_id,
-                    apply_phones = string.Join(", ", record.apply_phones), // 多個
-                    account_name = record.account_name,
-                    account_full_number = record.account_div + record.account_number,
-                    newBorn_num = record.newBorn_name.Count,
-                    newBorn_names = string.Join(", ", record.newBorn_name),
-                    newBorn_IDs = string.Join(", ", record.newBorn_id)
-                }).ToList();
-
-            // 将数据绑定到 DataGridView
-            historyGridView.DataSource = displayRecords;
-
-            // 自定義欄位名稱
-            historyGridView.Columns["Serial_num"].HeaderText = "流水號";
-            historyGridView.Columns["firstLoginDate"].HeaderText = "初次登錄";
-            historyGridView.Columns["recentEditDate"].HeaderText = "最近修改";
-            historyGridView.Columns["apply_name"].HeaderText = "申請人(孕婦)";
-            historyGridView.Columns["apply_id"].HeaderText = "申請人身分證";
-            historyGridView.Columns["apply_phones"].HeaderText = "連絡電話";
-            historyGridView.Columns["account_name"].HeaderText = "郵局戶名";
-            historyGridView.Columns["account_full_number"].HeaderText = "郵局帳號";
-            historyGridView.Columns["apply_give_birth_date"].HeaderText = "孕婦生產日期";
-            historyGridView.Columns["newBorn_num"].HeaderText = "生產胎數";
-            historyGridView.Columns["newBorn_names"].HeaderText = "新生兒名字";
-            historyGridView.Columns["newBorn_IDs"].HeaderText = "新生兒身分證";
+            List<dataStruct> displayRecords = records.Where(record => record.apply_id == idText || record.query_id == idText || record.newBorn_id.Contains(idText)).ToList();
+        
+            // 應用變更
+            UpdateHistoryGridView(historyGridView, displayRecords);
         }
 
+        // 清除搜尋按鈕功能
         private void clearSearchBtn_Click(object sender, EventArgs e)
         {
             IDsearchBOX.Clear();
@@ -1526,12 +1589,15 @@ namespace RigsterForm
             if (isValidate)
             {
                 LoadJsonToDataGridView(
-                    startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text),
-                    endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text)
-                    );
+                       startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text), startDay: Int32.Parse(search_start_dd.Text),
+                       endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
+                       );
             }
         }
 
+        #endregion
+
+        // 輸出Excel的功能
         private void exportExcelBtn_Click(object sender, EventArgs e)
         {
             // 讀取資料庫
@@ -1572,6 +1638,7 @@ namespace RigsterForm
             
         }
 
+        // 存檔對話視窗
         private static string ShowSaveFileDialog()
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -1593,7 +1660,6 @@ namespace RigsterForm
             return null;
         }
 
-        #endregion
     }
 }
 

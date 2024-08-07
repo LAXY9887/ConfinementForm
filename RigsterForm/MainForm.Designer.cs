@@ -134,6 +134,14 @@ namespace RigsterForm
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.historyPage = new System.Windows.Forms.TabPage();
+            this.collectionPanel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.clearSearchBtn = new System.Windows.Forms.Button();
+            this.IDsearchBtn = new System.Windows.Forms.Button();
+            this.IDsearchBOX = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.exportExcelBtn = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.search_end_dd = new System.Windows.Forms.ComboBox();
             this.search_start_dd = new System.Windows.Forms.ComboBox();
@@ -152,14 +160,6 @@ namespace RigsterForm
             this.historyGridView = new System.Windows.Forms.DataGridView();
             this.exportHistory = new System.Windows.Forms.TabPage();
             this.settingsPage = new System.Windows.Forms.TabPage();
-            this.collectionPanel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.clearSearchBtn = new System.Windows.Forms.Button();
-            this.IDsearchBtn = new System.Windows.Forms.Button();
-            this.IDsearchBOX = new System.Windows.Forms.TextBox();
-            this.label51 = new System.Windows.Forms.Label();
-            this.exportExcelBtn = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.collectionPanle.SuspendLayout();
@@ -177,8 +177,8 @@ namespace RigsterForm
             this.groupBox_apply.SuspendLayout();
             this.a_phone_pannel_0.SuspendLayout();
             this.historyPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.historyGridView)).BeginInit();
             this.collectionPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.historyGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -306,6 +306,8 @@ namespace RigsterForm
             // 
             // Comm_City_combobox
             // 
+            this.Comm_City_combobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.Comm_City_combobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.Comm_City_combobox.DropDownHeight = 600;
             resources.ApplyResources(this.Comm_City_combobox, "Comm_City_combobox");
             this.Comm_City_combobox.FormattingEnabled = true;
@@ -369,6 +371,8 @@ namespace RigsterForm
             // 
             // Rgis_City_combobox
             // 
+            this.Rgis_City_combobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.Rgis_City_combobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.Rgis_City_combobox.DropDownHeight = 600;
             resources.ApplyResources(this.Rgis_City_combobox, "Rgis_City_combobox");
             this.Rgis_City_combobox.FormattingEnabled = true;
@@ -947,6 +951,63 @@ namespace RigsterForm
             this.historyPage.Name = "historyPage";
             this.historyPage.UseVisualStyleBackColor = true;
             // 
+            // collectionPanel1
+            // 
+            this.collectionPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.collectionPanel1.Controls.Add(this.button2);
+            this.collectionPanel1.Controls.Add(this.button1);
+            this.collectionPanel1.Controls.Add(this.clearSearchBtn);
+            this.collectionPanel1.Controls.Add(this.IDsearchBtn);
+            this.collectionPanel1.Controls.Add(this.IDsearchBOX);
+            this.collectionPanel1.Controls.Add(this.label51);
+            this.collectionPanel1.Controls.Add(this.exportExcelBtn);
+            resources.ApplyResources(this.collectionPanel1, "collectionPanel1");
+            this.collectionPanel1.Name = "collectionPanel1";
+            // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // clearSearchBtn
+            // 
+            resources.ApplyResources(this.clearSearchBtn, "clearSearchBtn");
+            this.clearSearchBtn.Name = "clearSearchBtn";
+            this.clearSearchBtn.UseVisualStyleBackColor = true;
+            this.clearSearchBtn.Click += new System.EventHandler(this.clearSearchBtn_Click);
+            // 
+            // IDsearchBtn
+            // 
+            resources.ApplyResources(this.IDsearchBtn, "IDsearchBtn");
+            this.IDsearchBtn.Name = "IDsearchBtn";
+            this.IDsearchBtn.UseVisualStyleBackColor = true;
+            this.IDsearchBtn.Click += new System.EventHandler(this.IDsearchBtn_Click);
+            // 
+            // IDsearchBOX
+            // 
+            resources.ApplyResources(this.IDsearchBOX, "IDsearchBOX");
+            this.IDsearchBOX.Name = "IDsearchBOX";
+            // 
+            // label51
+            // 
+            resources.ApplyResources(this.label51, "label51");
+            this.label51.ForeColor = System.Drawing.Color.Black;
+            this.label51.Name = "label51";
+            // 
+            // exportExcelBtn
+            // 
+            resources.ApplyResources(this.exportExcelBtn, "exportExcelBtn");
+            this.exportExcelBtn.Name = "exportExcelBtn";
+            this.exportExcelBtn.UseVisualStyleBackColor = true;
+            this.exportExcelBtn.Click += new System.EventHandler(this.exportExcelBtn_Click);
+            // 
             // label16
             // 
             resources.ApplyResources(this.label16, "label16");
@@ -1065,60 +1126,6 @@ namespace RigsterForm
             this.settingsPage.Name = "settingsPage";
             this.settingsPage.UseVisualStyleBackColor = true;
             // 
-            // collectionPanel1
-            // 
-            this.collectionPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.collectionPanel1.Controls.Add(this.button2);
-            this.collectionPanel1.Controls.Add(this.button1);
-            this.collectionPanel1.Controls.Add(this.clearSearchBtn);
-            this.collectionPanel1.Controls.Add(this.IDsearchBtn);
-            this.collectionPanel1.Controls.Add(this.IDsearchBOX);
-            this.collectionPanel1.Controls.Add(this.label51);
-            this.collectionPanel1.Controls.Add(this.exportExcelBtn);
-            resources.ApplyResources(this.collectionPanel1, "collectionPanel1");
-            this.collectionPanel1.Name = "collectionPanel1";
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // clearSearchBtn
-            // 
-            resources.ApplyResources(this.clearSearchBtn, "clearSearchBtn");
-            this.clearSearchBtn.Name = "clearSearchBtn";
-            this.clearSearchBtn.UseVisualStyleBackColor = true;
-            // 
-            // IDsearchBtn
-            // 
-            resources.ApplyResources(this.IDsearchBtn, "IDsearchBtn");
-            this.IDsearchBtn.Name = "IDsearchBtn";
-            this.IDsearchBtn.UseVisualStyleBackColor = true;
-            // 
-            // IDsearchBOX
-            // 
-            resources.ApplyResources(this.IDsearchBOX, "IDsearchBOX");
-            this.IDsearchBOX.Name = "IDsearchBOX";
-            // 
-            // label51
-            // 
-            resources.ApplyResources(this.label51, "label51");
-            this.label51.ForeColor = System.Drawing.Color.Black;
-            this.label51.Name = "label51";
-            // 
-            // exportExcelBtn
-            // 
-            resources.ApplyResources(this.exportExcelBtn, "exportExcelBtn");
-            this.exportExcelBtn.Name = "exportExcelBtn";
-            this.exportExcelBtn.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -1159,11 +1166,16 @@ namespace RigsterForm
             this.a_phone_pannel_0.PerformLayout();
             this.historyPage.ResumeLayout(false);
             this.historyPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.historyGridView)).EndInit();
             this.collectionPanel1.ResumeLayout(false);
             this.collectionPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.historyGridView)).EndInit();
             this.ResumeLayout(false);
 
+        }
+
+        private void IDsearchBtn_Click1(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

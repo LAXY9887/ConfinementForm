@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckBoxController.cs" />
+    <Compile Include="SystemSettings.cs" />
     <Compile Include="ConstParameters.cs" />
     <Compile Include="districtStruct.cs" />
     <Compile Include="dataStruct.cs" />

@@ -1,11 +1,15 @@
 [
 {
   "login_year": 113,
-  "login_month": 1,
+  "login_month": 7,
+  "login_day": 20,
   "serial_index": 0,
   "First_Login_Date": "113-07-20",
   "Recent_Edit_Date": "113-07-20",
+  "notes": "這是範例",
+  "sensor_result":"未審核",
   "serial_num": "113-0",
+  "remit_date": "尚未匯款",
   "apply_name": "示範人",
   "apply_id": "A000000000",
   "apply_phones": [
@@ -35,10 +39,10 @@
 	"113-1-1"
   ],
   "account_name": "新生兒1",
-  "account_ID": "C000000000",
+  "account_ID": "Q000000000",
   "account_div": "0080000",
   "account_number": "0040000",
-  "regis_Adress": "彰化縣和美鎮XX里OO路123號",
-  "comm_Adress": "彰化縣和美鎮XX里OO路123號"
+  "regis_Adress": "彰化縣和美鎮OO里XX路123號",
+  "comm_Adress": "彰化縣和美鎮OO里XX路123號"
 },
 ]

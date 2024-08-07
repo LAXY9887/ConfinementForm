@@ -370,9 +370,6 @@ namespace RigsterForm
                 Panel panel2Delete = panel_list[0];
                 DeleteButtonClicked(panel2Delete, controlsList);
             }
-
-            // 初始化剩下一個的內容
-
         }
 
         // 根據資料庫內容加入電話, 用於修改舊資料模式

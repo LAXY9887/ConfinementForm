@@ -80,143 +80,57 @@ namespace RigsterForm
             return Str_current_date;
         }
 
-        /**
-             * 
-             *  以下待改
-             * 
-        **/
-
-        // 設定下拉式選單的數值
-        public void InitializeComboBoxDistrict(ComboBox comboBox, List<string> items, string defaultValue)
-        {
-            // 清空 ComboBox 项目
-            comboBox.Items.Clear();
-
-            // 添加数字到 ComboBox
-            foreach (string item in items)
-            {
-                comboBox.Items.Add(item);
-            }
-
-            // 设置默认值
-            comboBox.Text = defaultValue;
-        }
-
-        // 設定下拉式選單的數值
-        public void InitializeComboBox(ComboBox comboBox, int start, int end, int defaultValue)
-        {
-            // 清空 ComboBox 项目
-            comboBox.Items.Clear();
-
-            // 添加数字到 ComboBox
-            for (int i = start; i <= end; i++)
-            {
-                comboBox.Items.Add(i);
-            }
-
-            // 设置默认值
-            comboBox.SelectedItem = defaultValue;
-        }
-
         // 輸出Excel
         public void exportExcel(string database_path, string excelFilePath, List<string> serial_num_selection) 
         {
-            // 讀取 JSON 文件内容
-            string jsonContent = File.ReadAllText(database_path);
+            // 資料
+            List<string> items = new List<string>()
+            {
+                "流水號", "案件登錄日期", "審核結果", "匯款日期","申請人(產婦)", "申請人身分證", "新生兒姓名", "新生兒身分證",
+                "受款人", "受款人身分證", "郵局局號", "郵局帳號","補助金額","備註"
+            };
 
-            // 反序列化 JSON 内容為對象列表
-            List<dataStruct> records = JsonConvert.DeserializeObject<List<dataStruct>>(jsonContent);
+            // Matrix
+            Dictionary<string, int> matrix = new Dictionary<string, int>();
+            for (int i = 0; i < items.Count; i++)
+            {
+                matrix.Add(items[i], i + 1);
+            }
+
+            // 讀取 JSON 文件内容
+            List<dataStruct> records = ReadDatabase(ConstParameters.database_path);
 
             using (var package = new ExcelPackage()) 
             {
                 var worksheet = package.Workbook.Worksheets.Add("輸出");
 
-                int columnIdx = 1;
+                int columnIdx = 1; 
 
                 if (records != null && records.Count > 0)
                 {
-                        // 標題
-                       worksheet.Cells[columnIdx, 1].Value = "流水號";
-                       worksheet.Cells[columnIdx, 2].Value = "初次登錄";
-                       worksheet.Cells[columnIdx, 3].Value = "最近修改";
-                       worksheet.Cells[columnIdx, 4].Value = "申請人(孕婦)";
-                       worksheet.Cells[columnIdx, 5].Value = "申請人身分證";
-                       worksheet.Cells[columnIdx, 6].Value = "申請人出生日期";
-                       worksheet.Cells[columnIdx, 7].Value = "申請人聯絡電話";
-                       worksheet.Cells[columnIdx, 8].Value = "郵局戶名";
-                       worksheet.Cells[columnIdx, 9].Value = "郵局局號";
-                       worksheet.Cells[columnIdx, 10].Value = "郵局帳號";
-                       worksheet.Cells[columnIdx, 11].Value = "生產胎數";
-                       worksheet.Cells[columnIdx, 12].Value = "補助金額";
-                       worksheet.Cells[columnIdx, 13].Value = "申請人戶籍地址";
-                       worksheet.Cells[columnIdx, 14].Value = "申請人聯絡地址";
-                       worksheet.Cells[columnIdx, 15].Value = "生產日期";
-                       worksheet.Cells[columnIdx, 16].Value = "配偶";
-                       worksheet.Cells[columnIdx, 17].Value = "配偶身分證";
-                       worksheet.Cells[columnIdx, 18].Value = "配偶出生日期";
-                       worksheet.Cells[columnIdx, 19].Value = "配偶聯絡電話";
-                       worksheet.Cells[columnIdx, 20].Value = "配偶戶籍地址";
-                       worksheet.Cells[columnIdx, 21].Value = "配偶聯絡地址";
-                       worksheet.Cells[columnIdx, 22].Value = "委託人";
-                       worksheet.Cells[columnIdx, 23].Value = "委託人身分證";
-                       worksheet.Cells[columnIdx, 24].Value = "與產婦關係";
-                       worksheet.Cells[columnIdx, 25].Value = "委託人聯絡電話";
-                       worksheet.Cells[columnIdx, 26].Value = "委託人戶籍地址";
-                       worksheet.Cells[columnIdx, 27].Value = "委託人聯絡地址";
-                       worksheet.Cells[columnIdx, 28].Value = "新生兒";
-                       worksheet.Cells[columnIdx, 29].Value = "新生兒身分證";
-                       worksheet.Cells[columnIdx, 30].Value = "新生兒出生日期";
-                       worksheet.Cells[columnIdx, 31].Value = "新生兒戶籍地";
-                       columnIdx ++;
+                    // 標題
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        worksheet.Cells[columnIdx, i+1].Value = items[i]; 
+                    }
 
-                    // 寫入數據
+                    columnIdx++;
+
+                    // 寫入數據 (跳過第一筆範例)
                     for (int i = 1; i < records.Count; i++)
                     {
                         if (serial_num_selection.Contains(records[i].serial_num))
                         {
-                            worksheet.Cells[columnIdx, 1].Value = records[i].serial_num;
-                            worksheet.Cells[columnIdx, 2].Value = records[i].First_Login_Date;
-                            worksheet.Cells[columnIdx, 3].Value = records[i].Recent_Edit_Date;
-                            worksheet.Cells[columnIdx, 4].Value = records[i].apply_name;
-                            worksheet.Cells[columnIdx, 5].Value = records[i].apply_id;
-
-                            string app_phones = string.Join(" , ", records[i].apply_phones);
-                            worksheet.Cells[columnIdx, 7].Value = app_phones;
-                            worksheet.Cells[columnIdx, 8].Value = records[i].account_name;
-                            worksheet.Cells[columnIdx, 9].Value = records[i].account_div;
-                            worksheet.Cells[columnIdx, 10].Value = records[i].account_number;
-
-                            int nbCount = records[i].newBorn_name.Count;
-                            int amount = nbCount * 8000;
-                            worksheet.Cells[columnIdx, 11].Value = nbCount;
-                            worksheet.Cells[columnIdx, 12].Value = amount;
-                            worksheet.Cells[columnIdx, 16].Value = records[i].mate_name;
-                            worksheet.Cells[columnIdx, 17].Value = records[i].mate_id;
-
-                            string mate_phones = string.Join(" , ", records[i].mate_phones);
-                            worksheet.Cells[columnIdx, 19].Value = mate_phones;
-                            worksheet.Cells[columnIdx, 22].Value = records[i].query_name;
-                            worksheet.Cells[columnIdx, 23].Value = records[i].query_id;
-                            worksheet.Cells[columnIdx, 24].Value = records[i].query_relation;
-
-                            string query_phones = string.Join(" , ", records[i].query_phones);
-                            worksheet.Cells[columnIdx, 25].Value = query_phones;
-
-                            string nbNames = string.Join(" , ", records[i].newBorn_name);
-                            string nbID = string.Join(" , ", records[i].newBorn_id);
-                            string nbBitrhDay = string.Join(" , ", records[i].newbornBitrhDate);
-                            worksheet.Cells[columnIdx, 28].Value = nbNames;
-                            worksheet.Cells[columnIdx, 29].Value = nbID;
-                            worksheet.Cells[columnIdx, 30].Value = nbBitrhDay;
-
-                            for (int j = 1; j < 32; j++)
-                            {
-                                if (worksheet.Cells[columnIdx, j].Value.ToString() == "")
-                                {
-                                    worksheet.Cells[columnIdx, j].Value = "無";
-                                }
-                            }
-
+                            worksheet.Cells[columnIdx, matrix["流水號"]].Value = records[i].serial_num;
+                            worksheet.Cells[columnIdx, matrix["案件登錄日期"]].Value = records[i].First_Login_Date;
+                            worksheet.Cells[columnIdx, matrix["審核結果"]].Value = records[i].sensor_result;
+                            worksheet.Cells[columnIdx, matrix["匯款日期"]].Value = records[i].remit_date;
+                            worksheet.Cells[columnIdx, matrix["申請人(產婦)"]].Value = records[i].apply_name;
+                            worksheet.Cells[columnIdx, matrix["申請人身分證"]].Value = records[i].apply_id;
+                            worksheet.Cells[columnIdx, matrix["新生兒姓名"]].Value = string.Join(" , ", records[i].newBorn_name);
+                            worksheet.Cells[columnIdx, matrix["新生兒身分證"]].Value = string.Join(" , ", records[i].newBorn_id);
+                            worksheet.Cells[columnIdx, matrix["受款人"]].Value = records[i].account_name;
+                            worksheet.Cells[columnIdx, matrix["受款人身分證"]].Value = records[i].account_ID;
                             columnIdx++;
                         }
                     }

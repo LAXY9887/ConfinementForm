@@ -14,16 +14,27 @@ namespace RigsterForm
 
         public int login_month { get; set; }
 
+        public int login_day { get; set; }
+
         /* ===================== 流水號與日期 ==================== */
+
+        // 審核結果
+        public string sensor_result { get ; set; }
 
         // 流水號
         public string serial_num { get; set; }
+
+        // 匯款日期
+        public string remit_date { get; set; }
 
         // 初次登錄日期時間
         public string First_Login_Date { get; set; }
 
         // 上次修改時間
         public string Recent_Edit_Date { get; set; }
+
+        // 註記
+        public string notes { get; set; }
 
         /* ===================== 申請人資料 ===================== */
 
@@ -94,25 +105,36 @@ namespace RigsterForm
 
         // 建構函數
         public dataStruct(
-            int serialdx, string serialNumStr, string FirstLogDate, string RecentEditDate, int year, int month,
+            int serialdx, string serialNumStr, string FirstLogDate, string RecentEditDate,
+            int year, int month, int day, string sensorRes, string remitDate,
             string appName, string appID, List<string> appPhones,
             string mateName, string mateID, List<string> matePhones,
             string queryName, string queryID, string queryRelate, List<string> queryPhones,
             string ac_name, string ac_ID,string ac_div, string ac_number, string regisAdress, string cmAdress,
-            List<string> nbName, List<string> newBornID, List<string> nbBitrhDate
+            List<string> nbName, List<string> newBornID, List<string> nbBitrhDate, string note
             )
         {
             /* ===================== 系統參數 =================== */
             serial_index = serialdx;
             login_year = year;
             login_month = month;
+            login_day = day;
 
             /* =================== 流水號與日期 ================== */
             First_Login_Date = FirstLogDate;
             Recent_Edit_Date = RecentEditDate;
 
+            // 審核結果
+            sensor_result = sensorRes;
+
             // 計算流水號 = 年分 + 序號
             serial_num = serialNumStr;
+
+            // 匯款日期
+            remit_date = remitDate;
+
+            // 註記
+            notes = note;
 
             /* =================== 申請人資料 =================== */
             apply_name = appName;
