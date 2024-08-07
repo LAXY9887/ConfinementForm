@@ -196,8 +196,8 @@ namespace RigsterForm
                 Comm_Road_TextBox, commAdressTb);
 
             // 使用日期選擇器--篩選起始日期
-            dateFilterPicker_start = new DatePicker(search_start_yy, search_start_mm, search_start_dd, new DateTime(DateTime.Now.Year - 1911, 7, 1));
-            dateFilterPicker_end = new DatePicker(search_end_yy, search_end_mm, search_end_dd, new DateTime(DateTime.Now.Year - 1911, 7, 15));
+            dateFilterPicker_start = new DatePicker(search_start_yy, search_start_mm, search_start_dd, new DateTime(DateTime.Now.Year - 1911, DateTime.Now.Month, 1));
+            dateFilterPicker_end = new DatePicker(search_end_yy, search_end_mm, search_end_dd, new DateTime(DateTime.Now.Year - 1911, DateTime.Now.Month+1, 1));
 
             // 使用參考選擇
             List<Control> targetCtrls = new List<Control>() { textBox_account_name , accountID_tb };
@@ -1597,6 +1597,9 @@ namespace RigsterForm
 
         #endregion
 
+        /** 輸出功能 **/
+        #region Export Functions
+        
         // 輸出Excel的功能
         private void exportExcelBtn_Click(object sender, EventArgs e)
         {
@@ -1633,7 +1636,7 @@ namespace RigsterForm
 
             if (excelFilePath != null && select_serial_nums.Count > 0)
             {
-                utilities.exportExcel(ConstParameters.database_path, excelFilePath, select_serial_nums);
+                utilities.exportExcel(ConstParameters.database_path, excelFilePath, select_serial_nums,settingCtrl.allowance_per_nb);
             }
             
         }
@@ -1660,6 +1663,7 @@ namespace RigsterForm
             return null;
         }
 
+        #endregion
     }
 }
 

@@ -81,7 +81,7 @@ namespace RigsterForm
         }
 
         // 輸出Excel
-        public void exportExcel(string database_path, string excelFilePath, List<string> serial_num_selection) 
+        public void exportExcel(string database_path, string excelFilePath, List<string> serial_num_selection, int allowance_per_nb) 
         {
             // 資料
             List<string> items = new List<string>()
@@ -131,6 +131,10 @@ namespace RigsterForm
                             worksheet.Cells[columnIdx, matrix["新生兒身分證"]].Value = string.Join(" , ", records[i].newBorn_id);
                             worksheet.Cells[columnIdx, matrix["受款人"]].Value = records[i].account_name;
                             worksheet.Cells[columnIdx, matrix["受款人身分證"]].Value = records[i].account_ID;
+                            worksheet.Cells[columnIdx, matrix["郵局局號"]].Value = records[i].account_div;
+                            worksheet.Cells[columnIdx, matrix["郵局帳號"]].Value = records[i].account_number;
+                            worksheet.Cells[columnIdx, matrix["補助金額"]].Value = records[i].newBorn_name.Count * allowance_per_nb;
+                            worksheet.Cells[columnIdx, matrix["備註"]].Value = records[i].notes;
                             columnIdx++;
                         }
                     }
