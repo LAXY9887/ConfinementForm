@@ -3350,6 +3350,39 @@
   <data name="historyPage.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="batchSensorBtn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
+  </data>
+  <data name="batchSensorBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="batchSensorBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>959, 5</value>
+  </data>
+  <data name="batchSensorBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="batchSensorBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 59</value>
+  </data>
+  <data name="batchSensorBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>104</value>
+  </data>
+  <data name="batchSensorBtn.Text" xml:space="preserve">
+    <value>批次審核</value>
+  </data>
+  <data name="&gt;&gt;batchSensorBtn.Name" xml:space="preserve">
+    <value>batchSensorBtn</value>
+  </data>
+  <data name="&gt;&gt;batchSensorBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;batchSensorBtn.Parent" xml:space="preserve">
+    <value>collectionPanel1</value>
+  </data>
+  <data name="&gt;&gt;batchSensorBtn.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="button2.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 19.8000011pt, style=Bold</value>
   </data>
@@ -3357,7 +3390,7 @@
     <value>NoControl</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>960, 58</value>
+    <value>960, 68</value>
   </data>
   <data name="button2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3381,40 +3414,40 @@
     <value>collectionPanel1</value>
   </data>
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
-  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="exportPDFBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 19.8000011pt, style=Bold</value>
   </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="exportPDFBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>771, 58</value>
+  <data name="exportPDFBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>771, 68</value>
   </data>
-  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="exportPDFBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="exportPDFBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>178, 59</value>
   </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+  <data name="exportPDFBtn.TabIndex" type="System.Int32, mscorlib">
     <value>102</value>
   </data>
-  <data name="button1.Text" xml:space="preserve">
+  <data name="exportPDFBtn.Text" xml:space="preserve">
     <value>匯出清冊</value>
   </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
+  <data name="&gt;&gt;exportPDFBtn.Name" xml:space="preserve">
+    <value>exportPDFBtn</value>
   </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+  <data name="&gt;&gt;exportPDFBtn.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;exportPDFBtn.Parent" xml:space="preserve">
     <value>collectionPanel1</value>
   </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;exportPDFBtn.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="clearSearchBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 12pt, style=Bold</value>
@@ -3423,7 +3456,7 @@
     <value>NoControl</value>
   </data>
   <data name="clearSearchBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>369, 60</value>
+    <value>369, 70</value>
   </data>
   <data name="clearSearchBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3447,7 +3480,7 @@
     <value>collectionPanel1</value>
   </data>
   <data name="&gt;&gt;clearSearchBtn.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="IDsearchBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 19.8000011pt, style=Bold</value>
@@ -3456,7 +3489,7 @@
     <value>NoControl</value>
   </data>
   <data name="IDsearchBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>436, 60</value>
+    <value>436, 70</value>
   </data>
   <data name="IDsearchBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3480,13 +3513,13 @@
     <value>collectionPanel1</value>
   </data>
   <data name="&gt;&gt;IDsearchBtn.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="IDsearchBOX.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 22.2pt</value>
   </data>
   <data name="IDsearchBOX.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 60</value>
+    <value>9, 70</value>
   </data>
   <data name="IDsearchBOX.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3507,7 +3540,7 @@
     <value>collectionPanel1</value>
   </data>
   <data name="&gt;&gt;IDsearchBOX.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label51.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3519,7 +3552,7 @@
     <value>NoControl</value>
   </data>
   <data name="label51.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 8</value>
+    <value>1, 18</value>
   </data>
   <data name="label51.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -3543,7 +3576,7 @@
     <value>collectionPanel1</value>
   </data>
   <data name="&gt;&gt;label51.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="exportExcelBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 19.8000011pt, style=Bold</value>
@@ -3552,7 +3585,7 @@
     <value>NoControl</value>
   </data>
   <data name="exportExcelBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>586, 58</value>
+    <value>586, 68</value>
   </data>
   <data name="exportExcelBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -3576,16 +3609,16 @@
     <value>collectionPanel1</value>
   </data>
   <data name="&gt;&gt;exportExcelBtn.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="collectionPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>674, 12</value>
+    <value>674, 5</value>
   </data>
   <data name="collectionPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
   <data name="collectionPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1139, 125</value>
+    <value>1139, 133</value>
   </data>
   <data name="collectionPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>97</value>
@@ -4181,32 +4214,269 @@
   <data name="&gt;&gt;historyPage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="exportHistory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 51</value>
+  <data name="button5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
   </data>
-  <data name="exportHistory.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="button5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="exportHistory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1871, 939</value>
+  <data name="button5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 344</value>
   </data>
-  <data name="exportHistory.TabIndex" type="System.Int32, mscorlib">
+  <data name="button5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 49</value>
+  </data>
+  <data name="button5.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="button5.Text" xml:space="preserve">
+    <value>變更</value>
+  </data>
+  <data name="&gt;&gt;button5.Name" xml:space="preserve">
+    <value>button5</value>
+  </data>
+  <data name="&gt;&gt;button5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button5.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;button5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label19.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label19.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 24pt, style=Bold</value>
+  </data>
+  <data name="label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>293, 340</value>
+  </data>
+  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 50</value>
+  </data>
+  <data name="label19.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>匯款單格式:</value>
+  </data>
+  <data name="&gt;&gt;label19.Name" xml:space="preserve">
+    <value>label19</value>
+  </data>
+  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="button4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
+  </data>
+  <data name="button4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 228</value>
+  </data>
+  <data name="button4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 49</value>
+  </data>
+  <data name="button4.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="button4.Text" xml:space="preserve">
+    <value>變更</value>
+  </data>
+  <data name="&gt;&gt;button4.Name" xml:space="preserve">
+    <value>button4</value>
+  </data>
+  <data name="&gt;&gt;button4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button4.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;button4.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="exportHistory.Text" xml:space="preserve">
-    <value>匯款紀錄</value>
+  <data name="textBox2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 22.2pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;exportHistory.Name" xml:space="preserve">
-    <value>exportHistory</value>
+  <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>531, 224</value>
   </data>
-  <data name="&gt;&gt;exportHistory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>528, 57</value>
   </data>
-  <data name="&gt;&gt;exportHistory.Parent" xml:space="preserve">
-    <value>tabControl</value>
+  <data name="textBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;exportHistory.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;textBox2.Name" xml:space="preserve">
+    <value>textBox2</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;textBox2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label18.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label18.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 24pt, style=Bold</value>
+  </data>
+  <data name="label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
+    <value>293, 227</value>
+  </data>
+  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 50</value>
+  </data>
+  <data name="label18.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>資料庫路徑:</value>
+  </data>
+  <data name="&gt;&gt;label18.Name" xml:space="preserve">
+    <value>label18</value>
+  </data>
+  <data name="&gt;&gt;label18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label18.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="button3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 19.8000011pt, style=Bold</value>
+  </data>
+  <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 119</value>
+  </data>
+  <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 49</value>
+  </data>
+  <data name="button3.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="button3.Text" xml:space="preserve">
+    <value>變更</value>
+  </data>
+  <data name="&gt;&gt;button3.Name" xml:space="preserve">
+    <value>button3</value>
+  </data>
+  <data name="&gt;&gt;button3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button3.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label17.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label17.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 24pt, style=Bold</value>
+  </data>
+  <data name="label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>769, 118</value>
+  </data>
+  <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 50</value>
+  </data>
+  <data name="label17.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>元 / 每位新生兒</value>
+  </data>
+  <data name="&gt;&gt;label17.Name" xml:space="preserve">
+    <value>label17</value>
+  </data>
+  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="textBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 22.2pt, style=Bold</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>491, 114</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>261, 57</value>
+  </data>
+  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微軟正黑體, 24pt, style=Bold</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>293, 118</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 50</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>津貼金額:</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>settingsPage</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
   <data name="settingsPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 51</value>
@@ -4233,7 +4503,7 @@
     <value>tabControl</value>
   </data>
   <data name="&gt;&gt;settingsPage.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="tabControl.Font" type="System.Drawing.Font, System.Drawing">
     <value>微軟正黑體, 19.8000011pt</value>

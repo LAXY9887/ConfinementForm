@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=7.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.7.2.1\lib\net462\EPPlus.dll</HintPath>
     </Reference>
@@ -41,6 +44,9 @@
     </Reference>
     <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.0\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
@@ -82,6 +88,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckBoxController.cs" />
+    <Compile Include="PDFmaker.cs" />
+    <Compile Include="SensorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SensorForm.Designer.cs">
+      <DependentUpon>SensorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemSettings.cs" />
     <Compile Include="ConstParameters.cs" />
     <Compile Include="districtStruct.cs" />
@@ -115,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DetailInfoForm.resx">
       <DependentUpon>DetailInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SensorForm.resx">
+      <DependentUpon>SensorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

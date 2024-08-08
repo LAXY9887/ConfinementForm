@@ -868,7 +868,7 @@ namespace RigsterForm
         }
 
         // 將資料寫入資料庫
-        private void WriteDataToDatabase(List<dataStruct> dataList)
+        private void WriteDataToDatabase(List<dataStruct> dataList, bool showMessage = true)
         {
             string toWrite = "[\n";
             foreach (dataStruct data in dataList)
@@ -879,7 +879,10 @@ namespace RigsterForm
             }
             toWrite += "]";
             File.WriteAllText(ConstParameters.database_path, toWrite);
-            MessageBox.Show("儲存成功", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (showMessage)
+            {
+                MessageBox.Show("儲存成功", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         // 儲存後處理GUI變化
@@ -1176,6 +1179,8 @@ namespace RigsterForm
 
             // 添加按钮列的点击事件
             historyGridView.CellClick += historyGridView_CellClick;
+            historyGridView.MultiSelect = true;
+            historyGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         // 檢視詳細資料
@@ -1293,6 +1298,10 @@ namespace RigsterForm
             {
                 // 刪除該筆資料
                 DeleteOneData(records, choosenRecords);
+            }
+            else if ((e.ColumnIndex == historyGridView.Columns["ApprovedColunm"].Index))
+            {
+                SensorCase(records, choosenRecords);
             }
         }
 
@@ -1478,6 +1487,27 @@ namespace RigsterForm
             dataGridView.Columns["account_num"].HeaderText = "郵局帳號";
             dataGridView.Columns["allowance"].HeaderText = "補助金額";
             dataGridView.Columns["note"].HeaderText = "備註";
+
+            // 漆上審核顏色
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                string sensor_res_str = row.Cells["SensorRes"].Value.ToString();
+
+                switch (sensor_res_str)
+                {
+                    case SensorForm.STR_APPROVED:
+                        row.Cells["SensorRes"].Style.ForeColor = Color.DarkGreen;
+                        break;
+
+                    case SensorForm.STR_DISAPPROVED:
+                        row.Cells["SensorRes"].Style.ForeColor = Color.Maroon;
+                        break;
+
+                    case SensorForm.STR_NOT_SENSRO:
+                        row.Cells["SensorRes"].Style.ForeColor = Color.DarkBlue;
+                        break;
+                }
+            }
         }
 
         // 處理搜索日期改變的事件
@@ -1597,9 +1627,133 @@ namespace RigsterForm
 
         #endregion
 
+        /** 審核功能**/
+        #region Sensor Functions
+
+        public void SensorCase(List<dataStruct> records, dataStruct case2Sensor)
+        {
+            // 尋找要審核的流水號
+            dataStruct caseData = records.SingleOrDefault(item => item.serial_num == case2Sensor.serial_num);
+
+            // 跳出視窗
+            SensorForm sensorForm = new SensorForm();
+            sensorForm.ShowDialog();
+
+            // 審核結果 (初始化)
+            string sensor_result = sensorForm.SensorResMatrix[SensorForm.ButtonID.NULL];
+
+            // 點擊選項
+            SensorForm.ButtonID selection = sensorForm.clickTarget;
+
+            switch (selection)
+            {
+                case SensorForm.ButtonID.Approved:
+                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    caseData.sensor_result = sensor_result;
+                    break;
+                case SensorForm.ButtonID.Denied:
+                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    caseData.sensor_result = sensor_result;
+                    break;
+                case SensorForm.ButtonID.NULL:
+                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    caseData.sensor_result = sensor_result;
+                    break;
+                case SensorForm.ButtonID.Cancel:
+                    return;
+            }
+
+            // 取代原本的
+            int replaceIndex = records.FindIndex(data => data.serial_num == caseData.serial_num);
+            records[replaceIndex] = caseData;
+
+            // 將 JSON 寫入檔案
+            WriteDataToDatabase(records, false);
+
+            // 更新表格顯示
+            LoadJsonToDataGridView(
+                           startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text), startDay: Int32.Parse(search_start_dd.Text),
+                           endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
+                           );
+        }
+
+        public void SensorBatch(List<dataStruct> records)
+        {
+            // 跳出視窗
+            SensorForm sensorForm = new SensorForm();
+            sensorForm.ShowDialog();
+
+            // 審核結果 (初始化)
+            string sensor_result = sensorForm.SensorResMatrix[SensorForm.ButtonID.NULL];
+
+            // 點擊選項
+            SensorForm.ButtonID selection = sensorForm.clickTarget;
+
+            switch (selection)
+            {
+                case SensorForm.ButtonID.Approved:
+                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    break;
+                case SensorForm.ButtonID.Denied:
+                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    break;
+                case SensorForm.ButtonID.NULL:
+                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    break;
+                case SensorForm.ButtonID.Cancel:
+                    return;
+            }
+
+            // 獲取所有被選中的行的索引
+            List<string> selectedRowIndexes = new List<string>();
+            foreach (DataGridViewRow row in historyGridView.SelectedRows)
+            {
+                selectedRowIndexes.Add(row.Cells["Serial_num"].Value.ToString());
+            }
+
+            // 審核全部選中的
+            foreach (string sern in selectedRowIndexes)
+            {
+                // 取得INDEX
+                int replaceIndex = records.FindIndex(data => data.serial_num == sern);
+
+                // 取得該筆資料
+                dataStruct caseData = records[replaceIndex];
+
+                // 變更審核結果
+                caseData.sensor_result = sensor_result;
+
+                // 取代原本的
+                records[replaceIndex] = caseData;
+
+                // 將 JSON 寫入檔案
+                WriteDataToDatabase(records,false);
+
+                // 更新表格顯示
+                LoadJsonToDataGridView(
+                               startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text), startDay: Int32.Parse(search_start_dd.Text),
+                               endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
+                               );
+            }
+
+            
+        }
+
+        // 批次審核
+        private void batchSensorBtn_Click(object sender, EventArgs e)
+        {
+            // 載入資料庫
+            List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
+
+            // 執行審核
+            SensorBatch(records);
+        }
+
+        #endregion
+
         /** 輸出功能 **/
         #region Export Functions
-        
+
         // 輸出Excel的功能
         private void exportExcelBtn_Click(object sender, EventArgs e)
         {
@@ -1661,6 +1815,13 @@ namespace RigsterForm
             }
 
             return null;
+        }
+
+        // 輸出PDF的功能
+        private void exportPDFBtn_Click(object sender, EventArgs e)
+        {
+            PDFmaker pdfMaker  = new PDFmaker();
+            pdfMaker.GeneratePDF("./TEST.pdf");
         }
 
         #endregion
