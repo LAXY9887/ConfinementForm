@@ -1786,7 +1786,7 @@ namespace RigsterForm
                     return;
             }
 
-            string excelFilePath = ShowSaveFileDialog();
+            string excelFilePath = ShowSaveFileDialog("xlsx","歷史紀錄");
 
             if (excelFilePath != null && select_serial_nums.Count > 0)
             {
@@ -1796,18 +1796,28 @@ namespace RigsterForm
         }
 
         // 存檔對話視窗
-        private static string ShowSaveFileDialog()
+        private static string ShowSaveFileDialog(string format, string appendInfo = "")
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.Filter = "Excel Files|*.xlsx";
-                saveFileDialog.Title = "Save an Excel File";
+                switch (format)
+                {
+                    case "xlsx":
+                        saveFileDialog.Filter = "Excel Files|*.xlsx";
+                        saveFileDialog.Title = "Save an Excel File";
+                        break;
+                    case "pdf":
+                        saveFileDialog.Filter = "PDF Files|*.pdf";
+                        saveFileDialog.Title = "Save an PDF File";
+                        break;
+                }
+                
 
                 DateTime now = DateTime.Now;
                 int adjYear = now.Year - 1911;
                 string currentTime = $"{adjYear}-{now.Month.ToString()}-{now.Day.ToString()}";
 
-                saveFileDialog.FileName = $"坐月子津貼輸出_{currentTime}.xlsx";
+                saveFileDialog.FileName = $"坐月子津貼{appendInfo}_{currentTime}.{format}";
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     return saveFileDialog.FileName;
@@ -1821,7 +1831,43 @@ namespace RigsterForm
         private void exportPDFBtn_Click(object sender, EventArgs e)
         {
             PDFmaker pdfMaker  = new PDFmaker();
-            pdfMaker.GeneratePDF("./TEST.pdf");
+
+            // 讀取資料庫
+            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+
+            // 跳出確認視窗
+            ComfirmExportDateForm comfirmExportDateForm = new ComfirmExportDateForm();
+            comfirmExportDateForm.ShowDialog();
+
+            string selection = comfirmExportDateForm.export_choice;
+            List<string> select_serial_nums = new List<string>();
+
+            switch (selection)
+            {
+                case ComfirmExportDateForm.ALL_RANGE:
+                    foreach (var item in dataList)
+                    {
+                        select_serial_nums.Add(item.serial_num);
+                    }
+                    break;
+
+                case ComfirmExportDateForm.FILTER_DATE:
+                    foreach (DataGridViewRow row in historyGridView.Rows)
+                    {
+                        select_serial_nums.Add(row.Cells["Serial_num"].Value.ToString());
+                    }
+                    break;
+
+                case ComfirmExportDateForm.DEFAULT:
+                    return;
+            }
+
+            string PDFFilePath = ShowSaveFileDialog("pdf","清冊");
+
+            if (PDFFilePath != null && select_serial_nums.Count > 0)
+            {
+                pdfMaker.GeneratePDF(PDFFilePath, dataList, select_serial_nums);
+            }
         }
 
         #endregion
