@@ -1847,19 +1847,32 @@ namespace RigsterForm
                 case ComfirmExportDateForm.ALL_RANGE:
                     foreach (var item in dataList)
                     {
-                        select_serial_nums.Add(item.serial_num);
+                        if (item.sensor_result == SensorForm.STR_APPROVED)
+                        {
+                            select_serial_nums.Add(item.serial_num);
+                        }
                     }
                     break;
 
                 case ComfirmExportDateForm.FILTER_DATE:
                     foreach (DataGridViewRow row in historyGridView.Rows)
                     {
-                        select_serial_nums.Add(row.Cells["Serial_num"].Value.ToString());
+                        if (row.Cells["SensorRes"].Value.ToString() == SensorForm.STR_APPROVED)
+                        {
+                            select_serial_nums.Add(row.Cells["Serial_num"].Value.ToString());
+                        }
                     }
                     break;
 
                 case ComfirmExportDateForm.DEFAULT:
                     return;
+            }
+
+            // 假設 selected_ser_nums 是空 (沒有任何審核通過的) 則提示, 不執行
+            if (select_serial_nums.Count == 0)
+            {
+                MessageBox.Show("沒有資料/沒有審核通過的資料!\n請確認審核結果!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             string PDFFilePath = ShowSaveFileDialog("pdf","清冊");

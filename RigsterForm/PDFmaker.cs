@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -30,6 +29,8 @@ namespace RigsterForm
             bfChinese = BaseFont.CreateFont(kaiu, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             string sinhei = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "msjh.ttc,0");
             sinhei_Content = BaseFont.CreateFont(sinhei, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+            // 自型
             headerFont = new Font(bfChinese, 10, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
             cellFont = new Font(bfChinese, 10, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
 
@@ -63,8 +64,18 @@ namespace RigsterForm
         }
 
         // 做表
-        private void DrawTable(Document document, PdfContentByte cb, List<dataStruct> dataList, List<string> target_serial_num) 
+        private void DrawTable(Document document, PdfContentByte cb, List<dataStruct> dataList, List<string> target_serial_num, int division_num, int start_idx) 
         {
+            // Making Cells
+            PdfPCell makeCell(string context, Font font, float padding_bottom = 10.5f)
+            {
+                PdfPCell cell = new PdfPCell(new Phrase(context, font));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;  // 水平置中
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;    // 垂直置中
+                cell.PaddingBottom = padding_bottom;
+                return cell;
+            }
+
             // 資料篩選的欄位
             Dictionary<string,string> usedCols = new Dictionary<string,string>()
             {
@@ -83,69 +94,39 @@ namespace RigsterForm
 
             // 設置表格標題
             PdfPTable table = new PdfPTable(column_num);
-            PdfPCell headerCell1 = new PdfPCell(new Phrase("序\n號", headerFont));
-            headerCell1.HorizontalAlignment = Element.ALIGN_CENTER;  // 水平置中
-            headerCell1.VerticalAlignment = Element.ALIGN_MIDDLE;    // 垂直置中
-            table.AddCell(headerCell1);
 
+            // 加入標題
+            table.AddCell(makeCell("序\n號", headerFont));
             foreach (var kvp in usedCols)
             {
-                PdfPCell headerCelln = new PdfPCell(new Phrase(kvp.Value, headerFont));
-                headerCelln.HorizontalAlignment = Element.ALIGN_CENTER;  // 水平置中
-                headerCelln.VerticalAlignment = Element.ALIGN_MIDDLE;    // 垂直置中
-                table.AddCell(headerCelln);
+                table.AddCell(makeCell(kvp.Value, headerFont));
             }
-            PdfPCell headerCell2 = new PdfPCell(new Phrase("補助\n金額", headerFont));
-            headerCell2.HorizontalAlignment = Element.ALIGN_CENTER;  // 水平置中
-            headerCell2.VerticalAlignment = Element.ALIGN_MIDDLE;    // 垂直置中
-            table.AddCell(headerCell2);
-            PdfPCell headerCell3 = new PdfPCell(new Phrase("備註", headerFont));
-            headerCell3.HorizontalAlignment = Element.ALIGN_CENTER;  // 水平置中
-            headerCell3.VerticalAlignment = Element.ALIGN_MIDDLE;    // 垂直置中
-            table.AddCell(headerCell3);
+            table.AddCell(makeCell("補助\n金額", headerFont));
+            table.AddCell(makeCell("備註", headerFont));
 
             // 加入表格內容
-            int idx_count = 1;
+            int idx_count = 0;
             foreach (dataStruct data in dataList)
             {
                 if (target_serial_num.Contains(data.serial_num))
                 {
-                    PdfPCell serCell = new PdfPCell(new Phrase(idx_count.ToString(), cellFont));
-                    serCell.HorizontalAlignment = Element.ALIGN_CENTER;  // 水平置中
-                    serCell.VerticalAlignment = Element.ALIGN_MIDDLE;    // 垂直置中
-                    table.AddCell(serCell);    //序列號
-
-                    PdfPCell appCell = new PdfPCell(new Phrase(data.apply_name, cellFont));
-                    table.AddCell(appCell);         //申請人
-
-                    PdfPCell appIDCell = new PdfPCell(new Phrase(data.apply_id, cellFont));
-                    table.AddCell(appIDCell);               //申請人身分證
-
-                    PdfPCell nbNameCell = new PdfPCell(new Phrase(string.Join(",\n", data.newBorn_name), cellFont));
-                    table.AddCell(nbNameCell);     //新生兒名字
-
-                    PdfPCell nbIDCell = new PdfPCell(new Phrase(string.Join(",\n", data.newBorn_id), cellFont));
-                    table.AddCell(nbIDCell);           //新生兒身分證
-
-                    PdfPCell accNameCell = new PdfPCell(new Phrase(data.account_name, cellFont));
-                    table.AddCell(accNameCell);       //受款人
-
-                    PdfPCell accIDCell = new PdfPCell(new Phrase(data.account_ID, cellFont));
-                    table.AddCell(accIDCell);            //受款人身分證
-
-                    PdfPCell accDivCell = new PdfPCell(new Phrase(data.account_div, cellFont));
-                    table.AddCell(accDivCell);            //郵局局號
-
-                    PdfPCell accNumCell = new PdfPCell(new Phrase(data.account_number, cellFont));
-                    table.AddCell(accNumCell);     //郵局帳號
-
-                    PdfPCell allowanceCell = new PdfPCell(new Phrase((data.newBorn_name.Count * settingCtrl.allowance_per_nb).ToString(), cellFont));
-                    table.AddCell(allowanceCell); //補助金額
-
-                    PdfPCell noteCell = new PdfPCell(new Phrase("", cellFont));
-                    table.AddCell(noteCell);   // 備註
-
+                    table.AddCell(makeCell((start_idx + idx_count + 1).ToString(), cellFont));    //序列號
+                    table.AddCell(makeCell(data.apply_name, cellFont));    //申請人
+                    table.AddCell(makeCell(data.apply_id, cellFont));    //申請人身分證
+                    table.AddCell(makeCell(string.Join(",\n", data.newBorn_name), cellFont));    //新生兒名字
+                    table.AddCell(makeCell(string.Join(",\n", data.newBorn_id), cellFont));    //新生兒身分證
+                    table.AddCell(makeCell(data.account_name, cellFont));    //受款人
+                    table.AddCell(makeCell(data.account_ID, cellFont));    //受款人身分證
+                    table.AddCell(makeCell(data.account_div, cellFont));    //郵局局號
+                    table.AddCell(makeCell(data.account_number, cellFont));    //郵局局號
+                    table.AddCell(makeCell((data.newBorn_name.Count * settingCtrl.allowance_per_nb).ToString(), cellFont));    //補助金額
+                    table.AddCell(makeCell("", cellFont));    // 備註
                     idx_count++;
+                }
+
+                if (idx_count == division_num || idx_count == dataList.Count)
+                {
+                    break;
                 }
             }
 
@@ -154,11 +135,21 @@ namespace RigsterForm
 
             // 設置絕對位置
             float xPos = 50f;  // X 坐標
-            float yPos = document.PageSize.Height - 125f;  // Y 坐標，從頁面的頂部開始
+            float yPos = document.PageSize.Height - 150f;  // Y 坐標，從頁面的頂部開始
 
             // 設置表格總寬度
             table.TotalWidth = document.PageSize.Width * 0.9f;
             table.LockedWidth = true;
+
+            // 設定每個欄位的寬度 (相對比例)
+            float[] columnWidths = new float[column_num];
+            columnWidths[0] = 2.5f;
+            float remainingWidth = (100- columnWidths[0]) / 10f;
+            for (int i = 1; i < columnWidths.Length; i++)
+            {
+                columnWidths[i] = remainingWidth;
+            }
+            table.SetWidths(columnWidths);
 
             // 寫入表格到指定位置
             table.WriteSelectedRows(0, -1, xPos, yPos, cb);
@@ -219,7 +210,7 @@ namespace RigsterForm
             }
         }
 
-        public void GeneratePDF(string saving_path, List<dataStruct> records, List<string> selected_ser_nums)
+        public void GeneratePDF(string saving_path, List<dataStruct> records, List<string> selected_ser_nums, int row_per_page = 10)
         {
             // 創建文件流
             using (FileStream stream = new FileStream(saving_path, FileMode.Create))
@@ -236,7 +227,30 @@ namespace RigsterForm
                 PlotPageHead(document, cb);
 
                 /** 表格 **/
-                DrawTable(document, cb, records, selected_ser_nums);
+                List<string> tmp_search = new List<string>(selected_ser_nums); // 複製一份目標名單
+                int page_count = 0;
+                while (tmp_search.Count > 0)
+                {
+                    // 製表 (每頁 row_per_page 行)
+                    DrawTable(document, cb, records, tmp_search, row_per_page, row_per_page * page_count);
+
+                    // 換頁, 處裡剩下的
+                    int remaining_count = tmp_search.Count - row_per_page;
+
+                    // 當剩下的數量 > 0 時繼續迴圈
+                    if (remaining_count > 0)
+                    {
+                        document.NewPage();
+                        page_count++;
+                        tmp_search = tmp_search.GetRange(row_per_page, remaining_count);
+                    }
+
+                    // 當剩下的數量 > 0 時終止迴圈
+                    else
+                    {
+                        break;
+                    }
+                }
 
                 // 頁尾
                 PlotPageEND(document, cb);

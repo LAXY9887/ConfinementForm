@@ -135,6 +135,7 @@ namespace RigsterForm
             this.label10 = new System.Windows.Forms.Label();
             this.historyPage = new System.Windows.Forms.TabPage();
             this.collectionPanel1 = new System.Windows.Forms.Panel();
+            this.batchSensorBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.exportPDFBtn = new System.Windows.Forms.Button();
             this.clearSearchBtn = new System.Windows.Forms.Button();
@@ -159,16 +160,16 @@ namespace RigsterForm
             this.label39 = new System.Windows.Forms.Label();
             this.historyGridView = new System.Windows.Forms.DataGridView();
             this.settingsPage = new System.Windows.Forms.TabPage();
-            this.batchSensorBtn = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1324 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.collectionPanle.SuspendLayout();
@@ -189,6 +190,7 @@ namespace RigsterForm
             this.collectionPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.historyGridView)).BeginInit();
             this.settingsPage.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -974,6 +976,14 @@ namespace RigsterForm
             resources.ApplyResources(this.collectionPanel1, "collectionPanel1");
             this.collectionPanel1.Name = "collectionPanel1";
             // 
+            // batchSensorBtn
+            // 
+            resources.ApplyResources(this.batchSensorBtn, "batchSensorBtn");
+            this.batchSensorBtn.ForeColor = System.Drawing.Color.Maroon;
+            this.batchSensorBtn.Name = "batchSensorBtn";
+            this.batchSensorBtn.UseVisualStyleBackColor = true;
+            this.batchSensorBtn.Click += new System.EventHandler(this.batchSensorBtn_Click);
+            // 
             // button2
             // 
             resources.ApplyResources(this.button2, "button2");
@@ -1127,57 +1137,35 @@ namespace RigsterForm
             // 
             // settingsPage
             // 
-            this.settingsPage.Controls.Add(this.button5);
-            this.settingsPage.Controls.Add(this.label19);
-            this.settingsPage.Controls.Add(this.button4);
-            this.settingsPage.Controls.Add(this.textBox2);
-            this.settingsPage.Controls.Add(this.label18);
-            this.settingsPage.Controls.Add(this.button3);
-            this.settingsPage.Controls.Add(this.label17);
-            this.settingsPage.Controls.Add(this.textBox1);
-            this.settingsPage.Controls.Add(this.label1);
+            this.settingsPage.Controls.Add(this.panel1);
             resources.ApplyResources(this.settingsPage, "settingsPage");
             this.settingsPage.Name = "settingsPage";
             this.settingsPage.UseVisualStyleBackColor = true;
             // 
-            // batchSensorBtn
+            // panel1
             // 
-            resources.ApplyResources(this.batchSensorBtn, "batchSensorBtn");
-            this.batchSensorBtn.ForeColor = System.Drawing.Color.Maroon;
-            this.batchSensorBtn.Name = "batchSensorBtn";
-            this.batchSensorBtn.UseVisualStyleBackColor = true;
-            this.batchSensorBtn.Click += new System.EventHandler(this.batchSensorBtn_Click);
+            this.panel1.Controls.Add(this.label1324);
+            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.label19);
+            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.textBox1);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
             // 
-            // label1
+            // button5
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.button5, "button5");
+            this.button5.Name = "button5";
+            this.button5.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // label19
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            // 
-            // label17
-            // 
-            resources.ApplyResources(this.label17, "label17");
-            this.label17.Name = "label17";
-            // 
-            // button3
-            // 
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.Name = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // label18
-            // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // textBox2
-            // 
-            resources.ApplyResources(this.textBox2, "textBox2");
-            this.textBox2.Name = "textBox2";
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
             // 
             // button4
             // 
@@ -1185,16 +1173,36 @@ namespace RigsterForm
             this.button4.Name = "button4";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // label19
+            // textBox2
             // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
+            resources.ApplyResources(this.textBox2, "textBox2");
+            this.textBox2.Name = "textBox2";
             // 
-            // button5
+            // label18
             // 
-            resources.ApplyResources(this.button5, "button5");
-            this.button5.Name = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // button3
+            // 
+            resources.ApplyResources(this.button3, "button3");
+            this.button3.Name = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // textBox1
+            // 
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            // 
+            // label1324
+            // 
+            resources.ApplyResources(this.label1324, "label1324");
+            this.label1324.Name = "label1324";
             // 
             // MainForm
             // 
@@ -1240,7 +1248,8 @@ namespace RigsterForm
             this.collectionPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.historyGridView)).EndInit();
             this.settingsPage.ResumeLayout(false);
-            this.settingsPage.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1378,15 +1387,16 @@ namespace RigsterForm
         private Label label51;
         private Button exportExcelBtn;
         private Button batchSensorBtn;
-        private Label label17;
-        private TextBox textBox1;
-        private Label label1;
-        private Button button3;
+        private Panel panel1;
+        private Button button5;
+        private Label label19;
         private Button button4;
         private TextBox textBox2;
         private Label label18;
-        private Label label19;
-        private Button button5;
+        private Button button3;
+        private Label label17;
+        private TextBox textBox1;
+        private Label label1324;
     }
 }
 
