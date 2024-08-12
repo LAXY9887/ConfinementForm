@@ -1,10 +1,26 @@
-﻿namespace RigsterForm
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace RigsterForm
 {
     public class ConstParameters
     {
+        // 獲取 Local 的 AppData 資料夾路徑
+        private const string APPName = "ConfinementForm";
+        private const string SETTINGNAME = "settings.json";
+        private static string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public static string myLocalAppFolder = Path.Combine(localAppDataPath, APPName);
+        public static string settingsPath = Path.Combine(myLocalAppFolder, SETTINGNAME);
+
+        // Read settings
+        private static string settingContent = File.ReadAllText(settingsPath);
+        private static SettingStruct settingStruct = JsonConvert.DeserializeObject<SettingStruct>(settingContent);
+
         /* Database file path */
-        public const string database_path = "Database.json";               // 申請資訊
-        public const string district_db_path = "Taiwan_Districts.json";  //  地址列表
+        public static string default_database_path = settingStruct.Database_path;
+        public static string district_db_path = settingStruct.District_db_pth ;  //  地址列表
 
         /* 地址預設 */
         public const string InitialCity = "彰化縣";         // 初始化選擇縣市

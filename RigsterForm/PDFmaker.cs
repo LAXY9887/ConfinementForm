@@ -13,6 +13,7 @@ namespace RigsterForm
         public BaseFont bfChinese;
         public BaseFont sinhei_Content;
         public Font cellFont;
+        public Font LcellFont;
         public Font headerFont;
 
         // 使用系統設置
@@ -22,7 +23,7 @@ namespace RigsterForm
         private SystemSettings settingCtrl;
 
         // 建構式
-        public PDFmaker()
+        public PDFmaker(SystemSettings systemCtrl)
         {
             // 設置字體
             string kaiu = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "KAIU.TTF");
@@ -33,12 +34,11 @@ namespace RigsterForm
             // 自型
             headerFont = new Font(bfChinese, 10, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
             cellFont = new Font(bfChinese, 10, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
+            LcellFont = new Font(bfChinese, 12, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
 
             // 使用自製函式
-            utilities = new Utilities();
-            settingCtrl = new SystemSettings();
-            int Allowance_per_nb = 8000;
-            settingCtrl.SetAllowancePerNB(Allowance_per_nb);
+            utilities = new Utilities(settingCtrl);
+            settingCtrl = systemCtrl;
         }
 
         // 寫字
@@ -58,9 +58,36 @@ namespace RigsterForm
             float underlineWidth = cb.GetEffectiveStringWidth(refText, false);
 
             // 繪製底線
-            cb.MoveTo(refX - underlineWidth, underlineY);
+            cb.MoveTo(refX - underlineWidth - 25f, underlineY);
             cb.LineTo(refX, underlineY);
             cb.Stroke();
+        }
+
+        // 預算科目 (空表)
+        private void DrawEmptyTable(PdfContentByte cb, Document document, float X, float Y, float width, string context)
+        {
+            // 設置表格標題
+            PdfPTable table = new PdfPTable(1);
+
+            for (int i = 0; i < 4; i++)
+            {
+                PdfPCell cell = new PdfPCell(new Phrase(context, LcellFont));
+                table.AddCell(cell);
+            }
+
+            // 完成表格行
+            table.CompleteRow();
+
+            // 設置絕對位置
+            float xPos = X;  // X 坐標
+            float yPos = document.PageSize.Top - Y;  // Y 坐標，從頁面的頂部開始
+
+            // 設置表格總寬度
+            table.TotalWidth = width;
+            table.LockedWidth = true;
+
+            // 寫入表格到指定位置
+            table.WriteSelectedRows(0, -1, xPos, yPos, cb);
         }
 
         // 做表
@@ -155,6 +182,28 @@ namespace RigsterForm
             table.WriteSelectedRows(0, -1, xPos, yPos, cb);
         }
 
+        // 畫文字框
+        private void DrawTextRect(PdfContentByte cb, Document document,float X, float Y, float width, float height, string content)
+        {
+            float posY = document.PageSize.Height - height + Y;
+
+            cb.Rectangle(X, posY, width, height);
+            cb.Stroke(); // 繪製邊框
+
+            // 設置文字並置中
+            string text = content;
+            ColumnText ct = new ColumnText(cb);
+
+            // 計算文字的X和Y的起始點，以便置中
+            float llx = X + 3;
+            float lly = posY;
+            float urx = X + width;
+            float ury = posY + height;
+
+            ct.SetSimpleColumn(new Phrase(text, headerFont), llx, lly, urx, ury, 14, Element.ALIGN_CENTER | Element.ALIGN_MIDDLE);
+            ct.Go();
+        }
+
         // 頁首 (第一頁)
         private void PlotPageHead(Document document, PdfContentByte cb)
         {
@@ -171,9 +220,10 @@ namespace RigsterForm
                 Element.ALIGN_RIGHT);
 
             // 設定日期
-            int year = 113;
-            int month = 8;
-            int day = 8;
+            DateTime now = DateTime.Now;
+            int year = now.Year - 1911;
+            int month = now.Month;
+            int day = now.Day;
             WriteContent(cb, $"{year} 年 {month} 月 {day} 日", sinhei_Content, 13,
             (document.PageSize.Width - document.RightMargin - 0),
             (document.PageSize.Height - document.TopMargin - 80),
@@ -181,6 +231,12 @@ namespace RigsterForm
 
             // 畫底線
             DrawUnderLine(cb, titleText1, xT1, yT1);
+
+            // 文字框
+            DrawTextRect(cb, document, 50f, -75f, 18, 64, "預\n算\n科\n目\n");
+
+            // 空表格
+            DrawEmptyTable(cb, document, 68, 75, 175, " ");
         }
 
         // 頁尾 (最後一頁)

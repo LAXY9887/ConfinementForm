@@ -9,6 +9,13 @@ namespace RigsterForm
 {
     public  class Utilities
     {
+        public SystemSettings Settings { get; set; }
+
+        public Utilities(SystemSettings systemSet) 
+        {
+            Settings = systemSet;
+        }
+
         // 嘗試連線資料庫 (檢查NAS路徑)
         public bool Database_connected(string filePath)
         {
@@ -98,7 +105,7 @@ namespace RigsterForm
             }
 
             // 讀取 JSON 文件内容
-            List<dataStruct> records = ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> records = ReadDatabase(Settings.data_basePath);
 
             using (var package = new ExcelPackage()) 
             {

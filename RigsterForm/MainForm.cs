@@ -72,10 +72,37 @@ namespace RigsterForm
         {
             /* 系統設置 */
             settingCtrl = new SystemSettings();
+        }
 
-            /* 設置金額 */
-            int Allowance_per_nb = 8000;
-            settingCtrl.SetAllowancePerNB(Allowance_per_nb);
+        // 新建Database
+        private bool CreateNewDatabase()
+        {
+            // 跳出對話視窗, 詢問是否真的要新建一個
+            DialogResult result = MessageBox.Show(
+            "沒有偵測到資料庫, 是否新增一個?",
+            "系統提示",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.FileName = $"Database.json";
+                    saveFileDialog.Filter = "Json Files|*.json";
+                    saveFileDialog.Title = "Save an Database File";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        settingCtrl.InitializeDataBase(saveFileDialog.FileName);
+                        settingCtrl.data_basePath = saveFileDialog.FileName;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // 初始化字典, 組合等等
@@ -151,7 +178,7 @@ namespace RigsterForm
         private void InitializeSerialNumDisplay() 
         {
             // 擷取最後一份資料
-            List<dataStruct> current_database = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> current_database = utilities.ReadDatabase(settingCtrl.data_basePath);
             dataStruct latestData = current_database[current_database.Count - 1];
 
             // 取得年分
@@ -216,20 +243,31 @@ namespace RigsterForm
 
         public MainForm()
         {
-            // 使用自製函式
-            utilities = new Utilities();
-
-            // 檢查資料庫連線
-            bool isDatabaseConnected = utilities.Database_connected(ConstParameters.database_path);
-
-            // 若初始沒有偵測到資料庫, 則...
-            if (!isDatabaseConnected) { }
-
-            // 初始化區塊
-            #region InitializeThings
+            // 預設路徑
+            string default_path = ConstParameters.default_database_path;
 
             // 設置系統
             InitializeSettings();
+
+            // 使用自製函式
+            settingCtrl.SetDatabasePath(default_path);
+            utilities = new Utilities(settingCtrl);
+
+            // 檢查資料庫連線
+            bool isDatabaseConnected = utilities.Database_connected(settingCtrl.data_basePath);
+
+            // 若初始沒有偵測到資料庫, 詢問是否新增一個
+            if (!isDatabaseConnected) 
+            {
+                bool isCreate = CreateNewDatabase();
+                if (!isCreate)
+                {
+                    return;
+                }
+            }
+
+            // 初始化區塊
+            #region InitializeThings
 
             // 初始化頁面
             InitializeComponent();
@@ -267,6 +305,8 @@ namespace RigsterForm
 
             // 綁定功能
             BindingMouseWheelFunction();
+
+            
 
             #endregion
         }
@@ -420,7 +460,7 @@ namespace RigsterForm
         private dataStruct GatherInfo() 
         {
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             // 日期
             string[] GetDateTime = HandleDateTime();
@@ -734,7 +774,7 @@ namespace RigsterForm
             GroupBoxID groupID = groupBoxIDNameMatrix.First(g => g.Value == Group_name).Key;
 
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             // 如果讀取失敗則不會執行以下
             if (dataList is null) { return; }
@@ -830,7 +870,7 @@ namespace RigsterForm
             bool isfind = false;
 
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             // 在資料庫中尋找重複
             foreach (dataStruct data in dataList)
@@ -878,7 +918,7 @@ namespace RigsterForm
                 toWrite += ",\n";
             }
             toWrite += "]";
-            File.WriteAllText(ConstParameters.database_path, toWrite);
+            File.WriteAllText(settingCtrl.data_basePath, toWrite);
             if (showMessage)
             {
                 MessageBox.Show("儲存成功", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -928,7 +968,7 @@ namespace RigsterForm
         private void saveBtn_Click(object sender, EventArgs e)
         {
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters. database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             // 如果讀取失敗則不會執行以下
             if (dataList is null){return;}
@@ -1104,7 +1144,7 @@ namespace RigsterForm
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             if (isEditingPrevData)
             {
@@ -1245,7 +1285,7 @@ namespace RigsterForm
                     string updatedJson = JsonConvert.SerializeObject(records, Formatting.Indented);
 
                     // 保存回文件
-                    File.WriteAllText(ConstParameters.database_path, updatedJson);
+                    File.WriteAllText(settingCtrl.data_basePath, updatedJson);
 
                     // 更新頁面
                     List<string> list2check = new List<string> { search_start_yy.Text, search_start_mm.Text, search_end_yy.Text, search_end_mm.Text };
@@ -1276,7 +1316,7 @@ namespace RigsterForm
             historyGridView.Rows[e.RowIndex].Selected = true;
 
             // 讀取資料庫
-            List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> records = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             // 取選中的那一筆資料
             string seleted_serial_num = historyGridView.Rows[e.RowIndex].Cells["Serial_num"].Value.ToString();
@@ -1347,6 +1387,12 @@ namespace RigsterForm
                         cb.SelectedIndexChanged -= SearchDate_ComboBox_SelectedIndexChanged;
                         cb.TextChanged -= SearchDate_ComboBox_SelectedIndexChanged;
                     }
+                }
+
+                if (tabControl.SelectedTab.Name == "settingsPage")
+                {
+                    dataBAsePath_setTB.Text = settingCtrl.data_basePath;
+                    allowanceSetting_TB.Text = settingCtrl.allowance_per_nb.ToString();
                 }
             }
         }
@@ -1507,6 +1553,16 @@ namespace RigsterForm
                         row.Cells["SensorRes"].Style.ForeColor = Color.DarkBlue;
                         break;
                 }
+
+                string remitDate_str = row.Cells["remitDate"].Value.ToString();
+                if (remitDate_str == "尚未匯款")
+                {
+                    row.Cells["remitDate"].Style.ForeColor = Color.DarkBlue;
+                }
+                else
+                {
+                    row.Cells["remitDate"].Style.ForeColor = Color.DarkCyan;
+                }
             }
         }
 
@@ -1560,12 +1616,12 @@ namespace RigsterForm
         // 載入顯示資訊到DataGridView
         private void LoadJsonToDataGridView(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay)
         {
-            if (File.Exists(ConstParameters.database_path))
+            if (File.Exists(settingCtrl.data_basePath))
             {
                 try
                 {
                     // 反序列化 JSON 内容為對象列表
-                    List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
+                    List<dataStruct> records = utilities.ReadDatabase(settingCtrl.data_basePath);
 
                     // 篩選日期
                     List<string> target_serial_num = DateFiltering(startYear, startMonth, startDay, endYear, endMonth, endDay, records);
@@ -1583,7 +1639,7 @@ namespace RigsterForm
             }
             else
             {
-                MessageBox.Show($"File not found: {ConstParameters.database_path}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"File not found: {settingCtrl.data_basePath}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1591,7 +1647,7 @@ namespace RigsterForm
         private void IDsearchBtn_Click(object sender, EventArgs e)
         {
             // 載入資料庫
-            List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> records = utilities.ReadDatabase(settingCtrl.data_basePath);
 
            // ID BOX (使用者輸入)
            string idText = IDsearchBOX.Text.ToString();
@@ -1743,7 +1799,7 @@ namespace RigsterForm
         private void batchSensorBtn_Click(object sender, EventArgs e)
         {
             // 載入資料庫
-            List<dataStruct> records = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> records = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             // 執行審核
             SensorBatch(records);
@@ -1758,7 +1814,7 @@ namespace RigsterForm
         private void exportExcelBtn_Click(object sender, EventArgs e)
         {
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             ComfirmExportDateForm comfirmExportDateForm = new ComfirmExportDateForm();
             comfirmExportDateForm.ShowDialog();
@@ -1790,7 +1846,7 @@ namespace RigsterForm
 
             if (excelFilePath != null && select_serial_nums.Count > 0)
             {
-                utilities.exportExcel(ConstParameters.database_path, excelFilePath, select_serial_nums,settingCtrl.allowance_per_nb);
+                utilities.exportExcel(settingCtrl.data_basePath, excelFilePath, select_serial_nums,settingCtrl.allowance_per_nb);
             }
             
         }
@@ -1811,7 +1867,6 @@ namespace RigsterForm
                         saveFileDialog.Title = "Save an PDF File";
                         break;
                 }
-                
 
                 DateTime now = DateTime.Now;
                 int adjYear = now.Year - 1911;
@@ -1830,10 +1885,10 @@ namespace RigsterForm
         // 輸出PDF的功能
         private void exportPDFBtn_Click(object sender, EventArgs e)
         {
-            PDFmaker pdfMaker  = new PDFmaker();
+            PDFmaker pdfMaker  = new PDFmaker(settingCtrl);
 
             // 讀取資料庫
-            List<dataStruct> dataList = utilities.ReadDatabase(ConstParameters.database_path);
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
             // 跳出確認視窗
             ComfirmExportDateForm comfirmExportDateForm = new ComfirmExportDateForm();
@@ -1883,7 +1938,304 @@ namespace RigsterForm
             }
         }
 
+        private string ShowDateComfirmDialog()
+        {
+            string DateStr = "";
+
+            DateComfirmForm dateComfirm = new DateComfirmForm();
+            dateComfirm.ShowDialog();
+
+            DateComfirmForm.Options selection = dateComfirm.comfirm;
+
+            switch (selection)
+            {
+                case DateComfirmForm.Options.Comfirm:
+                    DateStr = dateComfirm.GetDate();
+                    break;
+
+                case DateComfirmForm.Options.NOT_REMIT:
+                    DateStr = "尚未匯款";
+                    break;
+            }
+
+            return DateStr;
+        }
+
+        private void exportRemitBTN_Click(object sender, EventArgs e)
+        {
+            // 讀取資料庫
+            List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
+
+            // 確認輸出範圍
+            ComfirmExportDateForm comfirmExportDateForm = new ComfirmExportDateForm();
+            comfirmExportDateForm.ShowDialog();
+            string selection = comfirmExportDateForm.export_choice;
+            List<string> select_serial_nums = new List<string>();
+            switch (selection)
+            {
+                case ComfirmExportDateForm.ALL_RANGE:
+                    foreach (var item in dataList)
+                    {
+                        if (item.remit_date=="尚未匯款" && item.sensor_result == "通過")
+                        {
+                            select_serial_nums.Add(item.serial_num);
+                        }
+                    }
+                    break;
+
+                case ComfirmExportDateForm.FILTER_DATE:
+                    foreach (DataGridViewRow row in historyGridView.Rows)
+                    {
+                        if (row.Cells["remitDate"].Value.ToString() == "尚未匯款" && row.Cells["SensorRes"].Value.ToString() == "通過")
+                        {
+                            select_serial_nums.Add(row.Cells["Serial_num"].Value.ToString());
+                        }
+                    }
+                    break;
+
+                case ComfirmExportDateForm.DEFAULT:
+                    return;
+            }
+
+            // 假設 selected_ser_nums 是空 (沒有任何審核通過的) 則提示, 不執行
+            if (select_serial_nums.Count == 0)
+            {
+                MessageBox.Show("沒有資料/沒有審核通過的資料!\n請確認!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            // 得到存檔路徑
+            string txtFilePath = ShowSaveFileDialog("txt", "轉帳資訊檔案");
+
+            // 確認轉帳日期
+            string remitDate = ShowDateComfirmDialog();
+
+            if (remitDate.Count() > 0 && txtFilePath != null && select_serial_nums.Count > 0)
+            {
+                // 格式
+                string toWrite = "";
+
+                for (int i = 0; i < dataList.Count; i++)
+                {
+                    if (select_serial_nums.Contains(dataList[i].serial_num))
+                    {
+                        // 取得該筆資料
+                        dataStruct caseData = dataList[i];
+
+                        // 變更審核結果
+                        caseData.remit_date = remitDate;
+
+                        // 取代原本的
+                        dataList[i] = caseData;
+
+                        // 將 JSON 寫入檔案
+                        WriteDataToDatabase(dataList, false);
+
+                        // 更新表格顯示
+                        LoadJsonToDataGridView(
+                                       startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text), startDay: Int32.Parse(search_start_dd.Text),
+                                       endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
+                                       );
+
+                        toWrite += $"格式-{dataList[i].serial_num}-{remitDate}-格式\n";
+                    }
+                }
+
+                // 輸出
+                File.WriteAllText(txtFilePath, toWrite);
+
+                // 提示
+                MessageBox.Show("輸出完成", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         #endregion
+
+        private enum SettingsOption
+        {
+            Allowance_per_NB, Database_path, Remit_Format
+        }
+
+        private void UPdateSettings(SettingsOption toChange, string[] values)
+        {
+            // Load setting
+            string settingContent = File.ReadAllText(ConstParameters.settingsPath);
+            SettingStruct currentSettings = JsonConvert.DeserializeObject<SettingStruct>(settingContent);
+
+            // New settings
+            SettingStruct newSettings = new SettingStruct()
+            {
+                Allowance_per_new_born = currentSettings.Allowance_per_new_born,
+                Database_path = currentSettings.Database_path,
+                District_db_pth = currentSettings.District_db_pth,
+                RemitFormat1 = currentSettings.RemitFormat1,
+                RemitFormat2 = currentSettings.RemitFormat2,
+                RemitFormat3 = currentSettings.RemitFormat3,
+                SpaceNumber = currentSettings.SpaceNumber
+            };
+
+            switch (toChange)
+            {
+                case SettingsOption.Allowance_per_NB:
+                    newSettings.Allowance_per_new_born = Int32.Parse(values[0]);
+                    break;
+                case SettingsOption.Database_path:
+                    newSettings.Database_path = values[0];
+                    break;
+                case SettingsOption.Remit_Format:
+                    newSettings.RemitFormat1 = values[0];
+                    newSettings.SpaceNumber = Int32.Parse(values[1]);
+                    newSettings.RemitFormat2 = values[2];
+                    newSettings.RemitFormat3 = values[3];
+                    break;
+                default:
+                    break;
+            }
+
+            string toWrite = JsonConvert.SerializeObject(newSettings, Formatting.Indented);
+            File.WriteAllText(ConstParameters.settingsPath, toWrite);
+            settingCtrl.ApplySettings();
+        }
+
+        private void BatchChangeRemitDate(List<dataStruct> records)
+        {
+            string selectedRemitDate = ShowDateComfirmDialog();
+
+            if (selectedRemitDate.Count() == 0)
+            {
+                return;
+            }
+
+            // 獲取所有被選中的行的索引
+            List<string> selectedRowIndexes = new List<string>();
+            foreach (DataGridViewRow row in historyGridView.SelectedRows)
+            {
+                selectedRowIndexes.Add(row.Cells["Serial_num"].Value.ToString());
+            }
+
+            // 審核全部選中的
+            foreach (string sern in selectedRowIndexes)
+            {
+                // 取得INDEX
+                int replaceIndex = records.FindIndex(data => data.serial_num == sern);
+
+                // 取得該筆資料
+                dataStruct caseData = records[replaceIndex];
+
+                // 變更審核結果
+                caseData.remit_date = selectedRemitDate;
+
+                // 取代原本的
+                records[replaceIndex] = caseData;
+
+                // 將 JSON 寫入檔案
+                WriteDataToDatabase(records, false);
+
+                // 更新表格顯示
+                LoadJsonToDataGridView(
+                               startYear: Int32.Parse(search_start_yy.Text), startMonth: Int32.Parse(search_start_mm.Text), startDay: Int32.Parse(search_start_dd.Text),
+                               endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
+                               );
+            }
+        }
+
+        private void changeSettingsBtn_Click(object sender, EventArgs e)
+        {
+            const string CHANGE = "變更";
+            const string COMFIRM = "確定";
+
+            Button ChangeBtn = (Button)sender;
+            string BtnName = ChangeBtn.Name;
+
+            switch (BtnName)
+            {
+                case "changeAllowanceBtn": 
+                    if (ChangeBtn.Text == CHANGE)
+                    {
+                        allowanceSetting_TB.Enabled = true;
+                        ChangeBtn.Text = COMFIRM;
+                        ChangeBtn.ForeColor = Color.DarkGreen;
+                    }
+                    else if (ChangeBtn.Text == COMFIRM)
+                    {
+                        allowanceSetting_TB.Enabled = false;
+                        ChangeBtn.Text = CHANGE;
+                        ChangeBtn.ForeColor = Color.Black;
+                        settingCtrl.SetAllowancePerNB(Int32.Parse(allowanceSetting_TB.Text));
+                    }
+
+                    // 更新設定
+                    UPdateSettings(SettingsOption.Allowance_per_NB, new string[] { allowanceSetting_TB.Text });
+                    break;
+
+                case "change_databasePthBtn":
+                    using (OpenFileDialog chooseFileDialog = new OpenFileDialog())
+                    {
+                        chooseFileDialog.FileName = "";
+                        chooseFileDialog.Filter = "Json Files|*.json";
+                        chooseFileDialog.Title = "Load an Database File";
+                        if (chooseFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            dataBAsePath_setTB.Text = chooseFileDialog.FileName;
+                        }
+                        settingCtrl.SetDatabasePath(dataBAsePath_setTB.Text);
+                    }
+
+                    // 更新流水號
+                    List<dataStruct> newData = utilities.ReadDatabase(settingCtrl.data_basePath);
+                    dataStruct lastData = newData[newData.Count - 1];
+
+                    int lastLoginYear = lastData.login_year;
+                    int last_serial_idx = lastData.serial_index;
+                    int updateYear = DateTime.Now.Year - 1911;
+                    int updateSerialIDX = last_serial_idx + 1;
+                    if (lastLoginYear != updateYear)
+                    {
+                        updateSerialIDX = 0;
+                    }
+                    SerialNumLabel.Text = $"{updateYear}-{updateSerialIDX}";
+
+                    // 更新設定
+                    UPdateSettings(SettingsOption.Database_path, new string[] { dataBAsePath_setTB.Text });
+                    break;
+
+                case "change_remitFormatBtn":
+                    if (ChangeBtn.Text == CHANGE)
+                    {
+                        foreach (Control ctrl in settings_panel.Controls)
+                        {
+                            ctrl.Enabled = true;
+                        }
+                        ChangeBtn.Text = COMFIRM;
+                        ChangeBtn.ForeColor = Color.DarkGreen;
+                    }
+                    else if (ChangeBtn.Text == COMFIRM)
+                    {
+                        foreach (Control ctrl in settings_panel.Controls)
+                        {
+                            ctrl.Enabled = false;
+                        }
+                        ChangeBtn.Text = CHANGE;
+                        ChangeBtn.ForeColor = Color.Black;
+
+                        // 更新 settingCtrl
+                        settingCtrl.SetRemitFormat(remitFormatTB1.Text, Int32.Parse(remitFormatTB2.Text), remitFormatTB3.Text, remitFormatTB4.Text);
+
+                        // 更新設定
+                        UPdateSettings(SettingsOption.Allowance_per_NB, new string[]
+                        {
+                            remitFormatTB1.Text, remitFormatTB2.Text, remitFormatTB3.Text, remitFormatTB4.Text
+                        });
+                    }
+                    break;
+            }
+
+        }
+
+        private void RemitDateBtn_Click(object sender, EventArgs e)
+        {
+            List<dataStruct> records = utilities.ReadDatabase(settingCtrl.data_basePath);
+            BatchChangeRemitDate(records);
+        }
     }
 }
 

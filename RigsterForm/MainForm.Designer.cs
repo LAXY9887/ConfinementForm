@@ -135,8 +135,9 @@ namespace RigsterForm
             this.label10 = new System.Windows.Forms.Label();
             this.historyPage = new System.Windows.Forms.TabPage();
             this.collectionPanel1 = new System.Windows.Forms.Panel();
+            this.RemitDateBtn = new System.Windows.Forms.Button();
             this.batchSensorBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.exportRemitBTN = new System.Windows.Forms.Button();
             this.exportPDFBtn = new System.Windows.Forms.Button();
             this.clearSearchBtn = new System.Windows.Forms.Button();
             this.IDsearchBtn = new System.Windows.Forms.Button();
@@ -161,15 +162,28 @@ namespace RigsterForm
             this.historyGridView = new System.Windows.Forms.DataGridView();
             this.settingsPage = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1324 = new System.Windows.Forms.Label();
+            this.change_remitFormatBtn = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.change_databasePthBtn = new System.Windows.Forms.Button();
+            this.dataBAsePath_setTB = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.changeAllowanceBtn = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.allowanceSetting_TB = new System.Windows.Forms.TextBox();
+            this.label14876 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.settings_panel = new System.Windows.Forms.Panel();
+            this.remitFormatTB4 = new System.Windows.Forms.TextBox();
+            this.remitFormatTB3 = new System.Windows.Forms.TextBox();
+            this.remitFormatTB2 = new System.Windows.Forms.TextBox();
+            this.remitFormatTB1 = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.collectionPanle.SuspendLayout();
@@ -191,6 +205,7 @@ namespace RigsterForm
             ((System.ComponentModel.ISupportInitialize)(this.historyGridView)).BeginInit();
             this.settingsPage.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.settings_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -965,8 +980,9 @@ namespace RigsterForm
             // collectionPanel1
             // 
             this.collectionPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.collectionPanel1.Controls.Add(this.RemitDateBtn);
             this.collectionPanel1.Controls.Add(this.batchSensorBtn);
-            this.collectionPanel1.Controls.Add(this.button2);
+            this.collectionPanel1.Controls.Add(this.exportRemitBTN);
             this.collectionPanel1.Controls.Add(this.exportPDFBtn);
             this.collectionPanel1.Controls.Add(this.clearSearchBtn);
             this.collectionPanel1.Controls.Add(this.IDsearchBtn);
@@ -976,6 +992,14 @@ namespace RigsterForm
             resources.ApplyResources(this.collectionPanel1, "collectionPanel1");
             this.collectionPanel1.Name = "collectionPanel1";
             // 
+            // RemitDateBtn
+            // 
+            resources.ApplyResources(this.RemitDateBtn, "RemitDateBtn");
+            this.RemitDateBtn.ForeColor = System.Drawing.Color.SeaGreen;
+            this.RemitDateBtn.Name = "RemitDateBtn";
+            this.RemitDateBtn.UseVisualStyleBackColor = true;
+            this.RemitDateBtn.Click += new System.EventHandler(this.RemitDateBtn_Click);
+            // 
             // batchSensorBtn
             // 
             resources.ApplyResources(this.batchSensorBtn, "batchSensorBtn");
@@ -984,11 +1008,12 @@ namespace RigsterForm
             this.batchSensorBtn.UseVisualStyleBackColor = true;
             this.batchSensorBtn.Click += new System.EventHandler(this.batchSensorBtn_Click);
             // 
-            // button2
+            // exportRemitBTN
             // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.exportRemitBTN, "exportRemitBTN");
+            this.exportRemitBTN.Name = "exportRemitBTN";
+            this.exportRemitBTN.UseVisualStyleBackColor = true;
+            this.exportRemitBTN.Click += new System.EventHandler(this.exportRemitBTN_Click);
             // 
             // exportPDFBtn
             // 
@@ -1144,65 +1169,153 @@ namespace RigsterForm
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.settings_panel);
+            this.panel1.Controls.Add(this.label32);
+            this.panel1.Controls.Add(this.label31);
+            this.panel1.Controls.Add(this.label30);
+            this.panel1.Controls.Add(this.label27);
+            this.panel1.Controls.Add(this.label22);
+            this.panel1.Controls.Add(this.label21);
+            this.panel1.Controls.Add(this.label20);
+            this.panel1.Controls.Add(this.label14876);
             this.panel1.Controls.Add(this.label1324);
-            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.change_remitFormatBtn);
             this.panel1.Controls.Add(this.label19);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.change_databasePthBtn);
+            this.panel1.Controls.Add(this.dataBAsePath_setTB);
             this.panel1.Controls.Add(this.label18);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.changeAllowanceBtn);
             this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.allowanceSetting_TB);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // button5
+            // label1324
             // 
-            resources.ApplyResources(this.button5, "button5");
-            this.button5.Name = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label1324, "label1324");
+            this.label1324.Name = "label1324";
+            // 
+            // change_remitFormatBtn
+            // 
+            resources.ApplyResources(this.change_remitFormatBtn, "change_remitFormatBtn");
+            this.change_remitFormatBtn.Name = "change_remitFormatBtn";
+            this.change_remitFormatBtn.UseVisualStyleBackColor = true;
             // 
             // label19
             // 
             resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
             // 
-            // button4
+            // change_databasePthBtn
             // 
-            resources.ApplyResources(this.button4, "button4");
-            this.button4.Name = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.change_databasePthBtn, "change_databasePthBtn");
+            this.change_databasePthBtn.Name = "change_databasePthBtn";
+            this.change_databasePthBtn.UseVisualStyleBackColor = true;
+            this.change_databasePthBtn.Click += new System.EventHandler(this.changeSettingsBtn_Click);
             // 
-            // textBox2
+            // dataBAsePath_setTB
             // 
-            resources.ApplyResources(this.textBox2, "textBox2");
-            this.textBox2.Name = "textBox2";
+            resources.ApplyResources(this.dataBAsePath_setTB, "dataBAsePath_setTB");
+            this.dataBAsePath_setTB.Name = "dataBAsePath_setTB";
             // 
             // label18
             // 
             resources.ApplyResources(this.label18, "label18");
             this.label18.Name = "label18";
             // 
-            // button3
+            // changeAllowanceBtn
             // 
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.Name = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.changeAllowanceBtn, "changeAllowanceBtn");
+            this.changeAllowanceBtn.Name = "changeAllowanceBtn";
+            this.changeAllowanceBtn.UseVisualStyleBackColor = true;
+            this.changeAllowanceBtn.Click += new System.EventHandler(this.changeSettingsBtn_Click);
             // 
             // label17
             // 
             resources.ApplyResources(this.label17, "label17");
             this.label17.Name = "label17";
             // 
-            // textBox1
+            // allowanceSetting_TB
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            resources.ApplyResources(this.allowanceSetting_TB, "allowanceSetting_TB");
+            this.allowanceSetting_TB.Name = "allowanceSetting_TB";
             // 
-            // label1324
+            // label14876
             // 
-            resources.ApplyResources(this.label1324, "label1324");
-            this.label1324.Name = "label1324";
+            resources.ApplyResources(this.label14876, "label14876");
+            this.label14876.ForeColor = System.Drawing.Color.Navy;
+            this.label14876.Name = "label14876";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.ForeColor = System.Drawing.Color.Navy;
+            this.label20.Name = "label20";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.ForeColor = System.Drawing.Color.Navy;
+            this.label21.Name = "label21";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.ForeColor = System.Drawing.Color.Navy;
+            this.label22.Name = "label22";
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.Name = "label27";
+            // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.ForeColor = System.Drawing.Color.Navy;
+            this.label30.Name = "label30";
+            // 
+            // label31
+            // 
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.ForeColor = System.Drawing.Color.Maroon;
+            this.label31.Name = "label31";
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.ForeColor = System.Drawing.Color.Navy;
+            this.label32.Name = "label32";
+            // 
+            // settings_panel
+            // 
+            this.settings_panel.BackColor = System.Drawing.Color.Transparent;
+            this.settings_panel.Controls.Add(this.remitFormatTB4);
+            this.settings_panel.Controls.Add(this.remitFormatTB3);
+            this.settings_panel.Controls.Add(this.remitFormatTB2);
+            this.settings_panel.Controls.Add(this.remitFormatTB1);
+            resources.ApplyResources(this.settings_panel, "settings_panel");
+            this.settings_panel.Name = "settings_panel";
+            // 
+            // remitFormatTB4
+            // 
+            resources.ApplyResources(this.remitFormatTB4, "remitFormatTB4");
+            this.remitFormatTB4.Name = "remitFormatTB4";
+            // 
+            // remitFormatTB3
+            // 
+            resources.ApplyResources(this.remitFormatTB3, "remitFormatTB3");
+            this.remitFormatTB3.Name = "remitFormatTB3";
+            // 
+            // remitFormatTB2
+            // 
+            resources.ApplyResources(this.remitFormatTB2, "remitFormatTB2");
+            this.remitFormatTB2.Name = "remitFormatTB2";
+            // 
+            // remitFormatTB1
+            // 
+            resources.ApplyResources(this.remitFormatTB1, "remitFormatTB1");
+            this.remitFormatTB1.Name = "remitFormatTB1";
             // 
             // MainForm
             // 
@@ -1250,6 +1363,8 @@ namespace RigsterForm
             this.settingsPage.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.settings_panel.ResumeLayout(false);
+            this.settings_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1379,7 +1494,7 @@ namespace RigsterForm
         private ComboBox search_end_dd;
         private TabPage settingsPage;
         private Panel collectionPanel1;
-        private Button button2;
+        private Button exportRemitBTN;
         private Button exportPDFBtn;
         private Button clearSearchBtn;
         private Button IDsearchBtn;
@@ -1388,15 +1503,29 @@ namespace RigsterForm
         private Button exportExcelBtn;
         private Button batchSensorBtn;
         private Panel panel1;
-        private Button button5;
+        private Button change_remitFormatBtn;
         private Label label19;
-        private Button button4;
-        private TextBox textBox2;
+        private Button change_databasePthBtn;
+        private TextBox dataBAsePath_setTB;
         private Label label18;
-        private Button button3;
+        private Button changeAllowanceBtn;
         private Label label17;
-        private TextBox textBox1;
+        private TextBox allowanceSetting_TB;
         private Label label1324;
+        private Button RemitDateBtn;
+        private Label label21;
+        private Label label20;
+        private Label label14876;
+        private Label label22;
+        private Label label30;
+        private Label label27;
+        private Label label32;
+        private Label label31;
+        private Panel settings_panel;
+        private TextBox remitFormatTB4;
+        private TextBox remitFormatTB3;
+        private TextBox remitFormatTB2;
+        private TextBox remitFormatTB1;
     }
 }
 

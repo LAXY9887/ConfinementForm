@@ -88,6 +88,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckBoxController.cs" />
+    <Compile Include="DateComfirmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DateComfirmForm.Designer.cs">
+      <DependentUpon>DateComfirmForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="settingStruct.cs" />
     <Compile Include="PDFmaker.cs" />
     <Compile Include="SensorForm.cs">
       <SubType>Form</SubType>
@@ -125,6 +132,9 @@
     <Compile Include="AddablePanel.cs" />
     <EmbeddedResource Include="ComfirmExportDateForm.resx">
       <DependentUpon>ComfirmExportDateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DateComfirmForm.resx">
+      <DependentUpon>DateComfirmForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetailInfoForm.resx">
       <DependentUpon>DetailInfoForm.cs</DependentUpon>
