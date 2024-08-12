@@ -39,6 +39,12 @@ namespace RigsterForm
             comfirm = Options.NONE;
         }
 
+        public void DisableNOTRemitBtn()
+        {
+            NOTRemitBtn.Enabled = false;
+        }
+
+
         private void comfirmDateOKBtn_Click(object sender, EventArgs e)
         {
             comfirm = Options.Comfirm;

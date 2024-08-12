@@ -863,7 +863,7 @@ namespace RigsterForm
         }
 
         // 檢查身分證
-        public string ValideID(string ID)
+        public string ValideID(string ID, bool searching = true)
         {
             // 初始化回報資訊
             string report = "";
@@ -875,9 +875,11 @@ namespace RigsterForm
             // 在資料庫中尋找重複
             foreach (dataStruct data in dataList)
             {
-                List<string> ids2check = new List<string> {
-                    data.query_id , data.apply_id, data.mate_id
-                };
+                List<string> ids2check = new List<string>();
+                if (searching)
+                {
+                    ids2check.AddRange(new string[] { data.query_id, data.apply_id, data.mate_id });
+                }
                 foreach (string id in data.newBorn_id)
                 {
                     ids2check.Add(id);
@@ -1001,7 +1003,7 @@ namespace RigsterForm
                 bool isDuplicate = false;
                 foreach (string id in ids2check)
                 {
-                    string dupReportStr = ValideID(id);
+                    string dupReportStr = ValideID(id, searching: false);
 
                     if (dupReportStr.Length > 0)
                     {
@@ -1391,8 +1393,12 @@ namespace RigsterForm
 
                 if (tabControl.SelectedTab.Name == "settingsPage")
                 {
-                    dataBAsePath_setTB.Text = settingCtrl.data_basePath;
                     allowanceSetting_TB.Text = settingCtrl.allowance_per_nb.ToString();
+                    dataBAsePath_setTB.Text = settingCtrl.data_basePath;
+                    remitFormatTB1.Text = settingCtrl.remit_format_sub1;
+                    remitFormatTB2.Text = settingCtrl.SpaceNum.ToString();
+                    remitFormatTB3.Text = settingCtrl.remit_format_sub2;
+                    remitFormatTB4.Text = settingCtrl.remit_format_sub3;
                 }
             }
         }
@@ -1938,11 +1944,15 @@ namespace RigsterForm
             }
         }
 
-        private string ShowDateComfirmDialog()
+        private string ShowDateComfirmDialog(bool disableUNRemit = false)
         {
             string DateStr = "";
-
+            
             DateComfirmForm dateComfirm = new DateComfirmForm();
+            if (disableUNRemit)
+            {
+                dateComfirm.DisableNOTRemitBtn();
+            }
             dateComfirm.ShowDialog();
 
             DateComfirmForm.Options selection = dateComfirm.comfirm;
@@ -1963,6 +1973,15 @@ namespace RigsterForm
 
         private void exportRemitBTN_Click(object sender, EventArgs e)
         {
+            string FormatNumber(int number)
+            {
+                // 在數字後面加上兩個0，然後轉為字串
+                string formattedNumber = (number * 100).ToString();
+
+                // 在數字前補0，使其總長度為10位
+                return formattedNumber.PadLeft(10, '0');
+            }
+
             // 讀取資料庫
             List<dataStruct> dataList = utilities.ReadDatabase(settingCtrl.data_basePath);
 
@@ -2007,7 +2026,7 @@ namespace RigsterForm
             string txtFilePath = ShowSaveFileDialog("txt", "轉帳資訊檔案");
 
             // 確認轉帳日期
-            string remitDate = ShowDateComfirmDialog();
+            string remitDate = ShowDateComfirmDialog(true);
 
             if (remitDate.Count() > 0 && txtFilePath != null && select_serial_nums.Count > 0)
             {
@@ -2036,7 +2055,33 @@ namespace RigsterForm
                                        endYear: Int32.Parse(search_end_yy.Text), endMonth: Int32.Parse(search_end_mm.Text), endDay: Int32.Parse(search_end_dd.Text)
                                        );
 
-                        toWrite += $"格式-{dataList[i].serial_num}-{remitDate}-格式\n";
+                        // 固定格式
+                        string F1 = settingCtrl.remit_format_sub1;
+                        string Sp = string.Join("",Enumerable.Repeat(" ", settingCtrl.SpaceNum));
+                        string F2 = settingCtrl.remit_format_sub2;
+                        string F3 = settingCtrl.remit_format_sub3;
+
+                        // 日期
+                        string reDateYY = remitDate.Split('年')[0];
+                        string subDate = remitDate.Split('年')[1];
+                        int reDateMMi = Int32.Parse(subDate.Split('月')[0]);
+                        string reDateMM = reDateMMi.ToString();
+                        if (reDateMMi < 10)
+                        {
+                            reDateMM = "0" + reDateMMi.ToString();
+                        }
+                        string subsubDate = subDate.Split('月')[1];
+                        int reDateDDi = Int32.Parse(subsubDate.Split('日')[0]);
+                        string reDateDD = reDateDDi.ToString();
+                        if (reDateDDi < 10)
+                        {
+                            reDateMM = "0" + reDateMMi.ToString();
+                        }
+
+                        // 金額
+                        int allowance_amount = settingCtrl.allowance_per_nb * caseData.newBorn_name.Count();
+                        string allowanceStr = FormatNumber(allowance_amount);
+                        toWrite += $"{F1}{Sp}{F2}{reDateYY}{reDateMM}{reDateDD}{caseData.account_div}{caseData.account_number}{caseData.account_ID}{allowanceStr}{F3}\n";
                     }
                 }
 
@@ -2221,7 +2266,7 @@ namespace RigsterForm
                         settingCtrl.SetRemitFormat(remitFormatTB1.Text, Int32.Parse(remitFormatTB2.Text), remitFormatTB3.Text, remitFormatTB4.Text);
 
                         // 更新設定
-                        UPdateSettings(SettingsOption.Allowance_per_NB, new string[]
+                        UPdateSettings(SettingsOption.Remit_Format, new string[]
                         {
                             remitFormatTB1.Text, remitFormatTB2.Text, remitFormatTB3.Text, remitFormatTB4.Text
                         });

@@ -162,6 +162,19 @@ namespace RigsterForm
             this.historyGridView = new System.Windows.Forms.DataGridView();
             this.settingsPage = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.settings_panel = new System.Windows.Forms.Panel();
+            this.remitFormatTB4 = new System.Windows.Forms.TextBox();
+            this.remitFormatTB3 = new System.Windows.Forms.TextBox();
+            this.remitFormatTB2 = new System.Windows.Forms.TextBox();
+            this.remitFormatTB1 = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label14876 = new System.Windows.Forms.Label();
             this.label1324 = new System.Windows.Forms.Label();
             this.change_remitFormatBtn = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
@@ -171,19 +184,6 @@ namespace RigsterForm
             this.changeAllowanceBtn = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.allowanceSetting_TB = new System.Windows.Forms.TextBox();
-            this.label14876 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.settings_panel = new System.Windows.Forms.Panel();
-            this.remitFormatTB4 = new System.Windows.Forms.TextBox();
-            this.remitFormatTB3 = new System.Windows.Forms.TextBox();
-            this.remitFormatTB2 = new System.Windows.Forms.TextBox();
-            this.remitFormatTB1 = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.collectionPanle.SuspendLayout();
@@ -1190,6 +1190,83 @@ namespace RigsterForm
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
+            // settings_panel
+            // 
+            this.settings_panel.BackColor = System.Drawing.Color.Transparent;
+            this.settings_panel.Controls.Add(this.remitFormatTB4);
+            this.settings_panel.Controls.Add(this.remitFormatTB3);
+            this.settings_panel.Controls.Add(this.remitFormatTB2);
+            this.settings_panel.Controls.Add(this.remitFormatTB1);
+            resources.ApplyResources(this.settings_panel, "settings_panel");
+            this.settings_panel.Name = "settings_panel";
+            // 
+            // remitFormatTB4
+            // 
+            resources.ApplyResources(this.remitFormatTB4, "remitFormatTB4");
+            this.remitFormatTB4.Name = "remitFormatTB4";
+            // 
+            // remitFormatTB3
+            // 
+            resources.ApplyResources(this.remitFormatTB3, "remitFormatTB3");
+            this.remitFormatTB3.Name = "remitFormatTB3";
+            // 
+            // remitFormatTB2
+            // 
+            resources.ApplyResources(this.remitFormatTB2, "remitFormatTB2");
+            this.remitFormatTB2.Name = "remitFormatTB2";
+            // 
+            // remitFormatTB1
+            // 
+            resources.ApplyResources(this.remitFormatTB1, "remitFormatTB1");
+            this.remitFormatTB1.Name = "remitFormatTB1";
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.ForeColor = System.Drawing.Color.Navy;
+            this.label32.Name = "label32";
+            // 
+            // label31
+            // 
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.ForeColor = System.Drawing.Color.Maroon;
+            this.label31.Name = "label31";
+            // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.ForeColor = System.Drawing.Color.Navy;
+            this.label30.Name = "label30";
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.Name = "label27";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.ForeColor = System.Drawing.Color.Navy;
+            this.label22.Name = "label22";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.ForeColor = System.Drawing.Color.Navy;
+            this.label21.Name = "label21";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.ForeColor = System.Drawing.Color.Navy;
+            this.label20.Name = "label20";
+            // 
+            // label14876
+            // 
+            resources.ApplyResources(this.label14876, "label14876");
+            this.label14876.ForeColor = System.Drawing.Color.Navy;
+            this.label14876.Name = "label14876";
+            // 
             // label1324
             // 
             resources.ApplyResources(this.label1324, "label1324");
@@ -1200,6 +1277,7 @@ namespace RigsterForm
             resources.ApplyResources(this.change_remitFormatBtn, "change_remitFormatBtn");
             this.change_remitFormatBtn.Name = "change_remitFormatBtn";
             this.change_remitFormatBtn.UseVisualStyleBackColor = true;
+            this.change_remitFormatBtn.Click += new System.EventHandler(this.changeSettingsBtn_Click);
             // 
             // label19
             // 
@@ -1239,83 +1317,6 @@ namespace RigsterForm
             // 
             resources.ApplyResources(this.allowanceSetting_TB, "allowanceSetting_TB");
             this.allowanceSetting_TB.Name = "allowanceSetting_TB";
-            // 
-            // label14876
-            // 
-            resources.ApplyResources(this.label14876, "label14876");
-            this.label14876.ForeColor = System.Drawing.Color.Navy;
-            this.label14876.Name = "label14876";
-            // 
-            // label20
-            // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.ForeColor = System.Drawing.Color.Navy;
-            this.label20.Name = "label20";
-            // 
-            // label21
-            // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.ForeColor = System.Drawing.Color.Navy;
-            this.label21.Name = "label21";
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.ForeColor = System.Drawing.Color.Navy;
-            this.label22.Name = "label22";
-            // 
-            // label27
-            // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.Name = "label27";
-            // 
-            // label30
-            // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.ForeColor = System.Drawing.Color.Navy;
-            this.label30.Name = "label30";
-            // 
-            // label31
-            // 
-            resources.ApplyResources(this.label31, "label31");
-            this.label31.ForeColor = System.Drawing.Color.Maroon;
-            this.label31.Name = "label31";
-            // 
-            // label32
-            // 
-            resources.ApplyResources(this.label32, "label32");
-            this.label32.ForeColor = System.Drawing.Color.Navy;
-            this.label32.Name = "label32";
-            // 
-            // settings_panel
-            // 
-            this.settings_panel.BackColor = System.Drawing.Color.Transparent;
-            this.settings_panel.Controls.Add(this.remitFormatTB4);
-            this.settings_panel.Controls.Add(this.remitFormatTB3);
-            this.settings_panel.Controls.Add(this.remitFormatTB2);
-            this.settings_panel.Controls.Add(this.remitFormatTB1);
-            resources.ApplyResources(this.settings_panel, "settings_panel");
-            this.settings_panel.Name = "settings_panel";
-            // 
-            // remitFormatTB4
-            // 
-            resources.ApplyResources(this.remitFormatTB4, "remitFormatTB4");
-            this.remitFormatTB4.Name = "remitFormatTB4";
-            // 
-            // remitFormatTB3
-            // 
-            resources.ApplyResources(this.remitFormatTB3, "remitFormatTB3");
-            this.remitFormatTB3.Name = "remitFormatTB3";
-            // 
-            // remitFormatTB2
-            // 
-            resources.ApplyResources(this.remitFormatTB2, "remitFormatTB2");
-            this.remitFormatTB2.Name = "remitFormatTB2";
-            // 
-            // remitFormatTB1
-            // 
-            resources.ApplyResources(this.remitFormatTB1, "remitFormatTB1");
-            this.remitFormatTB1.Name = "remitFormatTB1";
             // 
             // MainForm
             // 
