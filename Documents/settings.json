@@ -1,9 +1,9 @@
 {
   "Allowance_per_new_born": 8000,
-  "Database_path": "C:\\Users\\angel\\AppData\\Local\\ConfinementForm\\Database_example.json",
-  "District_db_pth": "C:\\Users\\angel\\AppData\\Local\\ConfinementForm\\Taiwan_Districts.json",
+  "Database_path": "C:\\Users\\USER\\AppData\\Local\\ConfinementForm\\Database.json",
+  "District_db_pth": "C:\\Users\\USER\\AppData\\Local\\ConfinementForm\\Taiwan_Districts.json",
   "RemitFormat1": "0330081618",
   "RemitFormat2": "99991145",
-  "RemitFormat3": "1234(TEMP)",
+  "RemitFormat3": "2468",
   "SpaceNumber": 6
 }
