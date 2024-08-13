@@ -9,7 +9,7 @@ namespace RigsterForm
         // 獲取 Local 的 AppData 資料夾路徑
         private const string APPName = "ConfinementForm";
         private const string SETTINGNAME = "settings.json";
-        private static string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        private static string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string myLocalAppFolder = Path.Combine(localAppDataPath, APPName);
         public static string settingsPath = Path.Combine(myLocalAppFolder, SETTINGNAME);
 

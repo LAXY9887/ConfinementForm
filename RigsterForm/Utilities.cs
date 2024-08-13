@@ -22,7 +22,7 @@ namespace RigsterForm
             // 检查是否包含特殊标记，并进行替换
             if (path.Contains("%AppDataLocal%"))
             {
-                string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 path = path.Replace("%AppDataLocal%", localAppDataPath);
             }
 
