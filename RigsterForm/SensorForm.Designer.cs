@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SensorForm));
             this.ApproveBtn = new System.Windows.Forms.Button();
             this.DeniedBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
@@ -90,6 +91,7 @@
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.DeniedBtn);
             this.Controls.Add(this.ApproveBtn);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SensorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "審核案件";

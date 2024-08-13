@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DateComfirmForm));
             this.label1661554 = new System.Windows.Forms.Label();
             this.label1124847 = new System.Windows.Forms.Label();
             this.label21548 = new System.Windows.Forms.Label();
@@ -174,6 +175,7 @@
             this.Controls.Add(this.label21548);
             this.Controls.Add(this.label1124847);
             this.Controls.Add(this.label1661554);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DateComfirmForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "設定匯款日期";

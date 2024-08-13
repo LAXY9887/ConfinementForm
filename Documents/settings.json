@@ -1,6 +1,6 @@
 {
   "Allowance_per_new_born": 10000,
-  "Database_path": "%AppDataLocal%\\ConfinementForm\\Database_example.json",
+  "Database_path": "%AppDataLocal%\\ConfinementForm\\Database.json",
   "District_db_pth": "%AppDataLocal%\\ConfinementForm\\Taiwan_Districts.json",
   "RemitFormat1": "0330081618",
   "RemitFormat2": "99991145",

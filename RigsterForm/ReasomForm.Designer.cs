@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReasomForm));
             this.label_reason = new System.Windows.Forms.Label();
             this.textBoxreason = new System.Windows.Forms.TextBox();
             this.reason_confirmBtn = new System.Windows.Forms.Button();
@@ -84,6 +85,7 @@
             this.Controls.Add(this.reason_confirmBtn);
             this.Controls.Add(this.textBoxreason);
             this.Controls.Add(this.label_reason);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReasomForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "審核視窗";
