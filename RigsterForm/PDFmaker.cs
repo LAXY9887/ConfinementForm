@@ -250,7 +250,7 @@ namespace RigsterForm
 
             int anchorX = 80;
             int anchorY = 20;
-            int space = 160;
+            int space = 195;
 
             System.Collections.Generic.List<string> list2Add = new System.Collections.Generic.List<string>()
             {

@@ -94,6 +94,12 @@
     <Compile Include="DateComfirmForm.Designer.cs">
       <DependentUpon>DateComfirmForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReasomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReasomForm.Designer.cs">
+      <DependentUpon>ReasomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="settingStruct.cs" />
     <Compile Include="PDFmaker.cs" />
     <Compile Include="SensorForm.cs">
@@ -138,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DetailInfoForm.resx">
       <DependentUpon>DetailInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReasomForm.resx">
+      <DependentUpon>ReasomForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SensorForm.resx">
       <DependentUpon>SensorForm.cs</DependentUpon>

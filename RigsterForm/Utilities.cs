@@ -16,6 +16,19 @@ namespace RigsterForm
             Settings = systemSet;
         }
 
+        // 處理路徑
+        public string ResolvePath(string path)
+        {
+            // 检查是否包含特殊标记，并进行替换
+            if (path.Contains("%AppDataLocal%"))
+            {
+                string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                path = path.Replace("%AppDataLocal%", localAppDataPath);
+            }
+
+            return Path.GetFullPath(path);
+        }
+
         // 嘗試連線資料庫 (檢查NAS路徑)
         public bool Database_connected(string filePath)
         {

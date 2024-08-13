@@ -42,7 +42,7 @@
             this.ApproveBtn.Name = "ApproveBtn";
             this.ApproveBtn.Size = new System.Drawing.Size(174, 59);
             this.ApproveBtn.TabIndex = 0;
-            this.ApproveBtn.Text = "通過";
+            this.ApproveBtn.Text = "符合";
             this.ApproveBtn.UseVisualStyleBackColor = true;
             this.ApproveBtn.Click += new System.EventHandler(this.ApproveBtn_Click);
             // 
@@ -54,7 +54,7 @@
             this.DeniedBtn.Name = "DeniedBtn";
             this.DeniedBtn.Size = new System.Drawing.Size(174, 59);
             this.DeniedBtn.TabIndex = 1;
-            this.DeniedBtn.Text = "不通過";
+            this.DeniedBtn.Text = "不符合";
             this.DeniedBtn.UseVisualStyleBackColor = true;
             this.DeniedBtn.Click += new System.EventHandler(this.DeniedBtn_Click);
             // 

@@ -210,14 +210,14 @@ namespace RigsterForm
         {
             // 使用地址選擇器--戶籍地
             RgisAdressPicker = new AdressPicker(
-                ConstParameters.district_db_path,
+                utilities.ResolvePath(ConstParameters.district_db_path),
                 Rgis_City_combobox, ConstParameters.InitialCity,
                 Rgis_Country_combobox, ConstParameters.InitialCountry,
                 Rgis_Road_TextBox, regisAdressTb);
 
             // 使用地址選擇器--通訊地
             CommAdressPicker = new AdressPicker(
-                ConstParameters.district_db_path,
+                utilities.ResolvePath(ConstParameters.district_db_path),
                 Comm_City_combobox, ConstParameters.InitialCity,
                 Comm_Country_combobox, ConstParameters.InitialCountry,
                 Comm_Road_TextBox, commAdressTb);
@@ -1551,13 +1551,14 @@ namespace RigsterForm
                         row.Cells["SensorRes"].Style.ForeColor = Color.DarkGreen;
                         break;
 
-                    case SensorForm.STR_DISAPPROVED:
-                        row.Cells["SensorRes"].Style.ForeColor = Color.Maroon;
-                        break;
-
                     case SensorForm.STR_NOT_SENSRO:
                         row.Cells["SensorRes"].Style.ForeColor = Color.DarkBlue;
                         break;
+                }
+
+                if (sensor_res_str.Contains(SensorForm.STR_DISAPPROVED))
+                {
+                    row.Cells["SensorRes"].Style.ForeColor = Color.Maroon;
                 }
 
                 string remitDate_str = row.Cells["remitDate"].Value.ToString();
@@ -1714,7 +1715,19 @@ namespace RigsterForm
                     caseData.sensor_result = sensor_result;
                     break;
                 case SensorForm.ButtonID.Denied:
-                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    // 填寫不符合事由
+                    ReasomForm reason = new ReasomForm();
+                    reason.ShowDialog();
+                    string reasonStr = reason.ReasonStr;
+                    if (reasonStr.Count() > 0)
+                    {
+                        sensor_result = $"{sensorForm.SensorResMatrix[selection]}({reasonStr})";
+                    }
+                    else
+                    {
+                        MessageBox.Show("請輸入事由!", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        sensor_result = sensorForm.SensorResMatrix[SensorForm.ButtonID.NULL];
+                    }
                     caseData.sensor_result = sensor_result;
                     break;
                 case SensorForm.ButtonID.NULL:
@@ -1757,7 +1770,19 @@ namespace RigsterForm
                     sensor_result = sensorForm.SensorResMatrix[selection];
                     break;
                 case SensorForm.ButtonID.Denied:
-                    sensor_result = sensorForm.SensorResMatrix[selection];
+                    // 填寫不符合事由
+                    ReasomForm reason = new ReasomForm();
+                    reason.ShowDialog();
+                    string reasonStr = reason.ReasonStr;
+                    if (reasonStr.Count() > 0)
+                    {
+                        sensor_result = $"{sensorForm.SensorResMatrix[selection]}({reasonStr})";
+                    }
+                    else
+                    {
+                        MessageBox.Show("請輸入事由!","系統提示",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                        sensor_result = sensorForm.SensorResMatrix[SensorForm.ButtonID.NULL];
+                    }
                     break;
                 case SensorForm.ButtonID.NULL:
                     sensor_result = sensorForm.SensorResMatrix[selection];

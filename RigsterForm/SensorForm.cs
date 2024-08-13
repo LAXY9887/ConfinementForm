@@ -13,8 +13,8 @@ namespace RigsterForm
         }
 
         // 審核結果
-        public const string STR_APPROVED = "通過";
-        public const string STR_DISAPPROVED = "不通過";
+        public const string STR_APPROVED = "符合";
+        public const string STR_DISAPPROVED = "不符合";
         public const string STR_NOT_SENSRO = "未審核";
         public Dictionary<ButtonID, string> SensorResMatrix = new Dictionary<ButtonID, string>()
         {

@@ -1,10 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using iTextSharp.text;
+using Newtonsoft.Json;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RigsterForm
@@ -29,9 +25,13 @@ namespace RigsterForm
         /* 坐月子津貼計畫代碼(待決定) */
         public string remit_format_sub3 { get; set; }
 
+        /* Utility */
+        private Utilities utilities;
+
         /* 建構式 */
         public SystemSettings() 
         {
+            utilities = new Utilities(this);
             ApplySettings();
         }
 
@@ -44,7 +44,7 @@ namespace RigsterForm
         /* 設定資料庫路徑 */
         public void SetDatabasePath(string path)
         {
-            data_basePath = path;
+            data_basePath = utilities.ResolvePath(path);
         }
 
         /* 設定匯款格式 */
