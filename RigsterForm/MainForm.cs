@@ -2020,7 +2020,7 @@ namespace RigsterForm
                 case ComfirmExportDateForm.ALL_RANGE:
                     foreach (var item in dataList)
                     {
-                        if (item.remit_date=="尚未匯款" && item.sensor_result == "通過")
+                        if (item.remit_date=="尚未匯款" && item.sensor_result == SensorForm.STR_APPROVED)
                         {
                             select_serial_nums.Add(item.serial_num);
                         }
@@ -2030,7 +2030,7 @@ namespace RigsterForm
                 case ComfirmExportDateForm.FILTER_DATE:
                     foreach (DataGridViewRow row in historyGridView.Rows)
                     {
-                        if (row.Cells["remitDate"].Value.ToString() == "尚未匯款" && row.Cells["SensorRes"].Value.ToString() == "通過")
+                        if (row.Cells["remitDate"].Value.ToString() == "尚未匯款" && row.Cells["SensorRes"].Value.ToString() == SensorForm.STR_APPROVED)
                         {
                             select_serial_nums.Add(row.Cells["Serial_num"].Value.ToString());
                         }
