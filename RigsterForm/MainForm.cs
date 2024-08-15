@@ -1673,7 +1673,7 @@ namespace RigsterForm
             }
 
             // 將數組轉換為字串
-            List<dataStruct> displayRecords = records.Where(record => record.apply_id == idText || record.query_id == idText || record.newBorn_id.Contains(idText)).ToList();
+            List<dataStruct> displayRecords = records.Where(record => record.apply_id == idText || record.mate_id == idText || record.query_id == idText || record.newBorn_id.Contains(idText)).ToList();
         
             // 應用變更
             UpdateHistoryGridView(historyGridView, displayRecords);
