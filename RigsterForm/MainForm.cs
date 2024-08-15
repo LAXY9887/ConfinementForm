@@ -622,11 +622,17 @@ namespace RigsterForm
             tabControl.Location = new Point((screenWidth - tabControl.Width) / 2, 10);
             LogPage.Size = LogPage.Parent.Size;
             historyPage.Size = historyPage.Parent.Size;
-            historyGridView.Size = new Size((int)(historyGridView.Parent.Width * 0.98), (int)(historyGridView.Parent.Height * 0.78));
+            historyGridView.Size = new Size((int)(historyGridView.Parent.Width * 0.97), (int)(historyGridView.Parent.Height * 0.78));
             collectionPanel1.Location = new Point(collectionPanel1.Parent.Width - collectionPanel1.Width - 50, collectionPanel1.Location.Y);
 
             // 頁簽內容
+            infoPanel.Location = new Point((infoPanel.Parent.Width - infoPanel.Width) / 2, 0);
             collectionPanle.Location = new Point((collectionPanle.Parent.Width - collectionPanle.Width) / 2, 0);
+            if (screenWidth < 1500)
+            {
+                collectionPanle.Location = new Point((collectionPanle.Parent.Width - collectionPanle.Width) / 2 + 50, 0);
+                historyGridView.Size = new Size((int)(historyGridView.Parent.Width * 0.97), (int)(historyGridView.Parent.Height * 0.76));
+            }
         }
 
         // 新增一個面板(手機號碼或新生兒)
