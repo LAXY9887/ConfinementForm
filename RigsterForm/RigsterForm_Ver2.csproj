@@ -26,7 +26,8 @@
     <TargetCulture>zh-TW</TargetCulture>
     <ProductName>坐月子津貼登記系統</ProductName>
     <PublisherName>AngelCemept</PublisherName>
-    <ApplicationRevision>2</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

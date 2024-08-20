@@ -133,6 +133,7 @@ namespace RigsterForm
 
             // 加入表格內容
             int idx_count = 0;
+            int sum_allowance = 0;
             foreach (dataStruct data in dataList)
             {
                 if (target_serial_num.Contains(data.serial_num))
@@ -146,9 +147,14 @@ namespace RigsterForm
                     table.AddCell(makeCell(data.account_ID, cellFont));    //受款人身分證
                     table.AddCell(makeCell(data.account_div, cellFont));    //郵局局號
                     table.AddCell(makeCell(data.account_number, cellFont));    //郵局局號
-                    table.AddCell(makeCell((data.newBorn_name.Count * settingCtrl.allowance_per_nb).ToString(), cellFont));    //補助金額
+
+                    // 計算補助金額
+                    int money = data.newBorn_name.Count * settingCtrl.allowance_per_nb;
+
+                    table.AddCell(makeCell(money.ToString(), cellFont));    //補助金額
                     table.AddCell(makeCell("", cellFont));    // 備註
                     idx_count++;
+                    sum_allowance += money;
                 }
 
                 if (idx_count == division_num || idx_count == dataList.Count)
@@ -156,6 +162,22 @@ namespace RigsterForm
                     break;
                 }
             }
+
+            // 加入加總行
+            table.AddCell(makeCell("", cellFont));
+            foreach (var kvp in usedCols)
+            {
+                if (kvp.Key == "apply_name")
+                {
+                    table.AddCell(makeCell("總計金額", cellFont));
+                }
+                else
+                {
+                    table.AddCell(makeCell("", cellFont));
+                }
+            }
+            table.AddCell(makeCell(sum_allowance.ToString(), cellFont));
+            table.AddCell(makeCell("", cellFont));
 
             // 完成表格行
             table.CompleteRow();
