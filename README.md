@@ -9,3 +9,17 @@
 2024-08-15 完成應用程式
 
 2024-08-20 新增金額加總行
+
+### 使用說明
+
+1. 下載安裝檔並且解壓縮
+
+2. 執行 "坐月子津貼.msi"
+
+3. 允許該安裝檔執行
+
+<div align='center'>
+     <img src="https://github.com/LAXY9887/Nine-Men-Morris/blob/main/Image%20Assets/icon%20design.png" width=350 height=350>
+</div>
+
+4. 
