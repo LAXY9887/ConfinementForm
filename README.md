@@ -50,7 +50,7 @@
 </div>
 
 <div align='center'>
-     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-2.png" width=900 height=400>
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-2.png" width=400 height=400>
 </div>
 
 2. 修改計畫代碼
@@ -59,4 +59,18 @@
      <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-3.png" width=900 height=400>
 </div>
 
-3. 
+3. 填寫資料, 寫好按存檔按鈕
+
+<div align='center'>
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-5.png" width=900 height=400>
+</div>
+
+<div align='center'>
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-6.png" width=900 height=400>
+</div>
+
+4. 查看歷史紀錄, 輸出清冊和匯款媒體檔頁面, 左邊功能按鈕可供檢視/修改/刪除資料
+
+<div align='center'>
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-4.png" width=900 height=400>
+</div>
