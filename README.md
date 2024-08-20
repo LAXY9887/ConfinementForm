@@ -50,7 +50,7 @@
 </div>
 
 <div align='center'>
-     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-2.png" width=400 height=400>
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-2.png" width=600 height=400>
 </div>
 
 2. 修改計畫代碼
@@ -59,7 +59,7 @@
      <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-3.png" width=900 height=400>
 </div>
 
-3. 填寫資料, 寫好按存檔按鈕
+3. 填寫資料, 寫好按存檔按鈕, 可以新增手機/新生兒欄位, 按下 "+" 按鈕
 
 <div align='center'>
      <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2-5.png" width=900 height=400>
