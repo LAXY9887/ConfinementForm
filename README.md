@@ -10,7 +10,7 @@
 
 2024-08-20 新增金額加總行
 
-### 使用說明
+### 安裝說明
 
 1. 下載安裝檔並且解壓縮
 
@@ -19,20 +19,20 @@
 3. 允許該安裝檔執行
 
 <div align='center'>
-     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst1.png" width=350 height=350> \
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst1.png" width=350 height=350>
      <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst2.png" width=350 height=350>
 </div>
 
 4. 安裝應用程式 (可以自訂安裝位置)
 
 <div align='center'>
-     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst3.png" width=350 height=350> \
-     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst4.png" width=350 height=350> \
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst3.png" width=350 height=350>
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst4.png" width=350 height=350>
 </div>
 
 <div align='center'>
-     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst5.png" width=350 height=350> \
-     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst6.png" width=350 height=350> \
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst5.png" width=350 height=350>
+     <img src="https://github.com/LAXY9887/ConfinementForm/blob/master/imgAssets/inst6.png" width=350 height=350>
 </div>
 
 5. 安裝完成後會在桌面和"開始"建立捷徑
