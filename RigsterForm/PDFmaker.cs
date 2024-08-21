@@ -227,7 +227,7 @@ namespace RigsterForm
         }
 
         // 頁首 (第一頁)
-        private void PlotPageHead(Document document, PdfContentByte cb)
+        private void PlotPageHead(Document document, PdfContentByte cb, DatePicker start_picker, DatePicker end_picker)
         {
             // 設定標題文字和位置
             string titleText1 = "彰化縣和美鎮公所";
@@ -246,9 +246,21 @@ namespace RigsterForm
             int year = now.Year - 1911;
             int month = now.Month;
             int day = now.Day;
-            WriteContent(cb, $"{year} 年 {month} 月 {day} 日", sinhei_Content, 13,
+            WriteContent(cb, $"列印日期: {year} 年 {month} 月 {day} 日", sinhei_Content, 13,
             (document.PageSize.Width - document.RightMargin - 0),
-            (document.PageSize.Height - document.TopMargin - 80),
+            (document.PageSize.Height - document.TopMargin - 90),
+            Element.ALIGN_RIGHT);
+
+            // 申請日期
+            string start_year = start_picker.YearStr;
+            string end_year = end_picker.YearStr;
+            string start_month = start_picker.MonthStr;
+            string end_month = end_picker.MonthStr;
+            string start_day = start_picker.DayStr;
+            string end_day = end_picker.DayStr;
+            WriteContent(cb, $"申請日期: {start_year} 年 {start_month} 月 {start_day} 日  到  {end_year} 年 {end_month} 月 {end_day} 日", sinhei_Content, 13,
+            (document.PageSize.Width - document.RightMargin - 225),
+            (document.PageSize.Height - document.TopMargin - 90),
             Element.ALIGN_RIGHT);
 
             // 畫底線
@@ -288,7 +300,7 @@ namespace RigsterForm
             }
         }
 
-        public void GeneratePDF(string saving_path, List<dataStruct> records, List<string> selected_ser_nums, int row_per_page = 10)
+        public void GeneratePDF(string saving_path, List<dataStruct> records, List<string> selected_ser_nums, DatePicker startDatePicker, DatePicker endDatePicker, int row_per_page = 10)
         {
             // 創建文件流
             using (FileStream stream = new FileStream(saving_path, FileMode.Create))
@@ -302,7 +314,7 @@ namespace RigsterForm
                 PdfContentByte cb = pdfWriter.DirectContent;
 
                 // 頁首
-                PlotPageHead(document, cb);
+                PlotPageHead(document, cb, startDatePicker, endDatePicker);
 
                 /** 表格 **/
                 List<string> tmp_search = new List<string>(selected_ser_nums); // 複製一份目標名單

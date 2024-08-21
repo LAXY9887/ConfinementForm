@@ -1624,6 +1624,10 @@ namespace RigsterForm
 
                 }
             }
+
+            // 更新Date picker裡面的日期字串
+            dateFilterPicker_start.updateDateStr();
+            dateFilterPicker_end.updateDateStr();
         }
 
         // 載入顯示資訊到DataGridView
@@ -1971,7 +1975,9 @@ namespace RigsterForm
 
             if (PDFFilePath != null && select_serial_nums.Count > 0)
             {
-                pdfMaker.GeneratePDF(PDFFilePath, dataList, select_serial_nums);
+                pdfMaker.GeneratePDF(PDFFilePath, dataList, select_serial_nums,dateFilterPicker_start,dateFilterPicker_end);
+                string excelExportpth = PDFFilePath.Replace("pdf", "xlsx");
+                utilities.exportNameListExcel(settingCtrl.data_basePath, excelExportpth, select_serial_nums, settingCtrl.allowance_per_nb, dateFilterPicker_start, dateFilterPicker_end);
             }
         }
 

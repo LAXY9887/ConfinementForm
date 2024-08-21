@@ -81,6 +81,11 @@ namespace RigsterForm
         public ComboBox MonthCB;
         public ComboBox DayCB;
 
+        // 取得日期字串
+        public string YearStr;
+        public string MonthStr;
+        public string DayStr;
+
         // 預設日期
         public DateTime defaultDate;
 
@@ -116,6 +121,17 @@ namespace RigsterForm
             SetValue(YearCB, defaultDate.Year.ToString());
             SetValue(MonthCB, defaultDate.Month.ToString());
             SetValue(DayCB, defaultDate.Day.ToString());
+
+            // 取得字串
+            updateDateStr();
+        }
+
+        // 更新日期字串
+        public void updateDateStr()
+        {
+            YearStr = YearCB.Text;
+            MonthStr = MonthCB.Text;
+            DayStr = DayCB.Text;
         }
     }
 
