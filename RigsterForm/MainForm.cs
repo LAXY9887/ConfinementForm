@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace RigsterForm
@@ -811,7 +812,7 @@ namespace RigsterForm
         private bool ValidateInfomation(dataStruct NewInfomation, List<string> ids2check, List<string> checkItem) 
         {
             // 驗證各個欄位
-            List<string> names = new List<string> { NewInfomation.apply_name };
+            List<string> names = new List<string> { NewInfomation.apply_name, NewInfomation.account_name };
             foreach (string nbName in NewInfomation.newBorn_name)
             {
                 names.Add(nbName);
@@ -820,7 +821,7 @@ namespace RigsterForm
 
             if (isNameInvalid)
             {
-                MessageBox.Show("申請人/新生兒姓名不能為空", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("申請人/受款人/新生兒姓名不能為空", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -846,11 +847,16 @@ namespace RigsterForm
             // 檢查身分證是否空缺
             for (int i = 0; i < ids2check.Count; i++)
             {
-                if (checkItem[i].Contains("申請人") || checkItem[i].Contains("新生兒"))
+                if (checkItem[i].Contains("申請人") || checkItem[i].Contains("受款人") || checkItem[i].Contains("新生兒"))
                 {
                     if (ids2check[i].Length == 0)
                     {
                         MessageBox.Show($"身分證欄不得為空! \n於: {checkItem[i]}-{ids2check[i]}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    if (!Regex.IsMatch(ids2check[i], "^[a-zA-Z0-9]*$"))
+                    {
+                        MessageBox.Show($"身分證欄只接受英文字母和數字! \n於: {checkItem[i]}-{ids2check[i]}", "系統提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -986,9 +992,9 @@ namespace RigsterForm
 
             // 檢查身分證號碼是否已經登錄
             List<string> ids2check = new List<string> {
-               NewInfomation.apply_id, NewInfomation.mate_id, NewInfomation.query_id
+               NewInfomation.apply_id, NewInfomation.mate_id, NewInfomation.account_ID
             };
-            List<string> checkItem = new List<string> { "申請人", "配偶", "委託人" };
+            List<string> checkItem = new List<string> { "申請人", "配偶", "受款人" };
 
             int count = 1;
             foreach (string id in NewInfomation.newBorn_id)

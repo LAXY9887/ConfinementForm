@@ -141,8 +141,8 @@ namespace RigsterForm
                     table.AddCell(makeCell((start_idx + idx_count + 1).ToString(), cellFont));    //序列號
                     table.AddCell(makeCell(data.apply_name, cellFont));    //申請人
                     table.AddCell(makeCell(data.apply_id, cellFont));    //申請人身分證
-                    table.AddCell(makeCell(string.Join(",\n", data.newBorn_name), cellFont));    //新生兒名字
-                    table.AddCell(makeCell(string.Join(",\n", data.newBorn_id), cellFont));    //新生兒身分證
+                    table.AddCell(makeCell(string.Join("\n", data.newBorn_name), cellFont));    //新生兒名字
+                    table.AddCell(makeCell(string.Join("\n", data.newBorn_id), cellFont));    //新生兒身分證
                     table.AddCell(makeCell(data.account_name, cellFont));    //受款人
                     table.AddCell(makeCell(data.account_ID, cellFont));    //受款人身分證
                     table.AddCell(makeCell(data.account_div, cellFont));    //郵局局號
@@ -231,13 +231,13 @@ namespace RigsterForm
         {
             // 設定標題文字和位置
             string titleText1 = "彰化縣和美鎮公所";
-            float xT1 = document.PageSize.Width - document.RightMargin - 150; // 右上角的x坐標
+            float xT1 = document.PageSize.Width - document.RightMargin - 325; // 右上角的x坐標
             float yT1 = document.PageSize.Height - document.TopMargin - 25; // 右上角的y坐標
             WriteContent(cb, titleText1, bfChinese, 16, xT1, yT1, Element.ALIGN_RIGHT);
 
             // 設定標題文字和位置
-            WriteContent(cb, "114年    坐月子津貼發放清冊", bfChinese, 16,
-            (document.PageSize.Width - document.RightMargin - 145),
+            WriteContent(cb, "114年坐月子津貼發放清冊", bfChinese, 16,
+            (document.PageSize.Width - document.RightMargin - 300),
             (document.PageSize.Height - document.TopMargin - 48),
                 Element.ALIGN_RIGHT);
 
