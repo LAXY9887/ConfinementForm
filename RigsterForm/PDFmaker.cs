@@ -14,6 +14,7 @@ namespace RigsterForm
         public BaseFont sinhei_Content;
         public Font cellFont;
         public Font LcellFont;
+        public Font GcellFont;
         public Font headerFont;
 
         // 使用系統設置
@@ -35,6 +36,7 @@ namespace RigsterForm
             headerFont = new Font(bfChinese, 10, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
             cellFont = new Font(bfChinese, 10, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
             LcellFont = new Font(bfChinese, 12, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
+            GcellFont = new Font(bfChinese, 17.2f, Font.NORMAL, BaseColor.BLACK); // 字體大小12, 普通字體, 黑色
 
             // 使用自製函式
             utilities = new Utilities(settingCtrl);
@@ -69,9 +71,9 @@ namespace RigsterForm
             // 設置表格標題
             PdfPTable table = new PdfPTable(1);
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
-                PdfPCell cell = new PdfPCell(new Phrase(context, LcellFont));
+                PdfPCell cell = new PdfPCell(new Phrase(context, GcellFont));
                 table.AddCell(cell);
             }
 
@@ -209,6 +211,7 @@ namespace RigsterForm
         {
             float posY = document.PageSize.Height - height + Y;
 
+            cb.SetLineWidth(0.5f);
             cb.Rectangle(X, posY, width, height);
             cb.Stroke(); // 繪製邊框
 
@@ -246,7 +249,7 @@ namespace RigsterForm
             int year = now.Year - 1911;
             int month = now.Month;
             int day = now.Day;
-            WriteContent(cb, $"列印日期: {year} 年 {month} 月 {day} 日", sinhei_Content, 13,
+            WriteContent(cb, $"列印日期: {year} 年 {month} 月 {day} 日", sinhei_Content, 10,
             (document.PageSize.Width - document.RightMargin - 0),
             (document.PageSize.Height - document.TopMargin - 90),
             Element.ALIGN_RIGHT);
@@ -258,7 +261,7 @@ namespace RigsterForm
             string end_month = end_picker.MonthStr;
             string start_day = start_picker.DayStr;
             string end_day = end_picker.DayStr;
-            WriteContent(cb, $"申請日期: {start_year} 年 {start_month} 月 {start_day} 日  到  {end_year} 年 {end_month} 月 {end_day} 日", sinhei_Content, 13,
+            WriteContent(cb, $"申請日期: {start_year} 年 {start_month} 月 {start_day} 日  到  {end_year} 年 {end_month} 月 {end_day} 日", sinhei_Content, 10,
             (document.PageSize.Width - document.RightMargin - 225),
             (document.PageSize.Height - document.TopMargin - 90),
             Element.ALIGN_RIGHT);
@@ -267,10 +270,10 @@ namespace RigsterForm
             DrawUnderLine(cb, titleText1, xT1, yT1);
 
             // 文字框
-            DrawTextRect(cb, document, 50f, -75f, 18, 64, "預\n算\n科\n目\n");
+            DrawTextRect(cb, document, 50f, -75f, 18, 63.6f, "預\n算\n科\n目\n");
 
             // 空表格
-            DrawEmptyTable(cb, document, 68, 75, 175, " ");
+            DrawEmptyTable(cb, document, 68, 75, 225, " ");
         }
 
         // 頁尾 (最後一頁)

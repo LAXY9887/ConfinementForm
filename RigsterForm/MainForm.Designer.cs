@@ -80,6 +80,12 @@ namespace RigsterForm
             this.ClearInfoBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.infoPanel = new System.Windows.Forms.Panel();
+            this.RecentEditTimeLabel = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.firstLogTimeLabel = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.SerialNumLabel = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
             this.groupBox_newBorn = new System.Windows.Forms.GroupBox();
             this.nb_num_TextBOX = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
@@ -176,12 +182,6 @@ namespace RigsterForm
             this.changeAllowanceBtn = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.allowanceSetting_TB = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
-            this.SerialNumLabel = new System.Windows.Forms.Label();
-            this.firstLogTimeLabel = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.RecentEditTimeLabel = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.collectionPanle.SuspendLayout();
@@ -569,6 +569,42 @@ namespace RigsterForm
             this.infoPanel.Controls.Add(this.label41);
             resources.ApplyResources(this.infoPanel, "infoPanel");
             this.infoPanel.Name = "infoPanel";
+            // 
+            // RecentEditTimeLabel
+            // 
+            resources.ApplyResources(this.RecentEditTimeLabel, "RecentEditTimeLabel");
+            this.RecentEditTimeLabel.ForeColor = System.Drawing.Color.Gray;
+            this.RecentEditTimeLabel.Name = "RecentEditTimeLabel";
+            // 
+            // label45
+            // 
+            resources.ApplyResources(this.label45, "label45");
+            this.label45.ForeColor = System.Drawing.Color.Gray;
+            this.label45.Name = "label45";
+            // 
+            // firstLogTimeLabel
+            // 
+            resources.ApplyResources(this.firstLogTimeLabel, "firstLogTimeLabel");
+            this.firstLogTimeLabel.ForeColor = System.Drawing.Color.Gray;
+            this.firstLogTimeLabel.Name = "firstLogTimeLabel";
+            // 
+            // label43
+            // 
+            resources.ApplyResources(this.label43, "label43");
+            this.label43.ForeColor = System.Drawing.Color.Gray;
+            this.label43.Name = "label43";
+            // 
+            // SerialNumLabel
+            // 
+            resources.ApplyResources(this.SerialNumLabel, "SerialNumLabel");
+            this.SerialNumLabel.ForeColor = System.Drawing.Color.Gray;
+            this.SerialNumLabel.Name = "SerialNumLabel";
+            // 
+            // label41
+            // 
+            resources.ApplyResources(this.label41, "label41");
+            this.label41.ForeColor = System.Drawing.Color.Gray;
+            this.label41.Name = "label41";
             // 
             // groupBox_newBorn
             // 
@@ -1263,42 +1299,6 @@ namespace RigsterForm
             // 
             resources.ApplyResources(this.allowanceSetting_TB, "allowanceSetting_TB");
             this.allowanceSetting_TB.Name = "allowanceSetting_TB";
-            // 
-            // label41
-            // 
-            resources.ApplyResources(this.label41, "label41");
-            this.label41.ForeColor = System.Drawing.Color.Gray;
-            this.label41.Name = "label41";
-            // 
-            // SerialNumLabel
-            // 
-            resources.ApplyResources(this.SerialNumLabel, "SerialNumLabel");
-            this.SerialNumLabel.ForeColor = System.Drawing.Color.Gray;
-            this.SerialNumLabel.Name = "SerialNumLabel";
-            // 
-            // firstLogTimeLabel
-            // 
-            resources.ApplyResources(this.firstLogTimeLabel, "firstLogTimeLabel");
-            this.firstLogTimeLabel.ForeColor = System.Drawing.Color.Gray;
-            this.firstLogTimeLabel.Name = "firstLogTimeLabel";
-            // 
-            // label43
-            // 
-            resources.ApplyResources(this.label43, "label43");
-            this.label43.ForeColor = System.Drawing.Color.Gray;
-            this.label43.Name = "label43";
-            // 
-            // RecentEditTimeLabel
-            // 
-            resources.ApplyResources(this.RecentEditTimeLabel, "RecentEditTimeLabel");
-            this.RecentEditTimeLabel.ForeColor = System.Drawing.Color.Gray;
-            this.RecentEditTimeLabel.Name = "RecentEditTimeLabel";
-            // 
-            // label45
-            // 
-            resources.ApplyResources(this.label45, "label45");
-            this.label45.ForeColor = System.Drawing.Color.Gray;
-            this.label45.Name = "label45";
             // 
             // MainForm
             // 
