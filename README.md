@@ -2,7 +2,7 @@
 
 ## 下載安裝檔
 
-[(113/08/22) 坐月子津貼登記系統安裝檔 (Windows10/11)](https://github.com/LAXY9887/RigsterForm/raw/master/%E5%9D%90%E6%9C%88%E5%AD%90%E6%B4%A5%E8%B2%BC.zip)
+[(113/08/26) 坐月子津貼登記系統安裝檔 (Windows10/11)](https://github.com/LAXY9887/RigsterForm/raw/master/%E5%9D%90%E6%9C%88%E5%AD%90%E6%B4%A5%E8%B2%BC.zip)
 
 ### 更新日誌
 
@@ -13,6 +13,8 @@
 2024-08-21 更新匯出清冊, 加上申請日期, 同步輸出清冊Excel
 
 2024-08-22 調整清冊 PDF 中文字位置, 新增身分證英數驗證
+
+2024-08-26 調整清冊預算科目欄位
 
 ### 安裝說明
 
