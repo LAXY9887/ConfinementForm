@@ -1390,7 +1390,7 @@
     <value>60</value>
   </data>
   <data name="groupBox_mate.Text" xml:space="preserve">
-    <value>配偶資料</value>
+    <value>新生兒父親資料</value>
   </data>
   <data name="&gt;&gt;groupBox_mate.Name" xml:space="preserve">
     <value>groupBox_mate</value>
